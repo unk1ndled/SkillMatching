@@ -1,3 +1,2 @@
-# this app is
-FUCK
-
+# the Frontend of our skill match app
+uwu + love
