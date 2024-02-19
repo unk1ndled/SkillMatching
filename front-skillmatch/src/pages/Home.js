@@ -6,13 +6,8 @@ const Home = () => {
     <div>
       <GlobalStyle />
       <Navbar title="Resumer" />
-
     </div>
   );
 };
-
-
-const Container 
-
 
 export default Home;
