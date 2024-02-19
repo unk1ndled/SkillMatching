@@ -12,7 +12,6 @@ const Home = () => {
 };
 
 
-const Container 
 
 
 export default Home;
