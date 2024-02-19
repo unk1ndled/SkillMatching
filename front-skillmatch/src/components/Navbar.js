@@ -1,51 +1,58 @@
 import styled from "styled-components";
-import LogoWithName from "../images/LogoWithName.png";
+import Logo from "../images/Logo.png";
+import User from "../images/user.png";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ title, backgroundColor }) => {
   return (
-    <Container>
+    <Container backgroundColor={backgroundColor}>
       <Wrapper>
-        <StyledImg src={LogoWithName} />
         <MiniWrapper>
-          <Link to="/login">
-            {" "}
-            <AuthText>Log-in</AuthText>
-          </Link>
-          <Link to="/register">
-            <AuthText>Register</AuthText>
-          </Link>
+          <StyledImg src={Logo} />
+          <Title>{ title }</Title>
         </MiniWrapper>
+        <StyledIcon src={User} />
       </Wrapper>
     </Container>
   );
 };
 export default Navbar;
 
+
 const MiniWrapper = styled.div`
   display: flex;
-  justify-content: center; /* Align items horizontally */
+  align-items: center;
+  height: 100%;
 `;
 
 const Container = styled.div`
-  background-color: #4e148c;
+  background-color: ${(props) => props.backgroundColor || "#4e148c"};
   height: 60px;
 `;
 
-const AuthText = styled.text`
+const Title = styled.text`
   color: #ffff;
   font-weight: bold;
   padding: 5px 5px;
+  font-size: 30px;
+  padding-left: 10px;
 `;
+
 const Wrapper = styled.div`
-  height: 60px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
+
 const StyledImg = styled.img`
-  padding-left: 10px;
+  padding-left: 20px;
   max-height: 90%;
   width: auto;
 `;
+const StyledIcon = styled(StyledImg)`
+    max-height: 50%;
+    padding-right: 20px;
+    padding-left: 0px;
+`

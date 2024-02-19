@@ -1,5 +1,5 @@
 import GlobalStyle from "../components/GlobalStyles";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/LandingNavbar";
 
 const Landing = () => {
   return (

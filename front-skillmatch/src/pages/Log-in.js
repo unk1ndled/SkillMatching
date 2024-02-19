@@ -3,6 +3,12 @@ import bg2 from "../images/bg2.jpg";
 import Button from "../components/LoginButton";
 import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
+import React from 'react';
+
+
+const print = (x) => {
+  console.log(x);
+}
 
 const Login = () => {
   return (
@@ -11,7 +17,7 @@ const Login = () => {
       <Form>
         <AuthText>Log-in</AuthText>
         <Input placeholder="Email" />
-        <Input type="password" placeholder="Password" />
+        <Input type="password" placeholder="Password" onChange={(e) => print(e.target.value)} />
         <Wrapper>
           <Button>Continue</Button>
         </Wrapper>
