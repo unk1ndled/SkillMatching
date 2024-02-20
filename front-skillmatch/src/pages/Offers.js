@@ -11,7 +11,6 @@ const Offers = () => {
         <Input type="text" placeholder="Search for Offers" />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
-
       <OffersWrapper>
         <OffersSquare title="Amazon AWS"></OffersSquare>
         <OffersSquare></OffersSquare>
@@ -67,8 +66,8 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  max-height: 100%;
-  overflow: hidden; /* Hide overflow content */
+  max-height: 100vh;
+  overflow-y: auto;
 `;
 
 const OffersWrapper = styled.div`
@@ -80,9 +79,12 @@ const OffersWrapper = styled.div`
   margin: 0 auto;
   margin-top: 20px;
   padding: 20px;
-  height: 100vh;
-  max-height: 100vh; /* Limit the height of the wrapper to the viewport height */
+
+  max-height: 70vh; /* Limit the height of the wrapper to the viewport height */
   overflow-y: auto; /* Enable vertical scrolling when content overflows */
+
+  -ms-overflow-style: none; /* IE 11 */
+  scrollbar-width: none; /* Firefox 64 */
 
   &::-webkit-scrollbar {
     display: none;
