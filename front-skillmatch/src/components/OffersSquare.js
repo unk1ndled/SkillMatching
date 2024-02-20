@@ -23,7 +23,7 @@ const Container = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add drop shadow */
 `;
 
-const Title = styled.text`
+const Title = styled.div`
   color: #ffffff;
   font-weight: bold;
   font-size: larger;

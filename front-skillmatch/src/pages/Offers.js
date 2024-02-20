@@ -53,7 +53,7 @@ const Input = styled.input`
   text-align: center;
 
   &::placeholder {
-    color: #e5e5e5;
+    color:  rgba(255, 255, 255, 0.5);
   }
 `;
 
@@ -77,7 +77,6 @@ const OffersWrapper = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 20px;
   padding: 20px;
 
   max-height: 70vh; /* Limit the height of the wrapper to the viewport height */

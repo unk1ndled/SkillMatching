@@ -49,17 +49,17 @@ const Input = styled.input`
   height: 50px;
   width: 100%;
   border: none;
-  outline: none; /* Remove focus outline */
+  outline: none; 
   background: rgba(1, 1, 1, 0.07);
   border-radius: 5px;
   margin-top: 30px;
-  font-size: 14px;
-  font-weight: 300;
-  color: #780116;
+  font-size: 18px;
+  font-weight: 550;
+  color: #2C0735;
   text-align: center; /* Center the text horizontally */
 
   &::placeholder {
-    color: #e5e5e5;
+    color: rgba(255, 255, 255, 0.5);
   }
 `;
 

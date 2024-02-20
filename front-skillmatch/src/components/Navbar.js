@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Logo from "../images/Logo.png";
 import User from "../images/user.png";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Navbar = ({ title, backgroundColor }) => {
@@ -19,20 +18,25 @@ const Navbar = ({ title, backgroundColor }) => {
           <StyledImg src={Logo} />
           <Title>{title}</Title>
         </MiniWrapper>
-        <StyledIcon src={User} onClick={handleIconClick} />
+        <MarginRightWrapper>
+          <StyledIcon src={User} onClick={handleIconClick} />
+        </MarginRightWrapper>
         {showUserSection && (
           <UserSection>
-            <Link to="/my-resume">
-              <div>My Resumer</div>
+            <ShrinkerWrapper>
+              <StyledIcon src={User} onClick={handleIconClick}></StyledIcon>
+            </ShrinkerWrapper>
+            <Link to="/">
+              <UserSectionOption>My Resume</UserSectionOption>
             </Link>
             <Link to="/offers">
-              <div>Job Offers</div>
+              <UserSectionOption>Job Offers</UserSectionOption>
             </Link>
             <Link to="/level-up">
-              <div>Level Up</div>
+              <UserSectionOption>Level Up</UserSectionOption>
             </Link>
             <Link to="/logout">
-              <div>Log out</div>
+              <UserSectionOption>Log out</UserSectionOption>
             </Link>
           </UserSection>
         )}
@@ -48,7 +52,20 @@ const MiniWrapper = styled.div`
   height: 100%;
 `;
 
+const Wrapper = styled(MiniWrapper)`
+  justify-content: space-between;
+`;
+
+const MarginRightWrapper = styled(MiniWrapper)`
+  padding-right: 20px;
+`;
+
+const ShrinkerWrapper = styled(MiniWrapper)`
+  height: 90px;
+`;
+
 const Container = styled.div`
+  user-select: none;
   background-color: ${(props) => props.backgroundColor || "#4e148c"};
   height: 60px;
 `;
@@ -61,12 +78,7 @@ const Title = styled.div`
   padding-left: 10px;
 `;
 
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+
 
 const StyledImg = styled.img`
   padding-left: 20px;
@@ -75,33 +87,30 @@ const StyledImg = styled.img`
 `;
 const StyledIcon = styled(StyledImg)`
   max-height: 50%;
-  padding-right: 20px;
   padding-left: 0px;
+`;
+
+const UserSectionOption = styled.div`
+  user-select: none;
+  color: #ffff;
+  font-weight: bold;
+  padding: 5px;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
 `;
 
 const UserSection = styled.div`
   position: absolute;
-  top: 60px;
-  right: 0;
-  background-color: #6f00ef;
-  border: 1px solid #cccccc;
-  padding: 20px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  align-items: center;
+  margin-right: 15px;
+  top: 10px;
+  right: 0;
+  box-shadow: 0 0 10px rgba(8, 7, 16, 1);
+  background-color: #6f00ef;
+  padding: 20px 40px;
   z-index: 1;
-  border-bottom-left-radius: 70px; /* Adjust the value as needed */
-  border-bottom-right-radius: 70px; /* Adjust the value as needed */
-  div {
-    margin-bottom: 10px;
-    font-family: "Nunito", sans-serif;
-    color: #ffff;
-    font-weight: bold;
-    padding: 5px;
-    font-size: 20px;
-    padding-left: 10px;
-    margin-bottom: 15px;
-    text-decoration: none;
-    cursor: pointer;
-  }
+  border-radius: 5px 5px 50px 50px; /* Adjust the value as needed */
 `;
