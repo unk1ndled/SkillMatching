@@ -32,7 +32,7 @@ const Container = styled.div`
   height: 60px;
 `;
 
-const AuthText = styled.text`
+const AuthText = styled.div`
   color: #ffff;
   font-weight: bold;
   padding: 5px 5px;

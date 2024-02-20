@@ -30,7 +30,7 @@ const Container = styled.div`
   height: 60px;
 `;
 
-const Title = styled.text`
+const Title = styled.div`
   color: #ffff;
   font-weight: bold;
   padding: 5px 5px;
