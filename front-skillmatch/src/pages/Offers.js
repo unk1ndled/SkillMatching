@@ -2,16 +2,31 @@ import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import OffersSquare from "../components/OffersSquare";
+
 const Offers = () => {
   return (
     <Container>
-      <Navbar></Navbar>
+      <Navbar title="Offers"></Navbar>
       <ButtonContainer>
         <Input type="text" placeholder="Search for Offers" />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
 
-      <OffersWrapper></OffersWrapper>
+      <OffersWrapper>
+        <OffersSquare title="Amazon AWS"></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+      </OffersWrapper>
     </Container>
   );
 };
@@ -58,12 +73,20 @@ const Container = styled.div`
 
 const OffersWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   width: 100%;
-  max-width: 1200px; /* Set maximum width as needed */
-  margin: 0 auto; /* Center the wrapper horizontally */
-  padding: 20px; /* Add some padding */
-  background-color: white;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 20px;
   height: 100vh;
+  max-height: 100vh; /* Limit the height of the wrapper to the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default Offers;
