@@ -32,10 +32,10 @@ const Navbar = ({ title, backgroundColor }) => {
             <Link to="/offers">
               <UserSectionOption>Job Offers</UserSectionOption>
             </Link>
-            <Link to="/level-up">
+            <Link to="/Test">
               <UserSectionOption>Level Up</UserSectionOption>
             </Link>
-            <Link to="/logout">
+            <Link to="/login">
               <UserSectionOption>Log out</UserSectionOption>
             </Link>
           </UserSection>

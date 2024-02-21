@@ -24,8 +24,8 @@ const Home = () => {
         <Text>Enter your experiences and competencies</Text>
       </Center>
       {showNotepad && (
-        <Notepadwrapper onClick={handleIconClick}>
-          <Notepad />
+        <Notepadwrapper >
+          <Notepad close={handleIconClick} submit={handleIconClick}/>
         </Notepadwrapper>
       )}
     </div>
