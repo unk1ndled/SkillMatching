@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import OffersSquare from "../components/OffersSquare";
+import AnswersSquare from "../components/AnswersSquare";
 
 const Offers = () => {
   return (
@@ -25,10 +26,21 @@ const Offers = () => {
         <OffersSquare></OffersSquare>
         <OffersSquare></OffersSquare>
         <OffersSquare></OffersSquare>
+        <OffersSquare></OffersSquare>
+        <AnswersSquare></AnswersSquare>
       </OffersWrapper>
     </Container>
   );
 };
+
+const Container = styled.div`
+  background-color: #4e148c;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+`;
 
 const ButtonContainer = styled.div`
   background-color: #4e148c;
@@ -53,21 +65,12 @@ const Input = styled.input`
   text-align: center;
 
   &::placeholder {
-    color:  rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
   }
 `;
 
 const HiddenButton = styled.button`
   display: none;
-`;
-
-const Container = styled.div`
-  background-color: #4e148c;
-  width: 100vw;
-  height: 100vh;
-  max-width: 100%;
-  max-height: 100vh;
-  overflow-y: auto;
 `;
 
 const OffersWrapper = styled.div`
