@@ -105,12 +105,12 @@ const UserSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 15px;
+  z-index: 1;
   top: 10px;
+  margin-right: 15px;
   right: 0;
   box-shadow: 0 0 10px rgba(8, 7, 16, 1);
   background-color: #6f00ef;
   padding: 20px 40px;
-  z-index: 1;
   border-radius: 5px 5px 50px 50px; /* Adjust the value as needed */
 `;
