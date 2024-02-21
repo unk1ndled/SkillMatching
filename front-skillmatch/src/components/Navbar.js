@@ -78,8 +78,6 @@ const Title = styled.div`
   padding-left: 10px;
 `;
 
-
-
 const StyledImg = styled.img`
   padding-left: 20px;
   max-height: 90%;
