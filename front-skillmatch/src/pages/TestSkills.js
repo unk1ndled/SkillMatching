@@ -6,12 +6,15 @@ import QuestionsRectangle from "../components/QuestionsRectangle";
 import AnswersSquare from "../components/AnswersSquare";
 
 const TestSkills = () => {
+  const progress = "50%";
   return (
     <div>
       <GlobalStyle></GlobalStyle>
       <Navbar backgroundColor="4E148C"></Navbar>
       <CoursesContainer>
-        <Title>Hahahahahhaha progress bar goes here</Title>
+        <ProgressBarContainer>
+          <ProgressIndicator progress={progress} />
+        </ProgressBarContainer>
         <Title>$COURSE_NAME Test</Title>
         <QuestionsRectangle></QuestionsRectangle>
         <AnswersContainer>
@@ -19,7 +22,10 @@ const TestSkills = () => {
           <AnswersSquare></AnswersSquare>
           <AnswersSquare></AnswersSquare>
         </AnswersContainer>
-        <BotContainer></BotContainer>
+        <BotContainer>
+          <BackButton>Back</BackButton>
+          <ValidateButton>Validate</ValidateButton>
+        </BotContainer>
       </CoursesContainer>
     </div>
   );
@@ -53,6 +59,71 @@ const AnswersContainer = styled.div`
 const BotContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
+  width: 50%;
+  height: 15vh;
+  margin-top: 10px;
+`;
+
+const ValidateButton = styled.button`
+  background-color: #f7b538;
+  margin-top: 5px;
+  height: 70%;
+  width: 25%;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 700;
+  color: #2c0735;
+  border-radius: 33px;
+  border: none;
+  border-bottom: solid #d8572a;
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease; /* Smooth transition */
+  }
+
+  &:active {
+    transform: scale(0.9); /* Decrease size on click */
+    transition: transform 0.2s ease; /* Smooth transition */
+  }
+`;
+
+const BackButton = styled.button`
+  background-color: #d8572a;
+  margin-top: 5px;
+  height: 70%;
+  width: 25%;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 700;
+  color: #2c0735;
+  border-radius: 33px;
+  border: none;
+  border-bottom: solid #f7b538;
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease; /* Smooth transition */
+  }
+
+  &:active {
+    transform: scale(0.9); /* Decrease size on click */
+    transition: transform 0.2s ease; /* Smooth transition */
+  }
+`;
+const ProgressBarContainer = styled.div`
+  width: 50%;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  margin: 50px auto; /* Center the progress bar horizontally */
+`;
+
+const ProgressIndicator = styled.div`
+  height: 100%;
+  background-color: #f7b538;
+  border-radius: 10px;
+  width: ${(props) => props.progress}; /* Width based on the progress prop */
 `;
 
 export default TestSkills;

@@ -18,7 +18,6 @@ const Container = styled.div`
   background-color: #6f00ef;
   height: 15vh;
   width: 75%;
-
   margin-bottom: 20px; /* Add space between rows */
   box-sizing: border-box; /* Include padding and border in the width */
   display: flex;
