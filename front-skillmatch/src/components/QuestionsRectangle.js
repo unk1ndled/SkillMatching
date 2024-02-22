@@ -3,11 +3,7 @@ import styled from "styled-components";
 const QuestionsRectangle = ({ title }) => {
   return (
     <Container>
-      {title ? (
-        <Title>{title}</Title>
-      ) : (
-        <Title>wash fik l cancer ? wash mamak 3zya ?</Title>
-      )}
+      {title ? <Title>{title}</Title> : <Title> Questions go here ?</Title>}
     </Container>
   );
 };
