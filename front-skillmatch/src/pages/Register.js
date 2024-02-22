@@ -5,8 +5,11 @@ import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+
+    const navigate = useNavigate();
 
     const [firstname, setfirstname] = useState('');
     const [lastname, setlastname] = useState('');
@@ -24,6 +27,7 @@ const Register = () => {
                 "role": "USER"
             });
             console.log(response.data.token);
+            navigate("/login");
         } catch (error) {
             console.error('Register failed', error);
         }
@@ -51,6 +55,7 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
         <Wrapper>
+          
           <LoginButton primaryColor="#DB7C26" secondaryColor="#780116" type="submit">Continue</LoginButton>
         </Wrapper>
         <Wrapper>

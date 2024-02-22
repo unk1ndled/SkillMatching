@@ -5,11 +5,14 @@ import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -19,8 +22,10 @@ const Login = () => {
                 password
             });
             console.log(response.data.token);
+            navigate("/");
         } catch (error) {
-            console.error('Authentication failed', error);
+            console.error('Authentication failed.', error.message);
+            setError("Invalid email or password.");
         }
     };
 
@@ -38,6 +43,7 @@ const Login = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
+        {error && <ErrorText>{error}</ErrorText>} {/* Conditionally render error message */}
         <Wrapper>
           <LoginButton primaryColor="#858AE3" secondaryColor="#4E148C" type="submit">Continue</LoginButton>
         </Wrapper>
@@ -84,7 +90,7 @@ const Input = styled.input`
 `;
 
 const Form = styled.form`
-  height: 400px;
+  height: flex;
   width: 350px;
   background: rgba(255, 255, 255, 0.13);
   position: absolute;
@@ -114,4 +120,19 @@ left: 0;
 min-width: 100%;
 min-height: 100%;
 `;
+
+const ErrorText = styled.div`
+  font-family: "Nunito", sans-serif;
+  font-size: 24px;
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+  background: rgba(255, 200, 200, 0.50);
+  padding: 10px; /* Add padding for better readability */
+  border-radius: 20px;
+  backdrop-filter: blur(50px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.6);
+`;
+
 export default Login;
