@@ -39,14 +39,14 @@ const Container = styled.div`
   /* Click effect */
   &:active {
     transform: scale(0.95); /* Decrease size on click */
-    background-color: #f7b538; /* Change color when hovered over */
+
     transition: transform 0.1s ease; /* Smooth transition */
   }
 `;
 
 const Title = styled.text`
   color: #ffffff;
-  font-weight: bold;
+  font-weight: 700;
   font-size: larger;
   text-align: center;
 `;
