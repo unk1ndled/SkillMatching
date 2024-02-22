@@ -1,5 +1,16 @@
 import styled from 'styled-components';
 
+
+import React from 'react'
+
+export const LoginButton = ({ children, ...props }) => {
+  return (
+    <Button {...props}>{children}</Button>
+  )
+}
+
+
+
 const Button = styled.button`
   align-items: center;
   appearance: none;
@@ -46,7 +57,7 @@ const Button = styled.button`
   }
 
   &:before {
-    background-color: rgba(104, 58, 255, 0.32);
+    background-color: ${(props) => props.secondaryColor || "#4e148c"};
     content: "";
     display: block;
     height: 100%;
@@ -60,7 +71,7 @@ const Button = styled.button`
 
   &:after {
     background-color: initial;
-    background-image: linear-gradient(0deg, #858AE3 0, #858AE3 100%);
+    background-image: linear-gradient(0deg, ${(props) => props.primaryColor || "#4e148c"} 0, ${(props) => props.primaryColor || "#4e148c"} 100%);
     bottom: 4px;
     content: "";
     display: block;
@@ -87,7 +98,7 @@ const Button = styled.button`
 
   &:active:not(:disabled):after {
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-      linear-gradient(0deg, #4E148C 0, #2C0735 100%);
+      linear-gradient(0deg, ${(props) => props.secondaryColor || "#4e148c"} 0, ${(props) => props.secondaryColor || "#4e148c"} 100%);
     bottom: 4px;
     left: 4px;
     right: 4px;

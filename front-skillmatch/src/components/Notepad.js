@@ -39,7 +39,7 @@ const Top = styled.div`
   align-items: center;
   padding: 0px 10px 0px 10px;
   max-width: 100%;
-  height: 70px;
+  height: 90px;
   background: #2c0735;
   border-radius: 5px 5px 0 0;
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import bg3 from "../images/bg3.jpg";
-import Button from "../components/LoginButton";
+import { LoginButton } from "../components/LoginButton";
 import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
 import axios from 'axios';
@@ -50,7 +50,7 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
         <Wrapper>
-          <Button type="submit">Continue</Button>
+          <LoginButton primaryColor="#DB7C26" secondaryColor="#780116" type="submit">Continue</LoginButton>
         </Wrapper>
         <Wrapper>
           <Logo src={LogoWithName} />
@@ -61,40 +61,13 @@ const Register = () => {
 };
 
 
-const Form = styled.form`
-  height: 550px;
-  width: 350px;
-  background: rgba(255,255,255,0.13);
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 20px;
-  backdrop-filter: blur(9px);
-  border: 2px solid rgba(255,255,255,0.1);
-  box-shadow: 0 0 10px rgba(8,7,16,0.6);
-  padding: 50px 35px;
-  `
-
-
-
-
-const Container = styled.div`
-  background-color: #4e148c;
-  width: 100vw;
-  height: 100vh;
-  max-width: 100%;
-  max-height: 100%;
-  overflow: hidden; /* Hide overflow content */
-
+const Wrapper = styled.div`
+  margin-top: 20px;
+  height: 80px;
+  display: flex; /* Set display to flex */
+  justify-content: center;
+  align-items: center;
 `;
-
-const StyledImg = styled.img`
-  max-width: 100%;
-  height: auto;
-`;
-
-
 
 const AuthText = styled.div`
   font-family: "Nunito", sans-serif;
@@ -108,26 +81,46 @@ const Input = styled.input`
   height: 50px;
   width: 100%;
   border: none;
-  outline: none; /* Remove focus outline */
+  outline: none; 
   background: rgba(1, 1, 1, 0.07);
   border-radius: 5px;
   margin-top: 30px;
-  font-size: 14px;
-  font-weight: 300;
-  color: #780116;
+  font-size: 18px;
+  font-weight: 550;
+  color: #2C0735;
   text-align: center; /* Center the text horizontally */
 
   &::placeholder {
-    color: #e5e5e5;
+    color: rgba(255, 255, 255, 0.5);
   }
 `;
 
-const Wrapper = styled.div`
-  margin-top: 20px;
-  height: 80px;
-  display: flex; /* Set display to flex */
-  justify-content: center;
-  align-items: center;
+const Form = styled.div`
+  height: 550px;
+  width: 350px;
+  background: rgba(255, 255, 255, 0.13);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 20px;
+  backdrop-filter: blur(9px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.6);
+  padding: 50px 35px;
 `;
 
+const Container = styled.div`
+  background-color: #4e148c;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden; /* Hide overflow content */
+`;
+
+const StyledImg = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
 export default Register;

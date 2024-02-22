@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import bg2 from "../images/bg2.jpg";
-import Button from "../components/LoginButton";
+import { LoginButton } from "../components/LoginButton";
 import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
 import axios from 'axios';
@@ -39,7 +39,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
         <Wrapper>
-          <Button type="submit">Continue</Button>
+          <LoginButton primaryColor="#858AE3" secondaryColor="#4E148C" type="submit">Continue</LoginButton>
         </Wrapper>
         <Wrapper>
           <Logo src={LogoWithName} />
@@ -69,21 +69,21 @@ const Input = styled.input`
   height: 50px;
   width: 100%;
   border: none;
-  outline: none; /* Remove focus outline */
+  outline: none; 
   background: rgba(1, 1, 1, 0.07);
   border-radius: 5px;
   margin-top: 30px;
-  font-size: 14px;
-  font-weight: 300;
-  color: #780116;
+  font-size: 18px;
+  font-weight: 550;
+  color: #2C0735;
   text-align: center; /* Center the text horizontally */
 
   &::placeholder {
-    color: #e5e5e5;
+    color: rgba(255, 255, 255, 0.5);
   }
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   height: 400px;
   width: 350px;
   background: rgba(255, 255, 255, 0.13);

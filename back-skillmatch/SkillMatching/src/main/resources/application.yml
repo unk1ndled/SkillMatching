@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/SkillMatching
+    url: jdbc:postgresql://localhost:5432/skillmatching
     username: postgres
-    password: 123456789
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
