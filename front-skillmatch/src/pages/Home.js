@@ -8,23 +8,8 @@ import { Notepad } from "../components/Notepad";
 const Home = () => {
   const [showNotepad, setShowNotepad] = useState(false);
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/api/v1/auth/hi');
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const jsonData = await response.json();
-      setData(jsonData);
-      console.log("yay")
-    } catch (error) {
-      setError(error);
-      console.log(error)
-    }
 
-  };
 
 
 
@@ -51,7 +36,7 @@ const Home = () => {
       </Center>
       {showNotepad && (
         <Notepadwrapper >
-          <Notepad close={handleIconClick} submit={fetchData}/>
+          <Notepad close={handleIconClick} submit={handleIconClick}/>
         </Notepadwrapper>
       )}
     </div>
