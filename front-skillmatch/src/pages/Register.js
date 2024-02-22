@@ -5,8 +5,11 @@ import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+
+    const navigate = useNavigate();
 
     const [firstname, setfirstname] = useState('');
     const [lastname, setlastname] = useState('');
@@ -20,9 +23,11 @@ const Register = () => {
                 firstname,
                 lastname,
                 email,
-                password
+                password,
+                "role": "USER"
             });
             console.log(response.data.token);
+            navigate("/login");
         } catch (error) {
             console.error('Register failed', error);
         }
@@ -50,6 +55,7 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
         <Wrapper>
+          
           <LoginButton primaryColor="#DB7C26" secondaryColor="#780116" type="submit">Continue</LoginButton>
         </Wrapper>
         <Wrapper>
@@ -95,7 +101,7 @@ const Input = styled.input`
   }
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   height: 550px;
   width: 350px;
   background: rgba(255, 255, 255, 0.13);
@@ -120,7 +126,10 @@ const Container = styled.div`
 `;
 
 const StyledImg = styled.img`
-  max-width: 100%;
-  height: auto;
-`;
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  min-width: 100%;
+  min-height: 100%;
+  `;
 export default Register;
