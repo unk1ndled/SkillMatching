@@ -3,49 +3,61 @@ import bg2 from "../images/bg2.jpg";
 import { LoginButton } from "../components/LoginButton";
 import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
-import axios from 'axios';
-import React, { useState } from 'react';
+import axios from "axios";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:8080/api/v1/auth/authenticate', {
-                email,
-                password
-            });
-            console.log(response.data.token);
-            navigate("/");
-        } catch (error) {
-            console.error('Authentication failed.', error.message);
-            setError("Invalid email or password.");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/auth/authenticate",
+        {
+          email,
+          password,
         }
-    };
+      );
+      console.log(response.data.token);
+      navigate("/");
+    } catch (error) {
+      console.error("Authentication failed.", error.message);
+      setError("Invalid email or password.");
+    }
+  };
 
   return (
     <Container>
       <StyledImg src={bg2} />
       <Form onSubmit={handleSubmit}>
         <AuthText>Login</AuthText>
-        <Input 
+        <Input
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)} />
-        <Input 
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)} />
-        {error && <ErrorText>{error}</ErrorText>} {/* Conditionally render error message */}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {error && <ErrorText>{error}</ErrorText>}{" "}
+        {/* Conditionally render error message */}
         <Wrapper>
-          <LoginButton primaryColor="#858AE3" secondaryColor="#4E148C" type="submit">Continue</LoginButton>
+          <LoginButton
+            primaryColor="#858AE3"
+            secondaryColor="#4E148C"
+            type="submit"
+          >
+            Continue
+          </LoginButton>
         </Wrapper>
         <Wrapper>
           <Logo src={LogoWithName} />
@@ -75,13 +87,13 @@ const Input = styled.input`
   height: 50px;
   width: 100%;
   border: none;
-  outline: none; 
+  outline: none;
   background: rgba(1, 1, 1, 0.07);
   border-radius: 5px;
   margin-top: 30px;
   font-size: 18px;
   font-weight: 550;
-  color: #2C0735;
+  color: #2c0735;
   text-align: center; /* Center the text horizontally */
 
   &::placeholder {
@@ -114,20 +126,20 @@ const Container = styled.div`
 `;
 
 const StyledImg = styled.img`
-position: fixed; 
-top: 0; 
-left: 0; 
-min-width: 100%;
-min-height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
 `;
 
 const ErrorText = styled.div`
-  font-family: "Nunito", sans-serif;
+  font-weight: 500;
   font-size: 24px;
   color: red;
   text-align: center;
   margin-top: 20px;
-  background: rgba(255, 200, 200, 0.50);
+  background: #F7B53840;
   padding: 10px; /* Add padding for better readability */
   border-radius: 20px;
   backdrop-filter: blur(50px);

@@ -7,7 +7,9 @@ import { Notepad } from "../components/Notepad";
 
 const Home = () => {
   const [showNotepad, setShowNotepad] = useState(false);
-  const [inputData, setData] = useState(null);
+  const [inputData, setInputData] = useState(null);
+  const [responseData, setResponseData] = useState(null);
+
 
   const handleSendRequest = () => {
     fetch('http://localhost:8080/api/v1/keywords/analyse', {
@@ -20,6 +22,7 @@ const Home = () => {
       .then(response => response.json())
       .then(responseData => {
         // Handle the response data here
+        setResponseData(responseData)
         console.log(responseData);
       })
       .catch(error => {
@@ -27,7 +30,6 @@ const Home = () => {
       });
       handleIconClick()
   };
-
 
 
   const handleIconClick = () => {
@@ -39,7 +41,6 @@ const Home = () => {
     <div>
       <GlobalStyle />
       <Navbar title="Resume" />
-
       <Center>
         <Text>Add your resume</Text>
         <StyledImg src={Add} onClick={handleIconClick} />
@@ -47,7 +48,7 @@ const Home = () => {
       </Center>
       {showNotepad && (
         <Notepadwrapper  >
-          <Notepad changeText={e => setData(e.target.textContent)} close={handleIconClick} submit={handleSendRequest}/>
+          <Notepad changeText={e => setInputData(e.target.textContent)} close={handleIconClick} submit={handleSendRequest}/>
         </Notepadwrapper>
       )}
     </div>
