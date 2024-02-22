@@ -12,7 +12,7 @@ export const Notepad = (props) => {
         </PushableButtonStyled>
       </Top>
       <OuterPaper>
-        <Paper contentEditable="true"></Paper>
+        <Paper contentEditable="true" onInput={props.changeText}></Paper>
       </OuterPaper>
     </Notepadc>
   );

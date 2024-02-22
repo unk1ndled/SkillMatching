@@ -7,22 +7,33 @@ import { Notepad } from "../components/Notepad";
 
 const Home = () => {
   const [showNotepad, setShowNotepad] = useState(false);
-  const [data, setData] = useState(null);
+  const [inputData, setData] = useState(null);
 
-
+  const handleSendRequest = () => {
+    fetch('http://localhost:8080/api/v1/keywords/analyse', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: inputData,
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        // Handle the response data here
+        console.log(responseData);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+      handleIconClick()
+  };
 
 
 
   const handleIconClick = () => {
-    console.log("first");
     setShowNotepad(!showNotepad);
   };
 
-  const handleSubmit = () => {
-
-    console.log("first");
-    handleIconClick()
-  };
 
   return (
     <div>
@@ -35,8 +46,8 @@ const Home = () => {
         <Text>Enter your experiences and competencies</Text>
       </Center>
       {showNotepad && (
-        <Notepadwrapper >
-          <Notepad close={handleIconClick} submit={handleIconClick}/>
+        <Notepadwrapper  >
+          <Notepad changeText={e => setData(e.target.textContent)} close={handleIconClick} submit={handleSendRequest}/>
         </Notepadwrapper>
       )}
     </div>

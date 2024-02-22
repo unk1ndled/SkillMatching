@@ -20,14 +20,16 @@ public class KeywordController {
 
     @PostMapping("/analyse")
     public ResponseEntity<Set<String>> extractKeywords(@RequestBody String paragraph) {
-        List<String> words = Arrays.asList(paragraph.split("\\s+"));
-        List<String> keywords = Arrays.asList("java", "node", "js", "react", "web");
+        List<String> words = Arrays.asList(paragraph.split("[\\s,\\.,\\,]+")); // Split by whitespace, commas, or periods
+
+        List<String> keywords = Arrays.asList(
+                "python","javascript","java","c++","c#","ruby","swift","kotlin","php","html","css","typescript","sql","go","scala","rust","dart","objective-c","perl","r","shell scripting","vue.js","angularjs","react","node.js","asp.net","express.js","flask","spring boot","ruby on rails","laravel","django","jquery","bootstrap","ember.js","backbone.js","meteor.js","tensorflow","pytorch","keras","caffe","scikit-learn","numpy","pandas","matplotlib","seaborn","unity","unreal engine");
 
         // Filter words that are keywords
         Set<String> extractedKeywords = words.stream()
-                .filter(keywords::contains)
+                .map(String::toLowerCase) // Convert each word to lowercase
+                .filter(keywords::contains) // Filter lowercase words
                 .collect(Collectors.toSet());
-
 
         return ResponseEntity.ok(extractedKeywords);
     }
