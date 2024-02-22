@@ -20,7 +20,8 @@ const Register = () => {
                 firstname,
                 lastname,
                 email,
-                password
+                password,
+                "role": "USER"
             });
             console.log(response.data.token);
         } catch (error) {
@@ -95,7 +96,7 @@ const Input = styled.input`
   }
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   height: 550px;
   width: 350px;
   background: rgba(255, 255, 255, 0.13);
@@ -120,7 +121,10 @@ const Container = styled.div`
 `;
 
 const StyledImg = styled.img`
-  max-width: 100%;
-  height: auto;
-`;
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  min-width: 100%;
+  min-height: 100%;
+  `;
 export default Register;
