@@ -6,7 +6,7 @@ import QuestionsRectangle from "../components/QuestionsRectangle";
 import AnswersSquare from "../components/AnswersSquare";
 
 const TestSkills = () => {
-  const progress = "50%";
+  const progress = "90%";
   return (
     <div>
       <GlobalStyle></GlobalStyle>
@@ -71,7 +71,7 @@ const ValidateButton = styled.button`
   width: 25%;
   border-radius: 10px;
   text-align: center;
-  font-size: 35px;
+  font-size: 1.9em;
   font-weight: 700;
   color: #2c0735;
   border-radius: 33px;
@@ -86,6 +86,15 @@ const ValidateButton = styled.button`
     transform: scale(0.9); /* Decrease size on click */
     transition: transform 0.2s ease; /* Smooth transition */
   }
+  @media screen and (max-width: 768px) {
+    /* Adjust font size for smaller screens */
+    font-size: 1em;
+  }
+
+  @media screen and (max-width: 480px) {
+    /* Further adjust font size for extra small screens */
+    font-size: 0.8em;
+  }
 `;
 
 const BackButton = styled.button`
@@ -95,7 +104,7 @@ const BackButton = styled.button`
   width: 25%;
   border-radius: 10px;
   text-align: center;
-  font-size: 35px;
+  font-size: 1.9em;
   font-weight: 700;
   color: #2c0735;
   border-radius: 33px;
@@ -109,6 +118,15 @@ const BackButton = styled.button`
   &:active {
     transform: scale(0.9); /* Decrease size on click */
     transition: transform 0.2s ease; /* Smooth transition */
+  }
+  @media screen and (max-width: 768px) {
+    /* Adjust font size for smaller screens */
+    font-size: 1.5em;
+  }
+
+  @media screen and (max-width: 480px) {
+    /* Further adjust font size for extra small screens */
+    font-size: 1em;
   }
 `;
 const ProgressBarContainer = styled.div`
