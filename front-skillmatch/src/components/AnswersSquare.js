@@ -2,14 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 
-const AnswersSquare = ({ title }) => {
+const AnswersSquare = ({ title, onSelect }) => {
   const [bgColor, setBgColor] = useState("#6f00ef");
+  const [isSelected, setIsSelected] = useState(false);
 
   const handleClick = () => {
     // Change background color to a different color on click
     const newColor = bgColor === "#6f00ef" ? "#f7b538" : "#6f00ef";
-    setBgColor(newColor); // You can set any color you want here
+    setBgColor(newColor);
+
+    //select answer if not already selected
+    setIsSelected(!isSelected);
+    onSelect(title);
   };
+
   return (
     <Container onClick={handleClick} bgColor={bgColor}>
       {title ? <Title>{title}</Title> : <Title>Answer</Title>}

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Map;
+
 @Document(collection = "quizz")
 @Data
 @Builder
@@ -21,8 +23,7 @@ public class QuizzQuestion {
     private String question;
     private int question_order;
     private String about;
-    private String[] answers;
-    private String[] true_answers;
+    private Map<String, Boolean> answers;
 
 
     }
