@@ -6,12 +6,12 @@ import React, { useEffect,useState } from "react";
 import { Notepad } from "../components/Notepad";
 
 const Home = () => {
+  
   const [showNotepad, setShowNotepad] = useState(false);
   const [inputData, setInputData] = useState(null);
   const [responseData, setResponseData] = useState(null);
 
-
-  const handleSendRequest = () => {
+  const handleSendRequest = () => { 
     fetch('http://localhost:8080/api/v1/keywords/analyse', {
       method: 'POST',
       headers: {
@@ -39,6 +39,11 @@ const Home = () => {
 
   return (
     <div>
+      { /*localStorage.getItem('token') ? (
+        //<AuthenticatedHomePage />
+      ) : (
+        //<UnauthenticatedHomePage />
+      )*/}
       <GlobalStyle />
       <Navbar title="Resume" />
       <Center>
