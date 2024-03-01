@@ -85,7 +85,8 @@ const TestSkills = () => {
   };
 
   const updateProgress = () => {
-    const calculatedProgress = (questionOrderParam / totalQuestions) * 100;
+    const calculatedProgress =
+      ((questionOrderParam - 1) / totalQuestions) * 100;
     setProgress(`${calculatedProgress}%`);
   };
 
