@@ -5,10 +5,12 @@ import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuthNavigate  } from '../context/useAuthNavigate';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuthNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +26,10 @@ const Login = () => {
           password,
         }
       );
+      login(response.data.token);
       console.log(response.data.token);
+      const token = response.data.token;
+      login(token);
       navigate("/");
     } catch (error) {
       console.error("Authentication failed.", error.message);
@@ -48,8 +53,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {error && <ErrorText>{error}</ErrorText>}{" "}
-        {/* Conditionally render error message */}
+        {error && <ErrorText>{error}</ErrorText>}
         <Wrapper>
           <LoginButton
             primaryColor="#858AE3"

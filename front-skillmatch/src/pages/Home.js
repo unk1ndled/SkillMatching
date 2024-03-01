@@ -42,6 +42,11 @@ const Home = () => {
 
   return (
     <div>
+      { /*localStorage.getItem('token') ? (
+        //<AuthenticatedHomePage />
+      ) : (
+        //<UnauthenticatedHomePage />
+      )*/}
       <GlobalStyle />
       <Navbar title="Resume" />
       <Center>
