@@ -2,40 +2,43 @@ import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import Add from "../images/add.svg";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Notepad } from "../components/Notepad";
+import ResultPopup from "../components/ResultPopup";
 
 const Home = () => {
-  const [showNotepad, setShowNotepad] = useState(false);
-  const [inputData, setInputData] = useState(null);
+  const [showNotepad,  setShowNotepad] = useState(false);
+  const [inputData,    setInputData] = useState(null);
   const [responseData, setResponseData] = useState(null);
-
+  const [showResponse, setShowResponse] = useState(false);
 
   const handleSendRequest = () => {
-    fetch('http://localhost:8080/api/v1/keywords/analyse', {
-      method: 'POST',
+    fetch("http://localhost:8080/api/v1/keywords/analyse", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: inputData,
     })
-      .then(response => response.json())
-      .then(responseData => {
+      .then((response) => response.json())
+      .then((responseData) => {
         // Handle the response data here
-        setResponseData(responseData)
+        setResponseData(responseData);
+        setShowResponse(true);
         console.log(responseData);
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
-      handleIconClick()
+    handleIconClick();
   };
-
 
   const handleIconClick = () => {
     setShowNotepad(!showNotepad);
   };
-
+  const showResponseDiv = () => {
+    setShowResponse(!showResponse);
+  };
 
   return (
     <div>
@@ -47,14 +50,23 @@ const Home = () => {
         <Text>Enter your experiences and competencies</Text>
       </Center>
       {showNotepad && (
-        <Notepadwrapper  >
-          <Notepad changeText={e => setInputData(e.target.textContent)} close={handleIconClick} submit={handleSendRequest}/>
-        </Notepadwrapper>
+        <BlurWrapper>
+          <Notepad
+            changeText={(e) => setInputData(e.target.textContent)}
+            close={handleIconClick}
+            submit={handleSendRequest}
+          />
+        </BlurWrapper>
+      )}
+      {showResponse && (
+        <BlurWrapper>
+          <ResultPopup close={showResponseDiv} data ={responseData}></ResultPopup>
+        </BlurWrapper>
       )}
     </div>
   );
 };
-const Notepadwrapper = styled.div`
+const BlurWrapper = styled.div`
   background: rgba(0, 0, 0, 0.13);
   backdrop-filter: blur(9px);
   width: 100%;
