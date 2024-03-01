@@ -9,7 +9,7 @@ export const useAuthNavigate = () => {
 
     const login = (token) => {
         contextLogin(token);
-        navigate('/files');
+        navigate('/offers');
     };
 
     const logout = () => {

@@ -4,8 +4,10 @@ import styled from "styled-components";
 import Add from "../images/add.svg";
 import React, { useEffect,useState } from "react";
 import { Notepad } from "../components/Notepad";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
   
   const [showNotepad, setShowNotepad] = useState(false);
   const [inputData, setInputData] = useState(null);
@@ -36,14 +38,16 @@ const Home = () => {
     setShowNotepad(!showNotepad);
   };
 
+  //if (!localStorage.getItem('token')) {
+    //return navigate("/login");
+    useEffect(() => {
+        {!localStorage.getItem('token') && navigate('/login', { replace: true });}
+    }, []);
+  //}
 
   return (
     <div>
-      { /*localStorage.getItem('token') ? (
-        //<AuthenticatedHomePage />
-      ) : (
-        //<UnauthenticatedHomePage />
-      )*/}
+      { !localStorage.getItem('token') }
       <GlobalStyle />
       <Navbar title="Resume" />
       <Center>
