@@ -21,7 +21,8 @@ const TestSkills = () => {
   const [questionOrderParam, setQuestionOrderParam] = useState(1);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [score, setScore] = useState(0);
-  const progress = "90%";
+  const [progress, setProgress] = useState("0%"); // Initialize progress state
+  const totalQuestions = 3;
 
   useEffect(() => {
     // Fetch question data from your API
@@ -31,13 +32,15 @@ const TestSkills = () => {
       )
       .then((response) => {
         setQuestionData(response.data);
-        console.log("Question data:", response.data);
+        //console.log("Question data:", response.data);
       })
       .catch((error) => {
         console.error("Error fetching question data:", error);
       });
-    console.log(questionData.question);
-  }, [questionOrderParam, aboutParam]);
+    updateProgress();
+    console.log("Score updated:", score);
+    //console.log(questionData.question);
+  }, [questionOrderParam, aboutParam, score]);
 
   const handleAnswerSelect = (selectedAnswer) => {
     // Check if the selected answer is already in the selectedAnswers array
@@ -65,17 +68,25 @@ const TestSkills = () => {
     );
     // Display validation result
     if (isCorrect) {
-      setScore(score + 1);
-      console.log("bravo your score=" + score);
+      setScore((prevScore) => {
+        const updatedScore = prevScore + 1;
+        console.log("bravo your score=" + updatedScore);
+        return updatedScore;
+      });
     } else {
-      score >= 1 && setScore(score - 1);
-      console.log("Please try again your score=" + score);
+      //console.log("Please try again your score=" + score);
     }
-    setQuestionOrderParam(questionOrderParam + 1);
+    questionOrderParam < 3 && setQuestionOrderParam(questionOrderParam + 1);
   };
 
   const handleBack = () => {
     questionOrderParam > 1 && setQuestionOrderParam(questionOrderParam - 1);
+    score > 0 && setScore(score - 1);
+  };
+
+  const updateProgress = () => {
+    const calculatedProgress = (questionOrderParam / totalQuestions) * 100;
+    setProgress(`${calculatedProgress}%`);
   };
 
   return (
