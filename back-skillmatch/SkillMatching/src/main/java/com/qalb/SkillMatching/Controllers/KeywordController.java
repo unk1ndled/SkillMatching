@@ -1,5 +1,6 @@
 package com.qalb.SkillMatching.Controllers;
 
+import com.qalb.SkillMatching.Services.ScrapingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +19,11 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:3000")
 public class KeywordController {
 
+    private final ScrapingService scrapingService;
+
+
+
+
     @PostMapping("/analyse")
     public ResponseEntity<Set<String>> extractKeywords(@RequestBody String paragraph) {
         List<String> words = Arrays.asList(paragraph.split("[\\s,\\.,\\,]+")); // Split by whitespace, commas, or periods
@@ -30,7 +36,6 @@ public class KeywordController {
                 .map(String::toLowerCase) // Convert each word to lowercase
                 .filter(keywords::contains) // Filter lowercase words
                 .collect(Collectors.toSet());
-
         return ResponseEntity.ok(extractedKeywords);
     }
 

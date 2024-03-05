@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const AnswersSquare = ({ title }) => {
   const [bgColor, setBgColor] = useState("#6f00ef");
@@ -11,9 +12,9 @@ const AnswersSquare = ({ title }) => {
     setBgColor(newColor); // You can set any color you want here
   };
   return (
-    <Container onClick={handleClick} bgColor={bgColor}>
-      {title ? <Title>{title}</Title> : <Title>Answer</Title>}
-    </Container>
+      <Container onClick={handleClick} bgColor={bgColor}>
+        {title ? <Title>{title}</Title> : <Title>Answer</Title>}
+      </Container>
   );
 };
 

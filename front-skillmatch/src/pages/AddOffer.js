@@ -6,14 +6,14 @@ import React, { useEffect, useState } from "react";
 import { Notepad } from "../components/Notepad";
 import ResultPopup from "../components/ResultPopup";
 
-const Home = () => {
-  const [showNotepad,  setShowNotepad] = useState(false);
-  const [inputData,    setInputData] = useState(null);
+const AddOffer = () => {
+  const [showNotepad, setShowNotepad] = useState(false);
+  const [inputData, setInputData] = useState(null);
   const [responseData, setResponseData] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
 
   const handleSendRequest = () => {
-    fetch("http://localhost:8080/api/v1/keywords/analyse", {
+    fetch("http://localhost:8080/api/v1/offers/newoffer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,6 +30,7 @@ const Home = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
+
     handleIconClick();
   };
 
@@ -43,11 +44,10 @@ const Home = () => {
   return (
     <div>
       <GlobalStyle />
-      <Navbar title="Resume" />
+      <Navbar title="Offer" />
       <Center>
-        <Text>Add your resume</Text>
+        <Text>Add a new offer</Text>
         <StyledImg src={Add} onClick={handleIconClick} />
-        <Text>Enter your experiences and competencies</Text>
       </Center>
       {showNotepad && (
         <BlurWrapper>
@@ -56,11 +56,6 @@ const Home = () => {
             close={handleIconClick}
             submit={handleSendRequest}
           />
-        </BlurWrapper>
-      )}
-      {showResponse && (
-        <BlurWrapper>
-          <ResultPopup close={showResponseDiv} data ={responseData}></ResultPopup>
         </BlurWrapper>
       )}
     </div>
@@ -100,4 +95,4 @@ const StyledImg = styled.img`
   cursor: pointer;
 `;
 
-export default Home;
+export default AddOffer;

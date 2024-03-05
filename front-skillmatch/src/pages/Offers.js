@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import OffersSquare from "../components/OffersSquare";
-import AnswersSquare from "../components/AnswersSquare";
+import Offer from "../components/OffersElement";
+import { Link } from "react-router-dom";
 
 const Offers = () => {
   return (
@@ -13,21 +13,7 @@ const Offers = () => {
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <OffersWrapper>
-        <OffersSquare title="Amazon AWS"></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <OffersSquare></OffersSquare>
-        <AnswersSquare></AnswersSquare>
+          <Offer route = "/newoffer"></Offer>
       </OffersWrapper>
     </Container>
   );
@@ -85,8 +71,8 @@ const OffersWrapper = styled.div`
   max-height: 70vh; /* Limit the height of the wrapper to the viewport height */
   overflow-y: auto; /* Enable vertical scrolling when content overflows */
 
-  -ms-overflow-style: none; /* IE 11 */
-  scrollbar-width: none; /* Firefox 64 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
   &::-webkit-scrollbar {
     display: none;

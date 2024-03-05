@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Offers from "./pages/Offers";
 import TestSkills from "./pages/TestSkills";
+import AddOffer from "./pages/AddOffer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/Offers" element={<Offers />} />
         <Route path="/Test" element={<TestSkills />} />
+        <Route path="/newoffer" element={<AddOffer />} />
       </Routes>
     </Router>
     </AuthProvider>

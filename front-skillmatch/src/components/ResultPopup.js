@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { PushableButton, PushableButtonStyled } from "./Noteadbutton";
 
+
 const ResultPopup = ({ children, ...props }) => {
   return (
     <Container>

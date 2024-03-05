@@ -1,14 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-const OffersSquare = ({ title }) => {
+import { Link } from "react-router-dom";
+
+const Offer = ({ title , ...props }) => {
   return (
     <Container>
-      {title ? <Title>{title}</Title> : <Title>Offers</Title>}
+      <Link to={props.route}>
+        {title ? <Title>{title}</Title> : <Title>Add</Title>}
+      </Link>
     </Container>
   );
 };
 
-export default OffersSquare;
+export default Offer;
 
 const Container = styled.div`
   background-color: #6f00ef;
@@ -19,8 +23,21 @@ const Container = styled.div`
   display: flex;
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */
-  border-radius: 5%;
+  border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add drop shadow */
+
+  &:hover {
+    transform: scale(1.05); /* Increase size on hover */
+    background-color: #f7b538; /* Change color when hovered over */
+    transition: transform 0.3s ease; /* Smooth transition */
+  }
+
+  /* Click effect */
+  &:active {
+    transform: scale(0.95); /* Decrease size on click */
+
+    transition: transform 0.1s ease; /* Smooth transition */
+  }
 `;
 
 const Title = styled.div`

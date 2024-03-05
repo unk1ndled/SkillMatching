@@ -53,7 +53,7 @@ const OuterPaper = styled.div`
 const Paper = styled.div`
   width: 100%;
   height: 100%;
-  min-height: 60vh;
+  min-height: ${(props) => props.height || "60vh"};;
   background: repeating-linear-gradient(
     #f1ede9,
     #f1ede9 31px,
