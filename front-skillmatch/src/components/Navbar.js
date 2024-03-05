@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Logo from "../images/Logo.png";
 import User from "../images/user.png";
 import { Link } from "react-router-dom";
+import { useAuthNavigate  } from '../context/useAuthNavigate';
 
 const Navbar = ({ title, backgroundColor }) => {
   const [showUserSection, setShowUserSection] = useState(false);
@@ -10,6 +11,8 @@ const Navbar = ({ title, backgroundColor }) => {
   const handleIconClick = () => {
     setShowUserSection(!showUserSection);
   };
+
+  const { logout } = useAuthNavigate();
 
   return (
     <Container backgroundColor={backgroundColor}>
@@ -35,7 +38,7 @@ const Navbar = ({ title, backgroundColor }) => {
             <Link to="/Test">
               <UserSectionOption>Level Up</UserSectionOption>
             </Link>
-            <Link to="/login">
+            <Link to="/login" onClick={logout}>
               <UserSectionOption>Log out</UserSectionOption>
             </Link>
           </UserSection>

@@ -22,14 +22,14 @@ const Login = () => {
       const response = await axios.post(
         "http://localhost:8080/api/v1/auth/authenticate",
         {
-          email,
+           email,
           password,
         }
       );
       login(response.data.token);
       console.log(response.data.token);
       const token = response.data.token;
-      login(token);
+      //login(token);
       navigate("/");
     } catch (error) {
       console.error("Authentication failed.", error.message);

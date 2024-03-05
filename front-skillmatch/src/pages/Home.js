@@ -4,9 +4,12 @@ import styled from "styled-components";
 import Add from "../images/add.svg";
 import React, { useEffect, useState } from "react";
 import { Notepad } from "../components/Notepad";
+import { useNavigate } from 'react-router-dom';
 import ResultPopup from "../components/ResultPopup";
 
+
 const Home = () => {
+  const navigate = useNavigate();
   const [showNotepad,  setShowNotepad] = useState(false);
   const [inputData,    setInputData] = useState(null);
   const [responseData, setResponseData] = useState(null);
@@ -36,12 +39,21 @@ const Home = () => {
   const handleIconClick = () => {
     setShowNotepad(!showNotepad);
   };
+
+  //if (!localStorage.getItem('token')) {
+    //return navigate("/login");
+    useEffect(() => {
+        {!localStorage.getItem('token') && navigate('/login', { replace: true });}
+    }, []);
+  //}
+
   const showResponseDiv = () => {
     setShowResponse(!showResponse);
   };
 
   return (
     <div>
+      { !localStorage.getItem('token') }
       <GlobalStyle />
       <Navbar title="Resume" />
       <Center>
