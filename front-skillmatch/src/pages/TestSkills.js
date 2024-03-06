@@ -29,7 +29,7 @@ const TestSkills = () => {
     // Fetch question data from your API
     axios
       .get(
-        `http://localhost:8081/api/v1/quizz/question?about=${aboutParam}&questionOrder=${questionOrderParam}`
+        `http://localhost:8080/api/v1/quizz/question?about=${aboutParam}&questionOrder=${questionOrderParam}`
       )
       .then((response) => {
         setQuestionData(response.data);
