@@ -1,12 +1,91 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import QuestionsRectangle from "../components/QuestionsRectangle";
 import AnswersSquare from "../components/AnswersSquare";
+import AnswerButton from "../components/AnswerButton";
+import axios from "axios";
 
 const TestSkills = () => {
-  const progress = "50%";
+  const [questionData, setQuestionData] = useState({
+    id: "",
+    question: "",
+    question_order: 0,
+    about: "",
+    answers: {},
+  });
+
+  const [aboutParam, setAboutParam] = useState("java");
+  const [questionOrderParam, setQuestionOrderParam] = useState(1);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  let [score, setScore] = useState(0);
+  const [progress, setProgress] = useState("0%");
+
+  const totalQuestions = 3;
+
+  useEffect(() => {
+    // Fetch question data from your API
+    axios
+      .get(
+        `http://localhost:8081/api/v1/quizz/question?about=${aboutParam}&questionOrder=${questionOrderParam}`
+      )
+      .then((response) => {
+        setQuestionData(response.data);
+        //console.log("Question data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching question data:", error);
+      });
+
+    updateProgress();
+  }, [questionOrderParam, aboutParam]);
+
+  // Function to reset the state of AnswersSquare components
+
+  const handleAnswerSelect = (selectedAnswer) => {
+    // Toggle the selected answer
+    const updatedAnswers = selectedAnswers.includes(selectedAnswer)
+      ? selectedAnswers.filter((answer) => answer !== selectedAnswer)
+      : [...selectedAnswers, selectedAnswer];
+    setSelectedAnswers(updatedAnswers);
+  };
+
+  const handleValidate = () => {
+    // Extract correct answers from questionData
+    const correctAnswers = Object.entries(questionData.answers)
+      .filter(([_, isCorrect]) => isCorrect === true)
+      .map(([answer]) => answer);
+
+    // Check if the selected answers match the correct answers
+    const isCorrect = selectedAnswers.every((answer) =>
+      correctAnswers.includes(answer)
+    );
+    // Validate thes score
+    if (isCorrect) {
+      score <= 3 && setScore(score + 1);
+    } else {
+      //nothing
+    }
+    // Reset selected answers and go to next question
+    setSelectedAnswers([]);
+    questionOrderParam < 3 && setQuestionOrderParam(questionOrderParam + 1);
+  };
+
+  const handleBack = () => {
+    questionOrderParam > 1 && setQuestionOrderParam(questionOrderParam - 1);
+    //set score to minus-1 when back
+    score > 0 && setScore(score - 1);
+    setSelectedAnswers([]);
+  };
+
+  const updateProgress = () => {
+    const calculatedProgress =
+      ((questionOrderParam - 1) / totalQuestions) * 100;
+    setProgress(`${calculatedProgress}%`);
+  };
+
   return (
     <div>
       <GlobalStyle></GlobalStyle>
@@ -15,17 +94,32 @@ const TestSkills = () => {
         <ProgressBarContainer>
           <ProgressIndicator progress={progress} />
         </ProgressBarContainer>
-        <Title>$COURSE_NAME Test</Title>
-        <QuestionsRectangle></QuestionsRectangle>
+        <Title>This test is about {questionData.about}</Title>
+        <QuestionsRectangle title={questionData.question}></QuestionsRectangle>
         <AnswersContainer>
-          <AnswersSquare></AnswersSquare>
-          <AnswersSquare></AnswersSquare>
-          <AnswersSquare></AnswersSquare>
+          {Object.entries(questionData.answers).map(
+            ([answer, isCorrect], index) => (
+              <AnswersSquare
+                key={index}
+                title={answer}
+                onSelect={handleAnswerSelect}
+              />
+            )
+          )}
         </AnswersContainer>
         <BotContainer>
-          <BackButton>Back</BackButton>
-          <ValidateButton>Validate</ValidateButton>
+          <AnswerButton
+            title={"Back"}
+            bgcolor={"#d8572a"}
+            onClick={handleBack}
+          ></AnswerButton>
+          <AnswerButton
+            title={"Validate"}
+            bgcolor={"#f7b538"}
+            onClick={handleValidate}
+          ></AnswerButton>
         </BotContainer>
+        <Title>{score}</Title>
       </CoursesContainer>
     </div>
   );
@@ -37,7 +131,7 @@ const Title = styled.div`
   padding: 5px 5px;
   font-size: 30px;
   padding-left: 10px;
-  margin-top: 20px;
+  margin-bottom: 10px;
 `;
 
 const CoursesContainer = styled.div`
@@ -64,59 +158,12 @@ const BotContainer = styled.div`
   margin-top: 10px;
 `;
 
-const ValidateButton = styled.button`
-  background-color: #f7b538;
-  margin-top: 5px;
-  height: 70%;
-  width: 25%;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 35px;
-  font-weight: 700;
-  color: #2c0735;
-  border-radius: 33px;
-  border: none;
-  border-bottom: solid #d8572a;
-  &:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease; /* Smooth transition */
-  }
-
-  &:active {
-    transform: scale(0.9); /* Decrease size on click */
-    transition: transform 0.2s ease; /* Smooth transition */
-  }
-`;
-
-const BackButton = styled.button`
-  background-color: #d8572a;
-  margin-top: 5px;
-  height: 70%;
-  width: 25%;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 35px;
-  font-weight: 700;
-  color: #2c0735;
-  border-radius: 33px;
-  border: none;
-  border-bottom: solid #f7b538;
-  &:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease; /* Smooth transition */
-  }
-
-  &:active {
-    transform: scale(0.9); /* Decrease size on click */
-    transition: transform 0.2s ease; /* Smooth transition */
-  }
-`;
 const ProgressBarContainer = styled.div`
   width: 50%;
   height: 20px;
   background-color: #f0f0f0;
   border-radius: 10px;
-  margin: 50px auto; /* Center the progress bar horizontally */
+  margin: 40px auto;
 `;
 
 const ProgressIndicator = styled.div`

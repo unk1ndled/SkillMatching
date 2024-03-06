@@ -8,6 +8,7 @@ public class SkillMatchingApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SkillMatchingApplication.class, args);
+
 	}
 
 }
