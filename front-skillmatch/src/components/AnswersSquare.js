@@ -7,15 +7,16 @@ const AnswersSquare = ({ title, onSelect }) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleClick = () => {
-    // Change background color to a different color on click
-    const newColor = bgColor === "#6f00ef" ? "#f7b538" : "#6f00ef";
-    setBgColor(newColor);
-
     //select answer if not already selected
     setIsSelected(!isSelected);
     onSelect(title);
+
+    // Change background color to a different color if its seleceted
+    const newColor = isSelected ? "#6f00ef" : "#f7b538";
+    setBgColor(newColor);
   };
 
+  console.log(isSelected);
   return (
     <Container onClick={handleClick} bgColor={bgColor}>
       {title ? <Title>{title}</Title> : <Title>Answer</Title>}

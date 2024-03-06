@@ -20,8 +20,9 @@ const TestSkills = () => {
   const [aboutParam, setAboutParam] = useState("java");
   const [questionOrderParam, setQuestionOrderParam] = useState(1);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
-  const [score, setScore] = useState(0);
-  const [progress, setProgress] = useState("0%"); // Initialize progress state
+  let [score, setScore] = useState(0);
+  const [progress, setProgress] = useState("0%");
+
   const totalQuestions = 3;
 
   useEffect(() => {
@@ -37,23 +38,18 @@ const TestSkills = () => {
       .catch((error) => {
         console.error("Error fetching question data:", error);
       });
+
     updateProgress();
-    console.log("Score updated:", score);
-    //console.log(questionData.question);
-  }, [questionOrderParam, aboutParam, score]);
+  }, [questionOrderParam, aboutParam]);
+
+  // Function to reset the state of AnswersSquare components
 
   const handleAnswerSelect = (selectedAnswer) => {
-    // Check if the selected answer is already in the selectedAnswers array
-    const index = selectedAnswers.indexOf(selectedAnswer);
-    if (index === -1) {
-      // If not, add it to the array
-      setSelectedAnswers([...selectedAnswers, selectedAnswer]);
-    } else {
-      // If yes, remove it from the array
-      const updatedAnswers = [...selectedAnswers];
-      updatedAnswers.splice(index, 1);
-      setSelectedAnswers(updatedAnswers);
-    }
+    // Toggle the selected answer
+    const updatedAnswers = selectedAnswers.includes(selectedAnswer)
+      ? selectedAnswers.filter((answer) => answer !== selectedAnswer)
+      : [...selectedAnswers, selectedAnswer];
+    setSelectedAnswers(updatedAnswers);
   };
 
   const handleValidate = () => {
@@ -66,22 +62,22 @@ const TestSkills = () => {
     const isCorrect = selectedAnswers.every((answer) =>
       correctAnswers.includes(answer)
     );
-    // Display validation result
+    // Validate thes score
     if (isCorrect) {
-      setScore((prevScore) => {
-        const updatedScore = prevScore + 1;
-        console.log("bravo your score=" + updatedScore);
-        return updatedScore;
-      });
+      score <= 3 && setScore(score + 1);
     } else {
-      //console.log("Please try again your score=" + score);
+      //nothing
     }
+    // Reset selected answers and go to next question
+    setSelectedAnswers([]);
     questionOrderParam < 3 && setQuestionOrderParam(questionOrderParam + 1);
   };
 
   const handleBack = () => {
     questionOrderParam > 1 && setQuestionOrderParam(questionOrderParam - 1);
+    //set score to minus-1 when back
     score > 0 && setScore(score - 1);
+    setSelectedAnswers([]);
   };
 
   const updateProgress = () => {
@@ -123,6 +119,7 @@ const TestSkills = () => {
             onClick={handleValidate}
           ></AnswerButton>
         </BotContainer>
+        <Title>{score}</Title>
       </CoursesContainer>
     </div>
   );
