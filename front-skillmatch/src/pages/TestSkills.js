@@ -37,7 +37,7 @@ const TestSkills = () => {
   useEffect(() => {
     setAboutParam(id);
     console.log(aboutParam);
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     // Fetch question data from your API
