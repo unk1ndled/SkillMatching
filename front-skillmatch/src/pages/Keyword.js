@@ -87,8 +87,9 @@ const Container = styled.div`
 
 const UpperWrap = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-
+  overflow: hidden;
   height: 60%;
   width: 100%;
   background-color: #4e148c;
@@ -108,7 +109,7 @@ const BottomWrap = styled.div`
 `;
 
 const TitleText = styled.div`
-  font-size: 20vh;
+  font-size: 6dvw;
   font-weight: bold;
   color: white;
   text-align: center;
