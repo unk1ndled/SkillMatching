@@ -15,7 +15,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class ScrapingService {
-    public String scrape(String url) {
+    public Map<String, String> scrape(String url) {
         Map<String, String> resultMap = new HashMap<>();
         try {
             Document document = Jsoup.connect(url).get();
@@ -28,32 +28,27 @@ public class ScrapingService {
             String posteProposeText = posteProposeParent.text();
             String profilRechercheText = profilRechercheParent.text();
 
-            resultMap.put("poste_propose", posteProposeText);
-            resultMap.put("profil_recherche", profilRechercheText);
+            String title = extractTitle(posteProposeText);
+
+            resultMap.put("title",title);
+            resultMap.put("post", posteProposeText);
+            resultMap.put("profile", profilRechercheText);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Convert map to JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonResult = null;
-        try {
-            jsonResult = objectMapper.writeValueAsString(resultMap);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return jsonResult;
+        return resultMap;
     }
 
-    private String extractText(String text, String keyword) {
-        int startIndex = text.indexOf(keyword);
-        if (startIndex != -1) {
-            int endIndex = text.indexOf("Profil recherché pour le poste", startIndex + keyword.length());
-            if (endIndex != -1) {
-                return text.substring(startIndex + keyword.length(), endIndex).trim();
+    private String extractTitle(String text) {
+        // Assuming the title follows "Poste proposé :" and takes 4 strings after it
+        String[] parts = text.split("Poste proposé :");
+        if (parts.length >= 2) {
+            String[] titleParts = parts[1].trim().split("\\s+", 4);
+            if (titleParts.length >= 4) {
+                return titleParts[0] + " " + titleParts[1] + " " + titleParts[2] + " " + titleParts[3];
             }
         }
-        return "";
+        return "No Title Found";
     }
+
 }

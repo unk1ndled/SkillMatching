@@ -17,6 +17,7 @@ export default Offer;
 const Container = styled.div`
   background-color: #6f00ef;
   height: 25vh;
+  overflow-y: hidden;
   flex: 0 0 calc(29% - 20px); /* Adjust as needed */
   margin-bottom: 20px; /* Add space between rows */
   box-sizing: border-box; /* Include padding and border in the width */
@@ -42,6 +43,11 @@ const Container = styled.div`
 
 const Title = styled.div`
   color: #ffffff;
+  width: 200px; /* Set a fixed width for the title */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
   font-weight: bold;
   font-size: larger;
+  text-align: center;
 `;
