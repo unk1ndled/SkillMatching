@@ -9,7 +9,7 @@ import AnswerButton from "../components/AnswerButton";
 import axios from "axios";
 
 import TestResult from "../components/TestResult";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const TestSkills = () => {
   const [questionData, setQuestionData] = useState({
@@ -20,7 +20,7 @@ const TestSkills = () => {
     answers: {},
   });
 
-  const [aboutParam, setAboutParam] = useState("java");
+  const [aboutParam, setAboutParam] = useState("");
   const [questionOrderParam, setQuestionOrderParam] = useState(1);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [score, setScore] = useState(0);
@@ -28,13 +28,22 @@ const TestSkills = () => {
   const [reset, setReset] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
+  const location = useLocation();
+
+  const id = location.pathname.split("/")[2];
+
   const totalQuestions = 3;
+
+  useEffect(() => {
+    setAboutParam(id);
+    console.log(aboutParam);
+  }, [id]);
 
   useEffect(() => {
     // Fetch question data from your API
     axios
       .get(
-        `http://localhost:8080/api/v1/quizz/question?about=${aboutParam}&questionOrder=${questionOrderParam}`
+        `http://localhost:8080/api/v1/quizz/question?about=${id}&questionOrder=${questionOrderParam}`
       )
       .then((response) => {
         setQuestionData(response.data);
@@ -45,7 +54,7 @@ const TestSkills = () => {
       });
 
     updateProgress();
-  }, [questionOrderParam, aboutParam]);
+  }, [ questionOrderParam, aboutParam]);
 
   const handleAnswerSelect = (selectedAnswer) => {
     // Toggle the selected answer
@@ -64,9 +73,8 @@ const TestSkills = () => {
     // Check if the selected answers match the correct answers
     const isCorrect = selectedAnswers.every((answer) =>
       correctAnswers.includes(answer)
-    
     );
-    
+
     // Validate thes score
     if (isCorrect && selectedAnswers.length > 0) {
       score < 3 && setScore(score + 1);
@@ -91,7 +99,7 @@ const TestSkills = () => {
 
   const updateProgress = () => {
     const calculatedProgress =
-      ((questionOrderParam -1) / totalQuestions) * 100;
+      ((questionOrderParam - 1) / totalQuestions) * 100;
     setProgress(`${calculatedProgress}%`);
   };
 
@@ -106,16 +114,17 @@ const TestSkills = () => {
         <Title>This test is about {questionData.about}</Title>
         <QuestionsRectangle title={questionData.question}></QuestionsRectangle>
         <AnswersContainer>
-          {Object.entries(questionData.answers).map(
-            ([answer, isCorrect], index) => (
-              <AnswersSquare
-                key={index}
-                title={answer}
-                onSelect={handleAnswerSelect}
-                reset={reset}
-              />
-            )
-          )}
+          {questionData.answers &&
+            Object.entries(questionData.answers).map(
+              ([answer, isCorrect], index) => (
+                <AnswersSquare
+                  key={index}
+                  title={answer}
+                  onSelect={handleAnswerSelect}
+                  reset={reset}
+                />
+              )
+            )}
         </AnswersContainer>
         <BotContainer>
           <AnswerButton

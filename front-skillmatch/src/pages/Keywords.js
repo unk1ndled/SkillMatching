@@ -35,7 +35,7 @@ const Keywords = () => {
       <OffersWrapper>
         <Keyword route="/"></Keyword>
         {keywords.map((keyword, index) => (
-            <Keyword route={`/skill/${keyword.id}`}  key={index} title={keyword.name}></Keyword>
+            <Keyword route={`/skills/${keyword.id}`}  key={index} title={keyword.name}></Keyword>
         ))}
       </OffersWrapper>
     </Container>

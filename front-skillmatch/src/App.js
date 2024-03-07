@@ -23,7 +23,7 @@ function App() {
           <Route path="/Offers" element={<Offers />} />
           <Route path="/skills/:id" element={<Keyword/>} />
           <Route path="/skills" element={< Keywords />} />
-          <Route path="/Tests/:id" element={<TestSkills />} />
+          <Route path="/tests/:id" element={<TestSkills />} />
           <Route path="/newoffer" element={<AddOffer />} />
         </Routes>
       </Router>

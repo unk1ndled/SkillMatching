@@ -12,10 +12,10 @@ export const Keyword = () => {
   const [keyword, setKeyword] = useState({});
 
   useEffect(() => {
-    fetchKeywords();
+    fetchKeyword();
   }, [id]);
 
-  const fetchKeywords = async () => {
+  const fetchKeyword = async () => {
     try {
       const response = await fetch(
         "http://localhost:8080/api/v1/keywords/" + id
@@ -40,7 +40,7 @@ export const Keyword = () => {
         <Skill>
           <Text>{keyword.name}</Text>
           <Text>{keyword.about}</Text>
-          <Link to="/">
+          <Link to={`/tests/${keyword.name}`}>
             <PushableButtonStyled>take test</PushableButtonStyled>
           </Link>
         </Skill>
