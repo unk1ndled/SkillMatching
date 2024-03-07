@@ -7,6 +7,9 @@ import QuestionsRectangle from "../components/QuestionsRectangle";
 import AnswersSquare from "../components/AnswersSquare";
 import AnswerButton from "../components/AnswerButton";
 import axios from "axios";
+import ResultPopup from "../components/ResultPopup";
+import ResultsPopUP from "../components/ResultsPopUP";
+import { Link } from "react-router-dom";
 
 const TestSkills = () => {
   const [questionData, setQuestionData] = useState({
@@ -69,6 +72,9 @@ const TestSkills = () => {
     }
     // Reset selected answers and go to next question
     setSelectedAnswers([]);
+    if (questionOrderParam === 3) {
+      setShowResults(true);
+    }
     //  reset state
     setReset(!reset);
     questionOrderParam < 3 && setQuestionOrderParam(questionOrderParam + 1);
@@ -121,8 +127,9 @@ const TestSkills = () => {
             onClick={handleValidate}
           ></AnswerButton>
         </BotContainer>
-        <Title>{score}</Title>
       </CoursesContainer>
+
+      {showResults && <ResultsPopUP score={score} />}
     </div>
   );
 };
@@ -173,19 +180,6 @@ const ProgressIndicator = styled.div`
   background-color: #f7b538;
   border-radius: 10px;
   width: ${(props) => props.progress}; /* Width based on the progress prop */
-`;
-
-const BlurWrapper = styled.div`
-  background: rgba(0, 0, 0, 0.13);
-  backdrop-filter: blur(9px);
-  width: 100%;
-  height: 100%;
-  top: 0px;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 1;
 `;
 
 export default TestSkills;
