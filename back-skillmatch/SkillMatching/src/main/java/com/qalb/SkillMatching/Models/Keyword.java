@@ -24,5 +24,4 @@ public class Keyword {
     private String id;
     private String name;
     private String about;
-    private List<String> questions;
 }
