@@ -25,7 +25,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add drop shadow */
 
   &:hover {

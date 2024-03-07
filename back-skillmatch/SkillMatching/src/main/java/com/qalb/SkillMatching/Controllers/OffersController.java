@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/v1/offers")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class OffersController {
     private final ScrapingService scrapingService;
     private final OfferService offerService;
@@ -29,7 +29,7 @@ public class OffersController {
     public List<Offer> getSongs(){
         return offerService.getOffers();
     }
-    @PostMapping("/newoffer")
+    @PostMapping
     public ResponseEntity<String> fetchOffer(@RequestBody String url) {
         Map<String, String> offer = scrapingService.scrape(url);
         offerService.saveOffer(offer);

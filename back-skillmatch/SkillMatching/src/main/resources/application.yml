@@ -6,6 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   data:
     mongodb:
+
       uri: mongodb+srv://haithamtests012:Hai2003tham@cluster0.r5bgn0g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: SkillMatch
   jpa:

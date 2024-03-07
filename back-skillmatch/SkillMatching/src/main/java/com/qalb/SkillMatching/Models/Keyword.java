@@ -2,25 +2,27 @@ package com.qalb.SkillMatching.Models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
+@Document(collection = "keyword")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-@Entity
-@Table(name = "_keyword")
 public class Keyword {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    private String id;
     private String name;
+    private String about;
+    private List<String> questions;
 }
-

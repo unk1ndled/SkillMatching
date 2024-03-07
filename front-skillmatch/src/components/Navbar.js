@@ -35,7 +35,7 @@ const Navbar = ({ title, backgroundColor }) => {
             <Link to="/offers">
               <UserSectionOption>Job Offers</UserSectionOption>
             </Link>
-            <Link to="/Test">
+            <Link to="/skills">
               <UserSectionOption>Level Up</UserSectionOption>
             </Link>
             <Link to="/login" onClick={logout}>

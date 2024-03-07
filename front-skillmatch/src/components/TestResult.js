@@ -47,7 +47,7 @@ const ButtonSection = styled.div`
   font-size: 2rem;
 `;
 
-const ResultsPopUP = ({ score }) => {
+const TestResult = ({ score }) => {
   return (
     <BlurWrapper>
       <ButtonSection>
@@ -60,4 +60,4 @@ const ResultsPopUP = ({ score }) => {
   );
 };
 
-export default ResultsPopUP;
+export default TestResult;

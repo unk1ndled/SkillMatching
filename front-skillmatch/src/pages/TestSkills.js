@@ -4,11 +4,11 @@ import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import QuestionsRectangle from "../components/QuestionsRectangle";
-import AnswersSquare from "../components/AnswersSquare";
+import AnswersSquare from "../components/AnswerOption";
 import AnswerButton from "../components/AnswerButton";
 import axios from "axios";
-import ResultPopup from "../components/ResultPopup";
-import ResultsPopUP from "../components/ResultsPopUP";
+
+import TestResult from "../components/TestResult";
 import { Link } from "react-router-dom";
 
 const TestSkills = () => {
@@ -64,7 +64,9 @@ const TestSkills = () => {
     // Check if the selected answers match the correct answers
     const isCorrect = selectedAnswers.every((answer) =>
       correctAnswers.includes(answer)
+    
     );
+    
     // Validate thes score
     if (isCorrect && selectedAnswers.length > 0) {
       score < 3 && setScore(score + 1);
@@ -89,7 +91,7 @@ const TestSkills = () => {
 
   const updateProgress = () => {
     const calculatedProgress =
-      ((questionOrderParam - 1) / totalQuestions) * 100;
+      ((questionOrderParam -1) / totalQuestions) * 100;
     setProgress(`${calculatedProgress}%`);
   };
 
@@ -118,18 +120,22 @@ const TestSkills = () => {
         <BotContainer>
           <AnswerButton
             title={"Back"}
-            bgcolor={"#d8572a"}
+            bgcolor={"#858AE3"}
+            hovercolor={"#858AE3"}
+            clickcolor={"#613DC1"}
             onClick={handleBack}
           ></AnswerButton>
           <AnswerButton
             title={"Validate"}
-            bgcolor={"#f7b538"}
+            bgcolor={"#97DFFC"}
+            hovercolor={"#858AE3"}
+            clickcolor={"#613DC1"}
             onClick={handleValidate}
           ></AnswerButton>
         </BotContainer>
       </CoursesContainer>
 
-      {showResults && <ResultsPopUP score={score} />}
+      {showResults && <TestResult score={score} />}
     </div>
   );
 };

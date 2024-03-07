@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Offers from "./pages/Offers";
 import TestSkills from "./pages/TestSkills";
 import AddOffer from "./pages/AddOffer";
+import Keywords from "./pages/Keywords"
+import { Keyword } from "./pages/Keyword";
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/Offers" element={<Offers />} />
-          <Route path="/Test" element={<TestSkills />} />
+          <Route path="/skills/:id" element={<Keyword/>} />
+          <Route path="/skills" element={< Keywords />} />
+          <Route path="/Tests/:id" element={<TestSkills />} />
           <Route path="/newoffer" element={<AddOffer />} />
         </Routes>
       </Router>

@@ -43,7 +43,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5%;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Add drop shadow */
   &:hover {
     transform: scale(1.05);

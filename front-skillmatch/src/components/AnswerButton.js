@@ -11,9 +11,9 @@ const Button = styled.button`
   font-size: 1.9em;
   font-weight: 700;
   color: #2c0735;
-  border-radius: 33px;
+  border-radius: 5px;
   border: none;
-  border-bottom: solid #d8572a;
+  border-bottom: solid black;
   &:hover {
     transform: scale(1.1);
     transition: transform 0.2s ease; /* Smooth transition */
@@ -21,6 +21,7 @@ const Button = styled.button`
 
   &:active {
     transform: scale(0.9); /* Decrease size on click */
+    background-color: ${(props) => props.clickcolor || "black"};
     transition: transform 0.2s ease; /* Smooth transition */
   }
   @media screen and (max-width: 768px) {

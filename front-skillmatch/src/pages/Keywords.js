@@ -1,45 +1,42 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import Offer from "../components/OffersElement";
+import Keyword from "../components/OffersElement";
 import { Link } from "react-router-dom";
 
-const Offers = () => {
-  const [offers, setOffers] = useState([]);
+const Keywords = () => {
+  const [keywords, setKeywords] = useState([]);
 
   useEffect(() => {
-    fetchOffers();
+    fetchKeywords();
   }, []);
 
-  const fetchOffers = async () => {
+  const fetchKeywords = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/offers");
+      const response = await fetch("http://localhost:8080/api/v1/keywords");
       if (!response.ok) {
-        throw new Error("Failed to fetch offers");
+        throw new Error("Failed to fetch keywords");
       }
       const data = await response.json();
-      console.log(data)
-      setOffers(data);
+      console.log(data);
+      setKeywords(data);
     } catch (error) {
-      console.error("Error fetching offers:", error);
+      console.error("Error fetching keywords:", error);
     }
   };
 
   return (
     <Container>
-      <Navbar title="Offers"></Navbar>
+      <Navbar title="Keywords"></Navbar>
       <ButtonContainer>
-        <Input type="text" placeholder="Search for Offers" />
+        <Input type="text" placeholder="find keyword" />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <OffersWrapper>
-        <Offer route="/newoffer"></Offer>
-        {offers.map((offer, index) => (
-                    <Offer key={index} title ={offer.title}>
-                        
-                    </Offer>
-                ))}
-
+        <Keyword route="/"></Keyword>
+        {keywords.map((keyword, index) => (
+            <Keyword route={`/skill/${keyword.id}`}  key={index} title={keyword.name}></Keyword>
+        ))}
       </OffersWrapper>
     </Container>
   );
@@ -105,4 +102,4 @@ const OffersWrapper = styled.div`
   }
 `;
 
-export default Offers;
+export default Keywords;

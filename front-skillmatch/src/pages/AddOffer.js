@@ -13,7 +13,7 @@ const AddOffer = () => {
   const [showResponse, setShowResponse] = useState(false);
 
   const handleSendRequest = () => {
-    fetch("http://localhost:8080/api/v1/offers/newoffer", {
+    fetch("http://localhost:8080/api/v1/offers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
