@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Offer from "../components/OffersElement";
 import { Link } from "react-router-dom";
 
 const Offers = () => {
+  const [offers, setOffers] = useState([]);
+
+  useEffect(() => {
+    fetchOffers();
+  }, []);
+
+  const fetchOffers = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/offers");
+      if (!response.ok) {
+        throw new Error("Failed to fetch offers");
+      }
+      const data = await response.json();
+      console.log(data)
+      setOffers(data);
+    } catch (error) {
+      console.error("Error fetching offers:", error);
+    }
+  };
+
   return (
     <Container>
       <Navbar title="Offers"></Navbar>
@@ -13,7 +33,12 @@ const Offers = () => {
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <OffersWrapper>
-          <Offer route = "/newoffer"></Offer>
+        <Offer route="/newoffer"></Offer>
+        {offers.map((offer, index) => (
+                    <Offer key={index} title ={offer.title}>
+                        
+                    </Offer>
+                ))}
       </OffersWrapper>
     </Container>
   );
