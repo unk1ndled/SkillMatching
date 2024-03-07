@@ -20,8 +20,10 @@ const TestSkills = () => {
   const [aboutParam, setAboutParam] = useState("java");
   const [questionOrderParam, setQuestionOrderParam] = useState(1);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
-  let [score, setScore] = useState(0);
+  const [score, setScore] = useState(0);
   const [progress, setProgress] = useState("0%");
+  const [reset, setReset] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const totalQuestions = 3;
 
@@ -42,8 +44,6 @@ const TestSkills = () => {
     updateProgress();
   }, [questionOrderParam, aboutParam]);
 
-  // Function to reset the state of AnswersSquare components
-
   const handleAnswerSelect = (selectedAnswer) => {
     // Toggle the selected answer
     const updatedAnswers = selectedAnswers.includes(selectedAnswer)
@@ -63,13 +63,14 @@ const TestSkills = () => {
       correctAnswers.includes(answer)
     );
     // Validate thes score
-    if (isCorrect) {
-      score <= 3 && setScore(score + 1);
+    if (isCorrect && selectedAnswers.length > 0) {
+      score < 3 && setScore(score + 1);
     } else {
-      //nothing
     }
     // Reset selected answers and go to next question
     setSelectedAnswers([]);
+    //  reset state
+    setReset(!reset);
     questionOrderParam < 3 && setQuestionOrderParam(questionOrderParam + 1);
   };
 
@@ -103,6 +104,7 @@ const TestSkills = () => {
                 key={index}
                 title={answer}
                 onSelect={handleAnswerSelect}
+                reset={reset}
               />
             )
           )}
@@ -171,6 +173,19 @@ const ProgressIndicator = styled.div`
   background-color: #f7b538;
   border-radius: 10px;
   width: ${(props) => props.progress}; /* Width based on the progress prop */
+`;
+
+const BlurWrapper = styled.div`
+  background: rgba(0, 0, 0, 0.13);
+  backdrop-filter: blur(9px);
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
 `;
 
 export default TestSkills;

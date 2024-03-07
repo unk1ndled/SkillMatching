@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const AnswersSquare = ({ title, onSelect }) => {
+const AnswersSquare = ({ title, onSelect, reset }) => {
   const [bgColor, setBgColor] = useState("#6f00ef");
   const [isSelected, setIsSelected] = useState(false);
 
@@ -17,11 +16,19 @@ const AnswersSquare = ({ title, onSelect }) => {
     setBgColor(newColor);
   };
 
-  console.log(isSelected);
+  const resetState = () => {
+    setIsSelected(false);
+    setBgColor("#6f00ef");
+  };
+
+  useEffect(() => {
+    resetState();
+  }, [reset]);
+
   return (
-      <Container onClick={handleClick} bgColor={bgColor}>
-        {title ? <Title>{title}</Title> : <Title>Answer</Title>}
-      </Container>
+    <Container onClick={handleClick} bgColor={bgColor}>
+      {title ? <Title>{title}</Title> : <Title>Answer</Title>}
+    </Container>
   );
 };
 
@@ -30,25 +37,25 @@ export default AnswersSquare;
 const Container = styled.div`
   background-color: ${(props) => props.bgColor};
   height: 20vh;
-  flex: 0 0 calc(29% - 20px); /* Adjust as needed */
-  margin-bottom: 20px; /* Add space between rows */
+  flex: 0 0 calc(29% - 20px);
+  margin-bottom: 20px;
   box-sizing: border-box; /* Include padding and border in the width */
   display: flex;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
+  justify-content: center;
+  align-items: center;
   border-radius: 5%;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Add drop shadow */
   &:hover {
-    transform: scale(1.05); /* Increase size on hover */
-    background-color: #f7b538; /* Change color when hovered over */
+    transform: scale(1.05);
+    background-color: #f7b538;
     transition: transform 0.3s ease; /* Smooth transition */
   }
 
   /* Click effect */
   &:active {
-    transform: scale(0.95); /* Decrease size on click */
+    transform: scale(0.95);
 
-    transition: transform 0.1s ease; /* Smooth transition */
+    transition: transform 0.1s ease;
   }
 `;
 
