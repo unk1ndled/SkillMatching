@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Offer = ({ title , ...props }) => {
+const Offer = ({ title, ...props }) => {
   return (
-    <Container>
-      <Link to={props.route}>
+    <Link to={props.route}>
+      <Container>
         {title ? <Title>{title}</Title> : <Title>Add</Title>}
-      </Link>
-    </Container>
+      </Container>
+    </Link>
   );
 };
 
@@ -17,6 +17,7 @@ export default Offer;
 const Container = styled.div`
   background-color: #6f00ef;
   height: 25vh;
+  width: 20vw;
   overflow-y: hidden;
   flex: 0 0 calc(29% - 20px); /* Adjust as needed */
   margin-bottom: 20px; /* Add space between rows */
