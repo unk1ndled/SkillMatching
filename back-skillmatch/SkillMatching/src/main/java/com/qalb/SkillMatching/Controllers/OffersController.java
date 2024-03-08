@@ -3,10 +3,12 @@ package com.qalb.SkillMatching.Controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qalb.SkillMatching.Models.Keyword;
 import com.qalb.SkillMatching.Models.Offer;
 import com.qalb.SkillMatching.Services.OfferService;
 import com.qalb.SkillMatching.Services.ScrapingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +26,21 @@ public class OffersController {
     private final ScrapingService scrapingService;
     private final OfferService offerService;
 
-
     @GetMapping
     public List<Offer> getSongs(){
         return offerService.getOffers();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Offer> getSong(@PathVariable String id){
+        Offer offer = offerService.getOfferById(id);
+        if (offer != null) {
+            return new ResponseEntity<>(offer, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<String> fetchOffer(@RequestBody String url) {
         Map<String, String> offer = scrapingService.scrape(url);

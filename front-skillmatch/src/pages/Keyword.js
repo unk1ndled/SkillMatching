@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
-import { PushableButtonStyled } from "../components/Noteadbutton";
 
 export const Keyword = () => {
   const location = useLocation();
@@ -41,7 +40,6 @@ export const Keyword = () => {
         <Skill>
           <UpperWrap>
             <Image src={Icon} />
-
             <TitleText>{keyword.name}</TitleText>
             <Link to={`/tests/${keyword.name}`}>
               <TriangleRight></TriangleRight>
@@ -66,7 +64,7 @@ const TriangleRight = styled.div`
   &:hover {
     transform: scale(1.2);
     transition: transform 0.3s ease; /* Smooth transition */
-    border-left-color : #97DFFC;
+    border-left-color: #97dffc;
   }
 
   /* Click effect */
@@ -76,7 +74,6 @@ const TriangleRight = styled.div`
     transition: transform 0.1s ease;
   }
 `;
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -84,7 +81,6 @@ const Container = styled.div`
   flex-direction: column;
   margin-top: 5%;
 `;
-
 const UpperWrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -95,7 +91,7 @@ const UpperWrap = styled.div`
   background-color: #4e148c;
   padding: 2%;
   gap: 5vw;
-  box-sizing: border-box; /* Include padding and border in the width and height */
+  box-sizing: border-box;
 `;
 const BottomWrap = styled.div`
   justify-content: center;
@@ -104,21 +100,19 @@ const BottomWrap = styled.div`
   width: 100%;
   padding: 2%;
   gap: 5vw;
-  box-sizing: border-box; /* Include padding and border in the width and height */
+  box-sizing: border-box;
   color: #858ae3;
+  overflow: hidden;
 `;
-
 const TitleText = styled.div`
   font-size: 6dvw;
   font-weight: bold;
   color: white;
   text-align: center;
 `;
-
 const Image = styled.img`
   height: 90%;
 `;
-
 const Skill = styled.div`
   display: flex;
   flex-direction: column;

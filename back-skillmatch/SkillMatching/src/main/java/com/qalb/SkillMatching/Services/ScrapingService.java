@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,10 +26,11 @@ public class ScrapingService {
             Element profilRechercheTitle = document.selectFirst("span.ad-ss-title:contains(Profil recherché pour le poste)");
             Element profilRechercheParent = profilRechercheTitle.parent();
 
-            String posteProposeText = posteProposeParent.text();
-            String profilRechercheText = profilRechercheParent.text();
+            String posteProposeText = extractContent("Poste proposé :",posteProposeParent.text());
+            String profilRechercheText = extractContent("Profil recherché pour le poste :",profilRechercheParent.text());
 
-            String title = extractTitle(posteProposeText);
+            String title = document.select("div h1.title").text();
+
 
             resultMap.put("title",title);
             resultMap.put("post", posteProposeText);
@@ -39,11 +41,12 @@ public class ScrapingService {
         return resultMap;
     }
 
-    private String extractTitle(String text) {
+    private String extractContent(String pre,String text) {
         // Assuming the title follows "Poste proposé :" and takes 4 strings after it
-        String[] parts = text.split("Poste proposé :");
+        String[] parts = text.split(pre);
         if (parts.length >= 2) {
             String[] titleParts = parts[1].trim().split("\\s+", 4);
+            System.out.println(Arrays.toString(titleParts));
             if (titleParts.length >= 4) {
                 return titleParts[0] + " " + titleParts[1] + " " + titleParts[2] + " " + titleParts[3];
             }

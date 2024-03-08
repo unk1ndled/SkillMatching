@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Logo from "../images/Logo.png";
 import User from "../images/user.png";
 import { Link } from "react-router-dom";
-import { useAuthNavigate  } from '../context/useAuthNavigate';
+import { useAuthNavigate } from "../context/useAuthNavigate";
 
 const Navbar = ({ title, backgroundColor }) => {
   const [showUserSection, setShowUserSection] = useState(false);
@@ -19,7 +19,9 @@ const Navbar = ({ title, backgroundColor }) => {
       <Wrapper>
         <MiniWrapper>
           <StyledImg src={Logo} />
-          <Title>{title}</Title>
+          <Link to="/">
+            <Title>{title}</Title>
+          </Link>
         </MiniWrapper>
         <MarginRightWrapper>
           <StyledIcon src={User} onClick={handleIconClick} />
@@ -79,6 +81,8 @@ const Title = styled.div`
   padding: 5px 5px;
   font-size: 30px;
   padding-left: 10px;
+  text-decoration: none;
+
 `;
 
 const StyledImg = styled.img`

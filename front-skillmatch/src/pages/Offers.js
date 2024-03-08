@@ -35,7 +35,7 @@ const Offers = () => {
       <OffersWrapper>
         <Offer route="/newoffer"></Offer>
         {offers.map((offer, index) => (
-                    <Offer key={index} title ={offer.title}>
+                    <Offer route={`/offers/${offer.id}`} key={index} title ={offer.title}>
                         
                     </Offer>
                 ))}
