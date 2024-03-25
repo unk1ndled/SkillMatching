@@ -40,7 +40,6 @@ const Profile = () => {
             bhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskiono
             bhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskiono{" "}
           </Segment>
-
         </UserInfo>
       </LowerWrapper>
     </Container>
@@ -61,7 +60,7 @@ const UpperWrapper = styled.div`
 `;
 
 const LowerWrapper = styled.div`
-  background-color: #4e148c;
+  background-color: #2C0735;
   height: 80%;
   display: flex;
   flex-direction: row;
@@ -81,12 +80,26 @@ const UserInfo = styled.div`
   flex-direction: column;
   gap: 2vh;
   padding: 0px 5px 0px 5px;
-  
+
   overflow-y: auto;
   -ms-overflow-style: none;
-  scrollbar-width: none;
   &::-webkit-scrollbar {
-    display: none;
+    width: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #613dc1;
+    border-radius: 20px;
+    border: 8px solid transparent;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #6F00EF;
   }
 `;
 
@@ -110,15 +123,15 @@ const Segment = styled.div`
   box-sizing: border-box; /* Include padding and border in the width */
   word-wrap: break-word; /* or overflow-wrap: break-word; */
   overflow-y: auto;
-  -ms-overflow-style: none;
   scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+
+
 `;
 
 const FullName = styled(UserInfo)`
   position: relative;
+  scrollbar-width: none;
+
 `;
 
 const NameText = styled.div`
@@ -153,7 +166,6 @@ const Picture = styled.img`
 
 const UserAbout = styled(Segment)`
   min-height: 0vh;
-
 `;
 
 export default Profile;
