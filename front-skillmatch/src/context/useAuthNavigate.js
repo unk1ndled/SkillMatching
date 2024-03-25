@@ -1,21 +1,21 @@
 // useAuthNavigate.js
 
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 export const useAuthNavigate = () => {
-    const navigate = useNavigate();
-    const { login: contextLogin, logout: contextLogout } = useAuth();
+  const navigate = useNavigate();
+  const { login: contextLogin, logout: contextLogout } = useAuth();
 
-    const login = (token) => {
-        contextLogin(token);
-        navigate('/offers');
-    };
+  const login = (token) => {
+    contextLogin(token);
+    navigate("/offers");
+  };
 
-    const logout = () => {
-        contextLogout();
-        navigate('/login');
-    };
+  const logout = () => {
+    contextLogout();
+    navigate("/login");
+  };
 
-    return { login, logout };
+  return { login, logout };
 };

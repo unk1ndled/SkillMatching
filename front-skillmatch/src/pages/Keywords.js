@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Keyword from "../components/OffersElement";
-import { Link } from "react-router-dom";
 
 const Keywords = () => {
   const [keywords, setKeywords] = useState([]);
@@ -35,7 +34,11 @@ const Keywords = () => {
       <OffersWrapper>
         <Keyword route="/"></Keyword>
         {keywords.map((keyword, index) => (
-            <Keyword route={`/skills/${keyword.id}`}  key={index} title={keyword.name}></Keyword>
+          <Keyword
+            route={`/skills/${keyword.id}`}
+            key={index}
+            title={keyword.name}
+          ></Keyword>
         ))}
       </OffersWrapper>
     </Container>
@@ -54,9 +57,9 @@ const Container = styled.div`
 const ButtonContainer = styled.div`
   background-color: #4e148c;
   display: flex;
-  justify-content: center; /* Center items horizontally */
-  align-items: flex-start; /* Align items to the top */
-  height: 10vh; /* Set height to full viewport height */
+  justify-content: center;
+  align-items: flex-start;
+  height: 10vh;
 `;
 
 const Input = styled.input`

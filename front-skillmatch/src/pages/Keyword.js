@@ -11,6 +11,7 @@ export const Keyword = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [keyword, setKeyword] = useState({});
+  const [showDifficulty, setShowDiffculty] = useState(false);
 
   useEffect(() => {
     fetchKeyword();

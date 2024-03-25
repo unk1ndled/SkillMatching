@@ -51,7 +51,7 @@ const TestResult = ({ score }) => {
   return (
     <BlurWrapper>
       <ButtonSection>
-        <Link to="/">
+        <Link to="/skills">
           <PushableButtonStyled>Close</PushableButtonStyled>
         </Link>
       </ButtonSection>

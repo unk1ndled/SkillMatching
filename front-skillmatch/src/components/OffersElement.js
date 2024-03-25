@@ -19,12 +19,12 @@ const Container = styled.div`
   height: 25vh;
   width: 20vw;
   overflow-y: hidden;
-  flex: 0 0 calc(29% - 20px); /* Adjust as needed */
-  margin-bottom: 20px; /* Add space between rows */
+  flex: 0 0 calc(29% - 20px);
+  margin-bottom: 20px;
   box-sizing: border-box; /* Include padding and border in the width */
   display: flex;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add drop shadow */
 
