@@ -4,24 +4,29 @@ import styled from "styled-components";
 import Add from "../images/add.svg";
 import React, { useEffect, useState } from "react";
 import { Notepad } from "../components/Notepad";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import ResultPopup from "../components/ResultPopup";
-
+import ResumeForm from "../components/ResumeForm";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [showNotepad,  setShowNotepad] = useState(false);
-  const [inputData,    setInputData] = useState(null);
+  const [showNotepad, setShowNotepad] = useState(false);
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [objective, setObjective] = useState(null);
+  const [skills, setSkills] = useState(null);
+  const [hISTORY, setHISTORY] = useState(null);
   const [responseData, setResponseData] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
 
   const handleSendRequest = () => {
+    console.log(skills)
     fetch("http://localhost:8080/api/v1/keywords/analyse", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: inputData,
+      body: skills,
     })
       .then((response) => response.json())
       .then((responseData) => {
@@ -41,10 +46,12 @@ const Home = () => {
   };
 
   //if (!localStorage.getItem('token')) {
-    //return navigate("/login");
-    useEffect(() => {
-        {!localStorage.getItem('token') && navigate('/login', { replace: true });}
-    }, []);
+  //return navigate("/login");
+  useEffect(() => {
+    {
+      !localStorage.getItem("token") && navigate("/login", { replace: true });
+    }
+  }, []);
   //}
 
   const showResponseDiv = () => {
@@ -53,7 +60,7 @@ const Home = () => {
 
   return (
     <div>
-      { !localStorage.getItem('token') }
+      {!localStorage.getItem("token")}
       <GlobalStyle />
       <Navbar title="Resume" />
       <Center>
@@ -63,16 +70,23 @@ const Home = () => {
       </Center>
       {showNotepad && (
         <BlurWrapper>
-          <Notepad
-            changeText={(e) => setInputData(e.target.textContent)}
-            close={handleIconClick}
+          <ResumeForm
+            saveskills={(e) => setSkills(e.target.textContent)}
+            saveobjective={(e) => setObjective(e.target.textContent)}
+            savehistory={(e) => setHISTORY(e.target.textContent)}
+            savefirstname={(e) => setFirstName(e.target.textContent)}
+            savelastname={(e) => setLastName(e.target.textContent)}
+            cancel={handleIconClick}
             submit={handleSendRequest}
           />
         </BlurWrapper>
       )}
       {showResponse && (
         <BlurWrapper>
-          <ResultPopup close={showResponseDiv} data ={responseData}></ResultPopup>
+          <ResultPopup
+            close={showResponseDiv}
+            data={responseData}
+          ></ResultPopup>
         </BlurWrapper>
       )}
     </div>
@@ -83,8 +97,10 @@ const BlurWrapper = styled.div`
   backdrop-filter: blur(9px);
   width: 100%;
   height: 100%;
-  top: 0px;
-  position: absolute;
+  top: 0;
+  left: 0;
+  position: fixed; /* Fixed position to keep it fixed while scrolling */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds viewport height */
   display: flex;
   flex-direction: column;
   align-items: center;

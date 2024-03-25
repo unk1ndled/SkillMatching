@@ -128,19 +128,17 @@ const TestSkills = () => {
         </AnswersContainer>
         <BotContainer>
           <AnswerButton
-            title={"Back"}
             bgcolor={"#858AE3"}
             hovercolor={"#858AE3"}
             clickcolor={"#613DC1"}
             onClick={handleBack}
-          ></AnswerButton>
+          >Back</AnswerButton>
           <AnswerButton
-            title={"Validate"}
             bgcolor={"#97DFFC"}
             hovercolor={"#858AE3"}
             clickcolor={"#613DC1"}
             onClick={handleValidate}
-          ></AnswerButton>
+          >Validate</AnswerButton>
         </BotContainer>
       </CoursesContainer>
 

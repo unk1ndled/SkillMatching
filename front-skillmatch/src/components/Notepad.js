@@ -1,8 +1,11 @@
-import React from "react";
+import React, {  useState } from "react";
 import styled from "styled-components";
 import { PushableButtonStyled } from "./Noteadbutton";
 
 export const Notepad = (props) => {
+
+
+
   return (
     <Notepadc>
       <Top>
@@ -17,6 +20,9 @@ export const Notepad = (props) => {
     </Notepadc>
   );
 };
+
+
+
 
 const Notepadc = styled.div`
   width: 50%;
@@ -53,7 +59,7 @@ const OuterPaper = styled.div`
 const Paper = styled.div`
   width: 100%;
   height: 100%;
-  min-height: ${(props) => props.height || "60vh"};;
+  min-height:  "5vh";
   background: repeating-linear-gradient(
     #f1ede9,
     #f1ede9 31px,

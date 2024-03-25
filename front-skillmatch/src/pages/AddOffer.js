@@ -51,7 +51,7 @@ const AddOffer = () => {
       </Center>
       {showNotepad && (
         <BlurWrapper>
-          <Notepad
+          <Notepad height = "20px"
             changeText={(e) => setInputData(e.target.textContent)}
             close={handleIconClick}
             submit={handleSendRequest}

@@ -100,6 +100,8 @@ const Title = styled.div`
   text-align: center;
 `;
 
+
+
 const UpperInnerText = styled.div`
   color: white;
   height: 80%;

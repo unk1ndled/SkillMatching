@@ -4,24 +4,23 @@ import styled from "styled-components";
 const Button = styled.button`
   background-color: ${(props) => props.bgcolor};
   margin-top: 5px;
-  height: 70%;
+  height: 70px;
   width: 25%;
   border-radius: 10px;
   text-align: center;
-  font-size: 1.9em;
-  font-weight: 700;
-  color: #2c0735;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #9A9A9A;
   border-radius: 5px;
   border: none;
-  border-bottom: solid black;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: transform 0.2s ease; /* Smooth transition */
   }
 
   &:active {
     transform: scale(0.9); /* Decrease size on click */
-    background-color: ${(props) => props.clickcolor || "black"};
+    background-color: ${(props) => props.clickcolor };
     transition: transform 0.2s ease; /* Smooth transition */
   }
   @media screen and (max-width: 768px) {
@@ -32,10 +31,10 @@ const Button = styled.button`
     font-size: 1em;
   }
 `;
-const AnswerButton = ({ title, bgcolor, onClick }) => {
+const AnswerButton = ({ children,clickcolor, bgcolor, onClick }) => {
   return (
-    <Button bgcolor={bgcolor} onClick={onClick}>
-      {title}
+    <Button bgcolor={bgcolor} clickcolor={clickcolor} onClick={onClick}>
+      {children}
     </Button>
   );
 };
