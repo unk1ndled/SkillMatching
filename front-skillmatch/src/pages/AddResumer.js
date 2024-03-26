@@ -32,7 +32,6 @@ const AddResumer = () => {
       .then((responseData) => {
         // Handle the response data here
         setResponseData(responseData);
-        setShowResponse(true);
         console.log(responseData);
       })
       .catch((error) => {

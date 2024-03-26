@@ -6,7 +6,7 @@ import LogoWithName from "../images/LogoWithName.png";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuthNavigate  } from '../context/useAuthNavigate';
+import { useAuthNavigate } from "../context/useAuthNavigate";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Login = () => {
       const response = await axios.post(
         "http://localhost:8080/api/v1/auth/authenticate",
         {
-           email,
+          email,
           password,
         }
       );
@@ -63,12 +63,19 @@ const Login = () => {
             Continue
           </LoginButton>
         </Wrapper>
-        <div style={{ borderTop: "2px solid #f2f2f280 ", marginLeft: 20, marginRight: 20, marginTop: 20 }}></div>
+        <div
+          style={{
+            borderTop: "2px solid #f2f2f280 ",
+            marginLeft: 20,
+            marginRight: 20,
+            marginTop: 20,
+          }}
+        ></div>
         <RegisterWrapper>
-        <AuthText size = "1.2em">Don't have an account?</AuthText>
+          <AuthText size="1.2em">Don't have an account?</AuthText>
         </RegisterWrapper>
         <RegisterWrapper>
-        <Link to="/register">
+          <Link to="/register">
             <LoginButton
               primaryColor="#DB7C26"
               secondaryColor="#780116"
@@ -77,7 +84,7 @@ const Login = () => {
               Register
             </LoginButton>
           </Link>
-          </RegisterWrapper>
+        </RegisterWrapper>
         <Wrapper>
           <Logo src={LogoWithName} />
         </Wrapper>
@@ -95,7 +102,7 @@ const Wrapper = styled.div`
 `;
 
 const RegisterWrapper = styled.div`
-margin-top: 20px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,12 +110,11 @@ margin-top: 20px;
   text-align: center;
 `;
 
-
 const AuthText = styled.div`
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   text-align: center;
-  font-size: ${(props) => props.size ||"2em"};
+  font-size: ${(props) => props.size || "2em"};
   color: white;
 `;
 const Input = styled.input`
@@ -168,7 +174,7 @@ const ErrorText = styled.div`
   color: red;
   text-align: center;
   margin-top: 20px;
-  background: #F7B53840;
+  background: #f7b53840;
   padding: 10px; /* Add padding for better readability */
   border-radius: 20px;
   backdrop-filter: blur(50px);
