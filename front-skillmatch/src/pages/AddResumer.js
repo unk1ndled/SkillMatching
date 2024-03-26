@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import ResultPopup from "../components/ResultPopup";
 import ResumeForm from "../components/ResumeForm";
 
-const Home = () => {
+const AddResumer = () => {
   const navigate = useNavigate();
   const [showNotepad, setShowNotepad] = useState(false);
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [objective, setObjective] = useState(null);
   const [skills, setSkills] = useState(null);
-  const [hISTORY, setHISTORY] = useState(null);
+  const [history, setHistory] = useState(null);
   const [responseData, setResponseData] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
 
@@ -73,7 +73,7 @@ const Home = () => {
           <ResumeForm
             saveskills={(e) => setSkills(e.target.textContent)}
             saveobjective={(e) => setObjective(e.target.textContent)}
-            savehistory={(e) => setHISTORY(e.target.textContent)}
+            savehistory={(e) => setHistory(e.target.textContent)}
             savefirstname={(e) => setFirstName(e.target.textContent)}
             savelastname={(e) => setLastName(e.target.textContent)}
             cancel={handleIconClick}
@@ -128,4 +128,4 @@ const StyledImg = styled.img`
   cursor: pointer;
 `;
 
-export default Home;
+export default AddResumer;

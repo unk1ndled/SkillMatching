@@ -5,22 +5,25 @@ import { AuthProvider } from "./context/AuthContext";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Home from "./pages/Home";
 import Offers from "./pages/Offers";
 import TestSkills from "./pages/TestSkills";
 import AddOffer from "./pages/AddOffer";
+
 import Keywords from "./pages/Keywords"
 import { Keyword } from "./pages/Keyword";
 import { Offer } from "./pages/Offer";
+import AddResumer from "./pages/AddResumer";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/" element={<Profile />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/addresumer" element={<AddResumer />} />
           <Route path="/offers" element={<Offers />} />
           <Route path="/offers/:id" element={<Offer />} />
           <Route path="/skills/:id" element={<Keyword/>} />

@@ -91,7 +91,6 @@ const Offere = styled.div`
 const Title = styled.div`
   color: #ffffff;
   width: 100%; /* Set a fixed width for the title */
-
   white-space: nowrap; /* Prevent text from wrapping */
   overflow: hidden; /* Hide overflow */
   text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
