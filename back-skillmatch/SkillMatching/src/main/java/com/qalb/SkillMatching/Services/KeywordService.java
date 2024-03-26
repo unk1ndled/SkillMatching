@@ -1,26 +1,22 @@
 package com.qalb.SkillMatching.Services;
 
 import com.qalb.SkillMatching.Models.Keyword;
-import com.qalb.SkillMatching.Models.Offer;
 import com.qalb.SkillMatching.Repositories.KeywordRepository;
-import com.qalb.SkillMatching.Repositories.OfferRepository;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class KeywordService {
-    @Autowired
-    private KeywordRepository repository;
-    @Autowired
-    private MongoTemplate mongoTemplate;
+
+    private final KeywordRepository repository;
+    private final KeywordCacheService cacheService;
+    public final UtilityService utilityService;
 
     public List<Keyword> getKeywords(){
         return repository.findAll();
@@ -32,10 +28,57 @@ public class KeywordService {
 
         if (!exists) {
             repository.save(keyword);
+            forceRefreshCache();
         }
+
+    }
+
+    public Map<String, String> getKeywordMap() {
+        return cacheService.getKeywordMap();
+    }
+
+    public Map<String, Integer> extractKeywords(String paragraph) {
+        List<String> words = utilityService.getWords(paragraph);
+        Map<String, String> keywordMap = getKeywordMap();
+        Map<String, Integer> matchingKeywords = new HashMap<>();
+
+        for (String word : words) {
+            String id = keywordMap.get(word);
+            if (id != null) {
+                matchingKeywords.put(id,0);
+            }
+        }
+        return matchingKeywords;
     }
 
     public Keyword getKeywordById(String id) {
         return repository.findById(id).orElse(null);
+    }
+
+
+    // Caching
+    // Method to force cache refresh
+    public void forceRefreshCache() {
+        cacheService.clearKeywordCache();
+    }
+
+    // added inner class because caching the keywords requires a different class than the keyword service
+
+    @Service
+    @RequiredArgsConstructor
+    public static class KeywordCacheService {
+        private final KeywordRepository repository;
+
+        @Cacheable(value = "keywordMap")
+        public Map<String, String> getKeywordMap() {
+            List<Keyword> knownWords = repository.findAll();
+            return knownWords.stream()
+                    .collect(Collectors.toMap(Keyword::getName, Keyword::getId));
+        }
+
+        @CacheEvict(value = "keywordMap", allEntries = true)
+        public void clearKeywordCache() {
+            // This method will clear the cache when needed
+        }
     }
 }

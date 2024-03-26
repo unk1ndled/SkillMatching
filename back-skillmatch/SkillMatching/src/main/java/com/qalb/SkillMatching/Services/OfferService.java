@@ -14,8 +14,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class OfferService {
-    @Autowired
-    private OfferRepository repository;
+
+    private final OfferRepository repository;
 
     public List<Offer> getOffers(){
         return repository.findAll();
