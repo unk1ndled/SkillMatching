@@ -1,10 +1,12 @@
 package com.qalb.SkillMatching.Controllers;
 
+import com.qalb.SkillMatching.Exceptions.UserAlreadyExistException;
 import com.qalb.SkillMatching.auth.AuthenticationRequest;
 import com.qalb.SkillMatching.auth.AuthenticationResponse;
 import com.qalb.SkillMatching.Services.AuthenticationService;
 import com.qalb.SkillMatching.auth.RegisterRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +30,14 @@ public class AuthenticationController {
     ) {
         return ResponseEntity.ok(service.register(request));
     }
+
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<String> handleUserAlreadyExistException(
+            UserAlreadyExistException e
+    ) {
+        return new ResponseEntity<>("Email Already Registered" , HttpStatusCode.valueOf(400));
+    }
+
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(

@@ -58,6 +58,20 @@ const Register = () => {
           
           <LoginButton primaryColor="#DB7C26" secondaryColor="#780116" type="submit">Continue</LoginButton>
         </Wrapper>
+        <div style={{ borderTop: "2px solid #f2f2f280 ", marginLeft: 20, marginRight: 20, marginTop: 20 }}></div>
+        <RegisterWrapper>
+        <AuthText size = "1.2em">Already have an account?</AuthText>
+        </RegisterWrapper>
+        <RegisterWrapper>
+        <Link to="/login">
+            <LoginButton
+              primaryColor="#858AE3"
+              secondaryColor="#4E148C"
+            >
+              Login
+            </LoginButton>
+          </Link>
+          </RegisterWrapper>
         <Wrapper>
           <Logo src={LogoWithName} />
         </Wrapper>
@@ -75,11 +89,20 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+const RegisterWrapper = styled.div`
+margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
 const AuthText = styled.div`
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   text-align: center;
-  font-size: 2em;
+  font-size: ${(props) => props.size ||"2em"};
   color: white;
 `;
 const Input = styled.input`
@@ -102,11 +125,11 @@ const Input = styled.input`
 `;
 
 const Form = styled.form`
-  height: 550px;
+  height: flex;
   width: 350px;
   background: rgba(255, 255, 255, 0.13);
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
   top: 50%;
   left: 50%;
   border-radius: 20px;

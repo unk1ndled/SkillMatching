@@ -3,13 +3,47 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Keyword from "../components/OffersElement";
 import DifficultyPopup from "../components/DifficultyPopup";
+import { Link } from "react-router-dom";
+import { Notepad } from "../components/Notepad";
+import SkillForm from "../components/SkillForm";
 
 const Keywords = () => {
   const [keywords, setKeywords] = useState([]);
+  const [showNotepad, setShowNotepad] = useState(false);
+  const [inputData, setInputData] = useState(null);
+  const [name, SetName] = useState(null);
+  const [about, SetAbout] = useState(null);
 
   useEffect(() => {
     fetchKeywords();
   }, []);
+
+  const handleIconClick = () => {
+    setShowNotepad(!showNotepad);
+  };
+
+  const handleSendRequest = () => {
+    const requestBody = {
+      name: name,
+      about: about,
+    };
+
+    console.log(requestBody);
+    fetch("http://localhost:8080/api/v1/keywords", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {})
+      .catch((error) => {
+        console.error(" hiiii Error:", error);
+      });
+
+    handleIconClick();
+  };
 
   const fetchKeywords = async () => {
     try {
@@ -18,7 +52,6 @@ const Keywords = () => {
         throw new Error("Failed to fetch keywords");
       }
       const data = await response.json();
-      console.log(data);
       setKeywords(data);
     } catch (error) {
       console.error("Error fetching keywords:", error);
@@ -33,7 +66,7 @@ const Keywords = () => {
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <OffersWrapper>
-        <Keyword route="/"></Keyword>
+        <Keyword onClick={handleIconClick}></Keyword>
         {keywords.map((keyword, index) => (
           <Keyword
             route={`/skills/${keyword.id}`}
@@ -42,6 +75,17 @@ const Keywords = () => {
           ></Keyword>
         ))}
       </OffersWrapper>
+
+      {showNotepad && (
+        <BlurWrapper>
+          <SkillForm
+            changeName={(e) => SetName(e.target.textContent)}
+            changeAbout={(e) => SetAbout(e.target.textContent)}
+            cancel={handleIconClick}
+            submit={handleSendRequest}
+          ></SkillForm>
+        </BlurWrapper>
+      )}
     </Container>
   );
 };
@@ -53,6 +97,19 @@ const Container = styled.div`
   max-width: 100%;
   max-height: 100vh;
   overflow-y: auto;
+`;
+
+const BlurWrapper = styled.div`
+  background: rgba(0, 0, 0, 0.13);
+  backdrop-filter: blur(9px);
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
 `;
 
 const ButtonContainer = styled.div`

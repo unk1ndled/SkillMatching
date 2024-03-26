@@ -5,7 +5,7 @@ import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuthNavigate  } from '../context/useAuthNavigate';
 
 const Login = () => {
@@ -63,6 +63,21 @@ const Login = () => {
             Continue
           </LoginButton>
         </Wrapper>
+        <div style={{ borderTop: "2px solid #f2f2f280 ", marginLeft: 20, marginRight: 20, marginTop: 20 }}></div>
+        <RegisterWrapper>
+        <AuthText size = "1.2em">Don't have an account?</AuthText>
+        </RegisterWrapper>
+        <RegisterWrapper>
+        <Link to="/register">
+            <LoginButton
+              primaryColor="#DB7C26"
+              secondaryColor="#780116"
+              type="submit"
+            >
+              Register
+            </LoginButton>
+          </Link>
+          </RegisterWrapper>
         <Wrapper>
           <Logo src={LogoWithName} />
         </Wrapper>
@@ -74,16 +89,26 @@ const Login = () => {
 const Wrapper = styled.div`
   margin-top: 20px;
   height: 80px;
-  display: flex; /* Set display to flex */
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
+
+const RegisterWrapper = styled.div`
+margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
 
 const AuthText = styled.div`
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   text-align: center;
-  font-size: 2em;
+  font-size: ${(props) => props.size ||"2em"};
   color: white;
 `;
 const Input = styled.input`

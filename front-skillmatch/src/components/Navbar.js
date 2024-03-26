@@ -72,7 +72,7 @@ const ShrinkerWrapper = styled(MiniWrapper)`
 const Container = styled.div`
   user-select: none;
   background-color: ${(props) => props.backgroundColor || "#4e148c"};
-  height: 60px;
+  height: 8vh;
 `;
 
 const Title = styled.div`
