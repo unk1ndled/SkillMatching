@@ -10,7 +10,7 @@ const Button = styled.button`
   text-align: center;
   font-size: 1.5em;
   font-weight: 600;
-  color: #9A9A9A;
+  color:${(props) => props.textcolor || "#9A9A9A"} ;
   border-radius: 5px;
   border: none;
   &:hover {
@@ -31,9 +31,9 @@ const Button = styled.button`
     font-size: 1em;
   }
 `;
-const AnswerButton = ({ children,clickcolor, bgcolor, onClick }) => {
+const AnswerButton = ({ children,clickcolor, bgcolor, onClick, textcolor }) => {
   return (
-    <Button bgcolor={bgcolor} clickcolor={clickcolor} onClick={onClick}>
+    <Button bgcolor={bgcolor} clickcolor={clickcolor} onClick={onClick} textcolor={textcolor}>
       {children}
     </Button>
   );

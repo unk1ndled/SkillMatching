@@ -7,6 +7,7 @@ import { Notepad } from "../components/Notepad";
 import { useNavigate } from "react-router-dom";
 import ResultPopup from "../components/ResultPopup";
 import ResumeForm from "../components/ResumeForm";
+import ResponsePopup from "../components/ResponsePopup";
 
 const AddResumer = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const AddResumer = () => {
         console.error("Error:", error);
       });
     handleIconClick();
+    showResponseDiv();
   };
 
   const handleIconClick = () => {
@@ -82,10 +84,7 @@ const AddResumer = () => {
       )}
       {showResponse && (
         <BlurWrapper>
-          <ResultPopup
-            close={showResponseDiv}
-            data={responseData}
-          ></ResultPopup>
+          <ResponsePopup close = {showResponseDiv}></ResponsePopup>
         </BlurWrapper>
       )}
     </div>

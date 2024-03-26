@@ -33,10 +33,10 @@ const ResumeForm = (props) => {
       </ResumeElement>
 
       <ButtonWrapper>
-        <AnswerButton bgcolor="#2F2F2F" clickcolor="#F7B538" onClick={props.cancel}>
+        <AnswerButton textcolor="#2C0735" bgcolor="#B6B6B6" clickcolor="#FBA400" onClick={props.cancel}>
           CANCEL
         </AnswerButton>
-        <AnswerButton bgcolor="#2F2F2F" clickcolor="#F7B538" onClick={props.submit}>
+        <AnswerButton textcolor="#2C0735" bgcolor="#B6B6B6" clickcolor="#FBA400" onClick={props.submit}>
           SUBMIT
         </AnswerButton>
       </ButtonWrapper>
