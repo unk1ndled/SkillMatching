@@ -5,6 +5,7 @@ import Offer from "../components/ListElement";
 import { Link } from "react-router-dom";
 import { Notepad } from "../components/Notepad";
 import ListWrapper from "../components/ListWrapper";
+import { useAuth } from "../context/AuthContext";
 
 const Offers = () => {
   const [offers, setOffers] = useState([]);
@@ -52,6 +53,11 @@ const Offers = () => {
     }
   };
 
+  
+  const { userData } = useAuth();
+  const isAdmin = userData && userData.role === 'ADMIN';
+
+
   return (
     <Container>
       <Navbar title="Offers"></Navbar>
@@ -59,8 +65,11 @@ const Offers = () => {
         <Input type="text" placeholder="Search for Offers" />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
+      {/*<p>User data: {JSON.stringify(userData)}</p>*/}
       <ListWrapper>
-        <Offer bgcolor="#DB7C26" onClick={handleIconClick}></Offer>
+         {isAdmin && (
+           <Offer bgcolor="#DB7C26" onClick={handleIconClick}></Offer>
+          )}
         {offers.map((offer, index) => (
           <Offer
             route={`/offers/${offer.id}`}
