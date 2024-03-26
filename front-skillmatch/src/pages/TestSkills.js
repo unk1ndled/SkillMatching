@@ -18,6 +18,7 @@ const TestSkills = () => {
     question_order: 0,
     about: "",
     answers: {},
+    advanced: false,
   });
 
   const [aboutParam, setAboutParam] = useState("java");
@@ -34,7 +35,7 @@ const TestSkills = () => {
   const id = location.pathname.split("/")[2];
   const isAdvanced = location.pathname.split("/")[4];
 
-  const totalQuestions = 3;
+  const totalQuestions = 4;
 
   useEffect(() => {
     setAboutParam(id);
@@ -50,7 +51,7 @@ const TestSkills = () => {
       )
       .then((response) => {
         setQuestionData(response.data);
-        //console.log("Question data:", response.data);
+        console.log("Question data:", response.data);
       })
       .catch((error) => {
         console.error("Error fetching question data:", error);
@@ -80,17 +81,17 @@ const TestSkills = () => {
 
     // Validate thes score
     if (isCorrect && selectedAnswers.length > 0) {
-      score < 3 && setScore(score + 1);
+      score < 4 && setScore(score + 1);
     } else {
     }
     // Reset selected answers and go to next question
     setSelectedAnswers([]);
-    if (questionOrderParam === 3) {
+    if (questionOrderParam === 4) {
       setShowResults(true);
     }
     //  reset state
     setReset(!reset);
-    questionOrderParam < 3 && setQuestionOrderParam(questionOrderParam + 1);
+    questionOrderParam < 4 && setQuestionOrderParam(questionOrderParam + 1);
   };
 
   const handleBack = () => {

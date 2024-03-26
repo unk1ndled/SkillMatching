@@ -13,6 +13,7 @@ import { Keyword } from "./pages/Keyword";
 import { Offer } from "./pages/Offer";
 import AddResumer from "./pages/AddResumer";
 import Profile from "./pages/Profile";
+import AdminTestSkills from "./pages/AdminTestSkills";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             path="/tests/:id/advanced/:advanced"
             element={<TestSkills />}
           />
+          <Route path="/tests/:id/add" element={<AdminTestSkills />} />
           <Route path="/newoffer" element={<AddOffer />} />
         </Routes>
       </Router>

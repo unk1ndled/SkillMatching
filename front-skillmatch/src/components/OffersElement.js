@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const Offer = ({ title, ...props }) => {
   return (
-    <Link to={props.route}>
+    <StyledLink to={props.route}>
       <Container onClick={props.onClick}>
         {title ? <Title>{title}</Title> : <Title>Add</Title>}
       </Container>
-    </Link>
+    </StyledLink>
   );
 };
 
@@ -51,4 +51,7 @@ const Title = styled.div`
   font-weight: bold;
   font-size: larger;
   text-align: center;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
