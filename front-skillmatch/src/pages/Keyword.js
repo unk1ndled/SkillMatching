@@ -82,7 +82,7 @@ export const Keyword = () => {
               </Difficulty>
             </StyledLink>
             <StyledLink to={`/tests/${keyword.name}/add`}>
-              <Difficulty>Admin section</Difficulty>
+              <Difficulty>add </Difficulty>
             </StyledLink>
           </ResultPopup>
         </BlurWrapper>

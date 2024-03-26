@@ -4,9 +4,8 @@ import Navbar from "../components/Navbar";
 import Keyword from "../components/ListElement";
 import SkillForm from "../components/SkillForm";
 import ListWrapper from "../components/ListWrapper";
-import { Link } from "react-router-dom";
 
-const Keywords = () => {
+const KeywordsDelete = () => {
   const [keywords, setKeywords] = useState([]);
   const [showNotepad, setShowNotepad] = useState(false);
   const [inputData, setInputData] = useState(null);
@@ -19,6 +18,45 @@ const Keywords = () => {
 
   const handleIconClick = () => {
     setShowNotepad(!showNotepad);
+  };
+
+  const handleSendRequest = () => {
+    const requestBody = {
+      name: name,
+      about: about,
+    };
+
+    console.log(requestBody);
+    fetch("http://localhost:8080/api/v1/keywords", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {})
+      .catch((error) => {
+        console.error(" hiiii Error:", error);
+      });
+
+    handleIconClick();
+  };
+
+  const deleteKeyword = (id) => {
+    fetch("http://localhost:8080/api/v1/keywords/" + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        // After successfully deleting a keyword, fetch the updated list of keywords
+        fetchKeywords();
+      })
+      .catch((error) => {
+        console.error("Error deleting keyword:", error);
+      });
   };
 
   const fetchKeywords = async () => {
@@ -34,58 +72,22 @@ const Keywords = () => {
     }
   };
 
-  const handleSendRequest = async () => {
-    const requestBody = {
-      name: name,
-      about: about,
-    };
-
-    try {
-      const response = await fetch("http://localhost:8080/api/v1/keywords", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to add keyword");
-      }
-
-      // Refetch keywords after successfully adding
-      await fetchKeywords();
-
-      // Reset form state or perform other actions if needed
-      SetName(null);
-      SetAbout(null);
-      handleIconClick();
-    } catch (error) {
-      console.error("Error adding keyword:", error);
-    }
-  };
-
   return (
     <Container>
-      <Navbar title="Keywords"></Navbar>
+      <Navbar  backgroundColor="#B50000" title="Delete Keywords"></Navbar>
       <ButtonContainer>
         <Input type="text" placeholder="find keyword" />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <ListWrapper>
-        <Keyword bgcolor="#DB7C26" onClick={handleIconClick}></Keyword>
-        {keywords.map((keyword, index) => (
+        {keywords.map(( keyword, index,) => (
           <Keyword
-            route={`/skills/${keyword.id}`}
+          bgcolor="#B50000"
             key={index}
             title={keyword.name}
+            onClick={() => deleteKeyword(keyword.id)}
           ></Keyword>
         ))}
-        <Link>
-          <Keyword bgcolor="#B50000" onClick={handleIconClick} route={`/skills/delete`}title="Delete">
-            {" "}
-          </Keyword>
-        </Link>
       </ListWrapper>
 
       {showNotepad && (
@@ -155,4 +157,6 @@ const HiddenButton = styled.button`
   display: none;
 `;
 
-export default Keywords;
+
+
+export default KeywordsDelete;

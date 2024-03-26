@@ -62,6 +62,10 @@ public class KeywordService {
         cacheService.clearKeywordCache();
     }
 
+    public void deleteById(String id) {
+        repository.deleteById(id);
+    }
+
     // added inner class because caching the keywords requires a different class than the keyword service
 
     @Service

@@ -8,11 +8,13 @@ import Offers from "./pages/Offers";
 import TestSkills from "./pages/TestSkills";
 import AddOffer from "./pages/AddOffer";
 import Keywords from "./pages/Keywords";
+import DeleteKwd from "./pages/DeleteKeywords";
 import { Keyword } from "./pages/Keyword";
 import { Offer } from "./pages/Offer";
 import AddResumer from "./pages/AddResumer";
 import Profile from "./pages/Profile";
 import AdminTestSkills from "./pages/AdminTestSkills";
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           <Route path="/offers/:id" element={<Offer />} />
           <Route path="/skills/:id" element={<Keyword />} />
           <Route path="/skills" element={<Keywords />} />
+          <Route path="/skills/delete" element={<DeleteKwd />} />
           <Route
             path="/tests/:id/advanced/:advanced"
             element={<TestSkills />}
