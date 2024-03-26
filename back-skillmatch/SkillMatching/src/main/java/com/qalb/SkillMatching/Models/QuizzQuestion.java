@@ -26,6 +26,11 @@ public class QuizzQuestion {
     private Map<String, Boolean> answers;
     private boolean advanced ;
 
+
+    public int getQuestionOrder() {
+        return this.question_order;
+    }
+
     }
 
 

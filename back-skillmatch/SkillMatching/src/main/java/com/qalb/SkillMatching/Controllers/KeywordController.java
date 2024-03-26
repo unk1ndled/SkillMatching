@@ -2,6 +2,7 @@ package com.qalb.SkillMatching.Controllers;
 
 
 import com.qalb.SkillMatching.Models.Keyword;
+import com.qalb.SkillMatching.Models.QuizzQuestion;
 import com.qalb.SkillMatching.Services.KeywordService;
 import com.qalb.SkillMatching.Services.ScrapingService;
 import com.qalb.SkillMatching.Services.UtilityService;
@@ -34,6 +35,12 @@ public class KeywordController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable String id) {
+         keywordService.deleteById(id);
+        return ResponseEntity.ok("ok");
     }
 
     @PostMapping

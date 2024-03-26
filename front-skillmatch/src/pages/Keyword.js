@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon from "../images/placeholder.jpg";
-
 import { useEffect, useState } from "react";
 import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
@@ -40,11 +39,12 @@ export const Keyword = () => {
   };
 
   const CheckAdvanced = (text) => {
-    setIsAdvanced(text === "advanced");
     console.log(text);
-
+    setIsAdvanced(text === "advanced");
+    console.log("advanced is " + isAdvanced);
     HandleShowDifficulty();
   };
+  //TODO : Problem with isAdvanced checking
 
   return (
     <div>
@@ -55,10 +55,8 @@ export const Keyword = () => {
           <UpperWrap>
             <Image src={Icon} />
             <TitleText>{keyword.name}</TitleText>
-            <div onClick={HandleShowDifficulty}>DIFFF</div>
-            <Link to={`/tests/${keyword.name}/advanced/${isAdvanced}`}>
-              <TriangleRight></TriangleRight>
-            </Link>
+
+            <TriangleRight onClick={HandleShowDifficulty}></TriangleRight>
           </UpperWrap>
           <BottomWrap>
             about this skill <br /> <br /> {keyword.about}
@@ -73,12 +71,19 @@ export const Keyword = () => {
             </PushableButtonStyled>
           </ButtonSection>
           <ResultPopup>
-            <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
-              easy
-            </Difficulty>
-            <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
-              advanced
-            </Difficulty>
+            <StyledLink to={`/tests/${keyword.name}/advanced/${isAdvanced}`}>
+              <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
+                easy
+              </Difficulty>
+            </StyledLink>
+            <StyledLink to={`/tests/${keyword.name}/advanced/true`}>
+              <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
+                advanced
+              </Difficulty>
+            </StyledLink>
+            <StyledLink to={`/tests/${keyword.name}/add`}>
+              <Difficulty>add </Difficulty>
+            </StyledLink>
           </ResultPopup>
         </BlurWrapper>
       )}
@@ -201,17 +206,22 @@ const ButtonSection = styled.div`
 
 const Difficulty = styled.div`
   background-color: #858ae3;
-  width: 70%;
-  height: 25%;
+  width: 25vw;
+  height: 7vh;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
-  font-size: 2%.5;
+  font-size: 2rem;
   font-weight: bold;
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
     background: #f7b538;
   }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
