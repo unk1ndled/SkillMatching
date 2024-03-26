@@ -3,6 +3,7 @@ package com.qalb.SkillMatching.Services;
 
 import com.qalb.SkillMatching.Models.QuizzQuestion;
 import com.qalb.SkillMatching.Repositories.QuizzRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -10,18 +11,13 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class QuizzService {
 
     private final MongoTemplate mongoTemplate;
-
-    @Autowired
-    private  QuizzRepository quizzRepository;
+    private  final QuizzRepository quizzRepository;
 
 
-    public QuizzService(QuizzRepository quizzRepository, MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-
-    }
 
     public QuizzQuestion getQuestion(String about, boolean advanced, int questionOrder) {
         Query query = new Query();

@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
-    private ProfileRepository profileRepository;
-    private UserRepository userRepository;
-    private KeywordService keywordService;
+    private final ProfileRepository profileRepository;
+    private final UserRepository userRepository;
+    private final  KeywordService keywordService;
 
     public void deleteProfile(String id){
         profileRepository.deleteById(id);

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class KeywordService {
 
-    private KeywordRepository repository;
+    private final KeywordRepository repository;
     private final KeywordCacheService cacheService;
     public final UtilityService utilityService;
 
