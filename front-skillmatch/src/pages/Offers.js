@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import Offer from "../components/OffersElement";
+import Offer from "../components/ListElement";
 import { Link } from "react-router-dom";
 import { Notepad } from "../components/Notepad";
+import ListWrapper from "../components/ListWrapper";
 
 const Offers = () => {
   const [offers, setOffers] = useState([]);
@@ -58,8 +59,8 @@ const Offers = () => {
         <Input type="text" placeholder="Search for Offers" />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
-      <OffersWrapper>
-        <Offer onClick={handleIconClick}></Offer>
+      <ListWrapper>
+        <Offer bgcolor="#DB7C26" onClick={handleIconClick}></Offer>
         {offers.map((offer, index) => (
           <Offer
             route={`/offers/${offer.id}`}
@@ -67,7 +68,7 @@ const Offers = () => {
             title={offer.title}
           ></Offer>
         ))}
-      </OffersWrapper>
+      </ListWrapper>
       {showNotepad && (
         <BlurWrapper>
           <Notepad
@@ -135,24 +136,5 @@ const HiddenButton = styled.button`
   display: none;
 `;
 
-const OffersWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-
-  max-height: 70vh; /* Limit the height of the wrapper to the viewport height */
-  overflow-y: auto; /* Enable vertical scrolling when content overflows */
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
 
 export default Offers;

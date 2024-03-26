@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import Keyword from "../components/OffersElement";
-import DifficultyPopup from "../components/DifficultyPopup";
-import { Link } from "react-router-dom";
-import { Notepad } from "../components/Notepad";
+import Keyword from "../components/ListElement";
 import SkillForm from "../components/SkillForm";
+import ListWrapper from "../components/ListWrapper";
 
 const Keywords = () => {
   const [keywords, setKeywords] = useState([]);
@@ -65,8 +63,8 @@ const Keywords = () => {
         <Input type="text" placeholder="find keyword" />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
-      <OffersWrapper>
-        <Keyword onClick={handleIconClick}></Keyword>
+      <ListWrapper>
+        <Keyword bgcolor="#DB7C26" onClick={handleIconClick}></Keyword>
         {keywords.map((keyword, index) => (
           <Keyword
             route={`/skills/${keyword.id}`}
@@ -74,7 +72,7 @@ const Keywords = () => {
             title={keyword.name}
           ></Keyword>
         ))}
-      </OffersWrapper>
+      </ListWrapper>
 
       {showNotepad && (
         <BlurWrapper>
@@ -122,7 +120,7 @@ const ButtonContainer = styled.div`
 
 const Input = styled.input`
   display: flex;
-  height: 50px;
+  height: 70%;
   width: 600px;
   border: 2px solid #6f00ef;
   outline: none; /* Remove focus outline */
@@ -143,24 +141,6 @@ const HiddenButton = styled.button`
   display: none;
 `;
 
-const OffersWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
 
-  max-height: 70vh; /* Limit the height of the wrapper to the viewport height */
-  overflow-y: auto; /* Enable vertical scrolling when content overflows */
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
 
 export default Keywords;

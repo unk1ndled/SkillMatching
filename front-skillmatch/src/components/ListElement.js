@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Offer = ({ title, ...props }) => {
   return (
     <Link to={props.route}>
-      <Container onClick={props.onClick}>
+      <Container bgcolor={props.bgcolor} onClick={props.onClick}>
         {title ? <Title>{title}</Title> : <Title>Add</Title>}
       </Container>
     </Link>
@@ -15,9 +15,8 @@ const Offer = ({ title, ...props }) => {
 export default Offer;
 
 const Container = styled.div`
-  background-color: #6f00ef;
-  height: 25vh;
-  width: 20vw;
+  background-color: ${(props) => props.bgcolor || "#6F00EF"} ;
+  height: 20vh;
   overflow-y: hidden;
   flex: 0 0 calc(29% - 20px);
   margin-bottom: 20px;
@@ -25,7 +24,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 0.5em;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add drop shadow */
 
   &:hover {

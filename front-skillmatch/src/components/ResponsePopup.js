@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { PushableButtonStyled } from './Noteadbutton'
 import AnswerButton from './AnswerButton'
 
 const ResponsePopup = (props) => {
