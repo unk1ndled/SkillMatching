@@ -11,8 +11,7 @@ import java.util.List;
 public class UtilityService {
 
     public List<String> getWords(String paragraph){
-        List<String> words = Arrays.asList(paragraph.split("[\\s,\\.,\\,]+")); // Split by whitespace, commas, or periods
-        return words;
+        return Arrays.asList(paragraph.split("[\\s,\\.,\\,]+"));
     }
 
 

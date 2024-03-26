@@ -33,17 +33,6 @@ public class KeywordService {
 
     }
 
-
-
-    public Map<String,Integer> toNoobieMap(Map<String, String> skillsAndId){
-        Map<String,Integer> noobieMap = new HashMap<>();
-        for(String skill : skillsAndId.values()){
-            noobieMap.put(skill,0);
-        }
-        return noobieMap;
-    }
-
-
     public Map<String, String> getKeywordMap() {
         return cacheService.getKeywordMap();
     }
@@ -67,12 +56,11 @@ public class KeywordService {
     }
 
 
+    // Caching
     // Method to force cache refresh
     public void forceRefreshCache() {
         cacheService.clearKeywordCache();
     }
-
-
 
     // added inner class because caching the keywords requires a different class than the keyword service
 
