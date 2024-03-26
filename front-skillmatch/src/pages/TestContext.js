@@ -6,86 +6,26 @@ import LogoWithName from "../images/LogoWithName.png";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuthNavigate } from "../context/useAuthNavigate";
+
 import { useAuth } from "../context/AuthContext";
 import { jwtDecode } from 'jwt-decode';
 
-const Login = () => {
-  const navigate = useNavigate();
-  const { login } = useAuth();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/authenticate",
-        {
-          email,
-          password,
-        }
-      );
-      login(response.data.token);
-      //console.log(jwtDecode(response.data.token));
-      //login(token);
-      navigate("/");
-    } catch (error) {
-      console.error("Authentication failed.", error.message);
-      setError("Invalid email or password.");
-    }
-  };
 
+const TestContext = () => {
+
+
+
+  const { userData } = useAuth();
+  //console.log("tux + tweak");
+  //console.log("twix");
   return (
     <Container>
       <StyledImg src={bg2} />
-      <Form onSubmit={handleSubmit}>
-        <AuthText>Login</AuthText>
-        <Input
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <ErrorText>{error}</ErrorText>}
-        <Wrapper>
-          <LoginButton
-            primaryColor="#858AE3"
-            secondaryColor="#4E148C"
-            type="submit"
-          >
-            Continue
-          </LoginButton>
-        </Wrapper>
-        <div
-          style={{
-            borderTop: "2px solid #f2f2f280 ",
-            marginLeft: 20,
-            marginRight: 20,
-            marginTop: 20,
-          }}
-        ></div>
-        <RegisterWrapper>
-          <AuthText size="1.2em">Don't have an account?</AuthText>
-        </RegisterWrapper>
-        <RegisterWrapper>
-          <Link to="/register">
-            <LoginButton
-              primaryColor="#DB7C26"
-              secondaryColor="#780116"
-              type="submit"
-            >
-              Register
-            </LoginButton>
-          </Link>
-        </RegisterWrapper>
+      <Form >
+        <AuthText>{JSON.stringify(userData)}</AuthText>
+        
         <Wrapper>
           <Logo src={LogoWithName} />
         </Wrapper>
@@ -183,4 +123,4 @@ const ErrorText = styled.div`
   box-shadow: 0 0 10px rgba(100, 100, 100, 0.6);
 `;
 
-export default Login;
+export default TestContext;

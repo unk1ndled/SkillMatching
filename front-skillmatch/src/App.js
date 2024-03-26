@@ -14,6 +14,8 @@ import { Offer } from "./pages/Offer";
 import AddResumer from "./pages/AddResumer";
 import Profile from "./pages/Profile";
 
+import TestContext from "./pages/TestContext";
+
 function App() {
   return (
     <AuthProvider>
@@ -21,6 +23,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Profile />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/test" element={<TestContext />} />
+          <Route path="/testc" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/addresumer" element={<AddResumer />} />
           <Route path="/offers" element={<Offers />} />

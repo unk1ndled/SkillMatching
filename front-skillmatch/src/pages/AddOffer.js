@@ -5,6 +5,7 @@ import Add from "../images/add.svg";
 import React, { useEffect, useState } from "react";
 import { Notepad } from "../components/Notepad";
 import ResultPopup from "../components/ResultPopup";
+import { useAuth } from "../context/AuthContext";
 
 const AddOffer = () => {
   const [showNotepad, setShowNotepad] = useState(false);
@@ -40,6 +41,8 @@ const AddOffer = () => {
   const showResponseDiv = () => {
     setShowResponse(!showResponse);
   };
+
+  const { userData } = useAuth();
 
   return (
     <div>
