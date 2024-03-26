@@ -2,14 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { PushableButton, PushableButtonStyled } from "./Noteadbutton";
 
-
 const ResultPopup = ({ children, ...props }) => {
   return (
     <Container>
       <Upper>
-        <PushableButtonStyled onClick={props.close}>
-                    close
-        </PushableButtonStyled>
+        <PushableButtonStyled onClick={props.close}>close</PushableButtonStyled>
       </Upper>
       <Padding>
         <ResWrapper>
@@ -75,10 +72,10 @@ const ResWrapper = styled.div`
   border-radius: 10px;
   display: grid;
   grid-template-columns: auto auto auto;
-  gap: 10%; /* Gap between grid items */
+  gap: 10%;
 
-  justify-content: center; /* Centers items horizontally */
-  align-items: center; /* Centers items vertically */
+  justify-content: center;
+  align-items: center;
 
   overflow: hidden;
   overflow-y: auto;

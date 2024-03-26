@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("api/v1/offers")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
+
 public class OffersController {
     private final ScrapingService scrapingService;
     private final OfferService offerService;

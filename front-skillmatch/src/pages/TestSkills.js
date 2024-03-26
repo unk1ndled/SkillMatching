@@ -20,7 +20,8 @@ const TestSkills = () => {
     answers: {},
   });
 
-  const [aboutParam, setAboutParam] = useState("");
+  const [aboutParam, setAboutParam] = useState("java");
+  const [advanced, setAdvanced] = useState(false);
   const [questionOrderParam, setQuestionOrderParam] = useState(1);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [score, setScore] = useState(0);
@@ -31,19 +32,21 @@ const TestSkills = () => {
   const location = useLocation();
 
   const id = location.pathname.split("/")[2];
+  const isAdvanced = location.pathname.split("/")[4];
 
   const totalQuestions = 3;
 
   useEffect(() => {
     setAboutParam(id);
-    console.log(aboutParam);
+    setAdvanced(isAdvanced);
+    console.log(isAdvanced);
   }, []);
 
   useEffect(() => {
-    // Fetch question data from your API
+    // Fetch question data from  API
     axios
       .get(
-        `http://localhost:8080/api/v1/quizz/question?about=${id}&questionOrder=${questionOrderParam}`
+        `http://localhost:8080/api/v1/quizz/question?advanced=${isAdvanced}&about=${aboutParam}&questionOrder=${questionOrderParam}`
       )
       .then((response) => {
         setQuestionData(response.data);
@@ -54,7 +57,7 @@ const TestSkills = () => {
       });
 
     updateProgress();
-  }, [ questionOrderParam, aboutParam]);
+  }, [questionOrderParam, aboutParam]);
 
   const handleAnswerSelect = (selectedAnswer) => {
     // Toggle the selected answer
@@ -132,13 +135,17 @@ const TestSkills = () => {
             hovercolor={"#858AE3"}
             clickcolor={"#613DC1"}
             onClick={handleBack}
-          >Back</AnswerButton>
+          >
+            Back
+          </AnswerButton>
           <AnswerButton
             bgcolor={"#97DFFC"}
             hovercolor={"#858AE3"}
             clickcolor={"#613DC1"}
             onClick={handleValidate}
-          >Validate</AnswerButton>
+          >
+            Validate
+          </AnswerButton>
         </BotContainer>
       </CoursesContainer>
 

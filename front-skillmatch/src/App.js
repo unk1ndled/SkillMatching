@@ -12,7 +12,6 @@ import AddOffer from "./pages/AddOffer";
 import Keywords from "./pages/Keywords";
 import { Keyword } from "./pages/Keyword";
 import { Offer } from "./pages/Offer";
-import { DifficutlyPopup } from "./components/DifficutlyPopup";
 
 function App() {
   return (
@@ -26,7 +25,10 @@ function App() {
           <Route path="/offers/:id" element={<Offer />} />
           <Route path="/skills/:id" element={<Keyword />} />
           <Route path="/skills" element={<Keywords />} />
-          <Route path="/tests/:id" element={<TestSkills />} />
+          <Route
+            path="/tests/:id/advanced/:advanced"
+            element={<TestSkills />}
+          />
           <Route path="/newoffer" element={<AddOffer />} />
         </Routes>
       </Router>

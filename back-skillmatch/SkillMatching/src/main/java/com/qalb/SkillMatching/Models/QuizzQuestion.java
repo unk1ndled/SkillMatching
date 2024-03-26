@@ -24,7 +24,7 @@ public class QuizzQuestion {
     private int question_order;
     private String about;
     private Map<String, Boolean> answers;
-
+    private boolean advanced ;
 
     }
 

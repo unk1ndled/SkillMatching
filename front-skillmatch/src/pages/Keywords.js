@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Keyword from "../components/OffersElement";
+import DifficultyPopup from "../components/DifficultyPopup";
 
 const Keywords = () => {
   const [keywords, setKeywords] = useState([]);

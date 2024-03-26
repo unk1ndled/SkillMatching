@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
+import { PushableButtonStyled } from "../components/Noteadbutton";
 
 export const Keyword = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [keyword, setKeyword] = useState({});
+  const [isAdvanced, setIsAdvanced] = useState(false);
   const [showDifficulty, setShowDiffculty] = useState(false);
 
   useEffect(() => {
@@ -33,6 +35,17 @@ export const Keyword = () => {
     }
   };
 
+  const HandleShowDifficulty = () => {
+    setShowDiffculty(!showDifficulty);
+  };
+
+  const CheckAdvanced = (text) => {
+    setIsAdvanced(text === "advanced");
+    console.log(text);
+
+    HandleShowDifficulty();
+  };
+
   return (
     <div>
       <GlobalStyle />
@@ -42,7 +55,8 @@ export const Keyword = () => {
           <UpperWrap>
             <Image src={Icon} />
             <TitleText>{keyword.name}</TitleText>
-            <Link to={`/tests/${keyword.name}`}>
+            <div onClick={HandleShowDifficulty}>DIFFF</div>
+            <Link to={`/tests/${keyword.name}/advanced/${isAdvanced}`}>
               <TriangleRight></TriangleRight>
             </Link>
           </UpperWrap>
@@ -51,6 +65,23 @@ export const Keyword = () => {
           </BottomWrap>
         </Skill>
       </Container>
+      {showDifficulty && (
+        <BlurWrapper>
+          <ButtonSection>
+            <PushableButtonStyled onClick={HandleShowDifficulty}>
+              Close
+            </PushableButtonStyled>
+          </ButtonSection>
+          <ResultPopup>
+            <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
+              easy
+            </Difficulty>
+            <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
+              advanced
+            </Difficulty>
+          </ResultPopup>
+        </BlurWrapper>
+      )}
     </div>
   );
 };
@@ -121,4 +152,66 @@ const Skill = styled.div`
   width: 60vw;
   height: 70vh;
   background-color: #2c0735;
+`;
+const BlurWrapper = styled.div`
+  background: rgba(0, 0, 0, 0.13);
+  backdrop-filter: blur(9px);
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  user-select: none;
+`;
+const ResultPopup = styled.div`
+  height: 300px;
+  width: 35%;
+  background-color: #2c0735;
+  padding: 20px;
+  border: 1px solid black;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  color: white;
+  font-size: 2rem;
+`;
+
+const ButtonSection = styled.div`
+  height: 50px;
+  width: 35%;
+  background-color: #858ae3;
+  padding: 20px;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+`;
+
+const Difficulty = styled.div`
+  background-color: #858ae3;
+  width: 70%;
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-size: 2%.5;
+  font-weight: bold;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    background: #f7b538;
+  }
 `;
