@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
-import user from "../images/bhju.png";
+import user from "../images/stare-dont-blink.gif";
 
 const Profile = () => {
   const [firstName, setFirstName] = useState(null);

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Offer = ({ title, ...props }) => {
   return (
     <Link to={props.route}>
-      <Container>
+      <Container onClick={props.onClick}>
         {title ? <Title>{title}</Title> : <Title>Add</Title>}
       </Container>
     </Link>

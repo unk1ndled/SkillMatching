@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Assuming Container component is defined elsewhere
 
 const Paper = (props) => {
   return (

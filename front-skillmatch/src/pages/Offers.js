@@ -3,13 +3,39 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Offer from "../components/OffersElement";
 import { Link } from "react-router-dom";
+import { Notepad } from "../components/Notepad";
 
 const Offers = () => {
   const [offers, setOffers] = useState([]);
+  const [showNotepad, setShowNotepad] = useState(false);
+  const [inputData, setInputData] = useState(null);
 
   useEffect(() => {
     fetchOffers();
   }, []);
+
+  const handleIconClick = () => {
+    setShowNotepad(!showNotepad);
+  };
+
+  const handleSendRequest = () => {
+    fetch("http://localhost:8080/api/v1/offers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: inputData,
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        // Handle the response data here
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    handleIconClick();
+  };
 
   const fetchOffers = async () => {
     try {
@@ -18,7 +44,7 @@ const Offers = () => {
         throw new Error("Failed to fetch offers");
       }
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       setOffers(data);
     } catch (error) {
       console.error("Error fetching offers:", error);
@@ -33,14 +59,25 @@ const Offers = () => {
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <OffersWrapper>
-        <Offer route="/newoffer"></Offer>
+        <Offer onClick={handleIconClick}></Offer>
         {offers.map((offer, index) => (
-                    <Offer route={`/offers/${offer.id}`} key={index} title ={offer.title}>
-                        
-                    </Offer>
-                ))}
-
+          <Offer
+            route={`/offers/${offer.id}`}
+            key={index}
+            title={offer.title}
+          ></Offer>
+        ))}
       </OffersWrapper>
+      {showNotepad && (
+        <BlurWrapper>
+          <Notepad
+            height="20px"
+            changeText={(e) => setInputData(e.target.textContent)}
+            close={handleIconClick}
+            submit={handleSendRequest}
+          />
+        </BlurWrapper>
+      )}
     </Container>
   );
 };
@@ -79,6 +116,19 @@ const Input = styled.input`
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
   }
+`;
+
+const BlurWrapper = styled.div`
+  background: rgba(0, 0, 0, 0.13);
+  backdrop-filter: blur(9px);
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
 `;
 
 const HiddenButton = styled.button`
