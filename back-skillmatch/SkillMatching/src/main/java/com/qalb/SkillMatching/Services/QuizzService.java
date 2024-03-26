@@ -17,19 +17,13 @@ import java.util.List;
 
 public class QuizzService {
 
-    //@Autowired
-    //private final MongoTemplate mongoTemplate;
+
 
     @Autowired
     private  QuizzRepository quizzRepository;
 
 
-   /* public QuizzService(QuizzRepository quizzRepository, MongoTemplate mongoTemplate) {
-        //this.mongoTemplate = mongoTemplate;
 
-
-    }
-*/
     /*public QuizzQuestion getQuestion(String about, boolean advanced, int questionOrder) {
         Query query = new Query();
         query.addCriteria(Criteria.where("about").is(about)

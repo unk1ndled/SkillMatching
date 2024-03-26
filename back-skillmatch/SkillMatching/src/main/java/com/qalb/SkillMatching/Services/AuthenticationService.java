@@ -14,6 +14,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -23,6 +26,8 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+
+    //TODO add function to remove user taking in consideration its profile
 
     public AuthenticationResponse register(RegisterRequest request) throws UserAlreadyExistException{
         if(repository.findByEmail(request.getEmail()).isPresent()){
@@ -52,7 +57,14 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
 
-        var jwtToken = jwtService.generateToken(user);
+        Map<String, Object> extraClaims = new HashMap<>();
+
+        extraClaims.put("id",user.getId());
+        extraClaims.put("firstname",user.getFirstname());
+        extraClaims.put("lastname",user.getLastname());
+        extraClaims.put("role",user.getRole().toString());
+
+        var jwtToken = jwtService.generateToken(extraClaims,user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
