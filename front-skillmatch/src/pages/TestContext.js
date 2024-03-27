@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import bg2 from "../images/bg2.jpg";
-import { LoginButton } from "../components/LoginButton";
 import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
-import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React from "react";
 
 import { useAuth } from "../context/AuthContext";
-import { jwtDecode } from 'jwt-decode';
 
 
 
@@ -18,7 +14,6 @@ const TestContext = () => {
 
 
   const { userData } = useAuth();
-  //console.log("tux + tweak");
   console.log(userData);
   return (
     <Container>

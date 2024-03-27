@@ -17,6 +17,7 @@ import AdminTestSkills from "./pages/AdminTestSkills";
 
 
 import TestContext from "./pages/TestContext";
+import Resume from "./pages/Resume";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Profile />} />
+          <Route exact path="/resume" element={<Resume />} />
           <Route path="/register" element={<Register />} />
           <Route path="/test" element={<TestContext />} />
           <Route path="/testc" element={<Register />} />

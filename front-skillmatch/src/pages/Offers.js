@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Offer from "../components/ListElement";
-import { Link } from "react-router-dom";
 import { Notepad } from "../components/Notepad";
 import ListWrapper from "../components/ListWrapper";
 import { useAuth } from "../context/AuthContext";
