@@ -8,7 +8,6 @@ import styled from "styled-components";
 import { PushableButtonStyled } from "../components/Noteadbutton";
 import { useAuth } from "../context/AuthContext";
 
-
 export const Keyword = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
@@ -17,11 +16,12 @@ export const Keyword = () => {
   const [showDifficulty, setShowDiffculty] = useState(false);
   const { userData } = useAuth();
 
-  const isAdmin = userData && userData.role === 'ADMIN';
 
   useEffect(() => {
     fetchKeyword();
   }, [id]);
+
+  const isAdmin = userData && userData.role === "ADMIN";
 
   const fetchKeyword = async () => {
     try {
@@ -32,7 +32,7 @@ export const Keyword = () => {
         throw new Error("Failed to fetch keyword");
       }
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       setKeyword(data);
     } catch (error) {
       console.error("Error :", error);

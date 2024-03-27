@@ -41,7 +41,6 @@ const AdminTestSkills = () => {
       [thirdAnswer]: thirdTF,
     };
     setAnswers(updatedAnswers);
-    console.log(answers);
   }, [advanced]);
 
   useEffect(() => {
@@ -55,13 +54,6 @@ const AdminTestSkills = () => {
   };
 
   const handleSendRequest = async () => {
-    // const testAnswers = {
-    //   Hada: "true",
-    //   Hadi: "false",
-    //   HAhowa: "false",
-    //   "Howa hadak": "false",
-    // };
-
     const requestBody = {
       question: question,
       answers: answers,

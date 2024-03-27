@@ -14,6 +14,16 @@ const Keywords = () => {
   const [name, SetName] = useState(null);
   const [about, SetAbout] = useState(null);
 
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredKeywords = keywords.filter((keyword) =>
+    keyword.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   useEffect(() => {
     fetchKeywords();
   }, []);
@@ -70,12 +80,17 @@ const Keywords = () => {
     <Container>
       <Navbar title="Keywords"></Navbar>
       <ButtonContainer>
-        <Input type="text" placeholder="find keyword" />
+        <Input
+          type="text"
+          placeholder="find keyword"
+          onChange={handleInputChange}
+          value={searchQuery}
+        />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <ListWrapper>
         <Keyword bgcolor="#DB7C26" onClick={handleIconClick}></Keyword>
-        {keywords.map((keyword, index) => (
+        {filteredKeywords.map((keyword, index) => (
           <Keyword
             route={`/skills/${keyword.id}`}
             key={index}
@@ -84,7 +99,13 @@ const Keywords = () => {
         ))}
         
         <Link>
-          <Keyword bgcolor="#B50000" onClick={handleIconClick} route={`/skills/delete`}title="Delete">
+          <Keyword
+            bgcolor="#B50000"
+            onClick={handleIconClick}
+            route={`/skills/delete`}
+            title="Delete"
+          >
+            {" "}
           </Keyword>
         </Link>
       </ListWrapper>
