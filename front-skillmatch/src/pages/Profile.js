@@ -3,43 +3,94 @@ import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import user from "../images/stare-dont-blink.gif";
 
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
+
 const Profile = () => {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [objective, setObjective] = useState(null);
-  const [skills, setSkills] = useState(null);
   const [history, setHistory] = useState(null);
+
+  const [skills, setSkills] = useState([]);
+
+  const setAll = (data) => {
+    setLastName(data.lastName);
+    setFirstName(data.firstName);
+    setObjective(data.objective);
+    setHistory(data.history);
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const { userData } = useAuth();
+
+  const fetchProfile = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/profiles/${userData.id}`
+      );
+      const data = await response.json();
+
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setObjective(data.objective);
+      setHistory(data.history);
+
+      // Fetch skills for each ID
+      // Fetch skills for each ID and add the second value of data.recognizedSkills
+      const skillsData = await Promise.all(
+        Object.entries(data.recognizedSkills).map(async ([skillId, value]) => {
+          const skillResponse = await fetch(
+            `http://localhost:8080/api/v1/keywords/${skillId}`
+          );
+          const skillData = await skillResponse.json();
+
+          // Add the second value from data.recognizedSkills to the skill data
+          skillData.value = value;
+
+          return skillData;
+        })
+      );
+      setSkills(skillsData);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
+
   return (
     <Container>
       <Navbar backgroundColor={"#613DC1"}></Navbar>
       <UpperWrapper>
         <UpperLeftDiv></UpperLeftDiv>
         <FullName>
-          <NameText>Salmane Mohammed Amine</NameText>
+          <NameText>
+            {firstName} {lastName}
+          </NameText>
         </FullName>
       </UpperWrapper>
       <LowerWrapper>
         <LowerLeftWrapper>
           <CancerDiv>
             <Picture src={user}></Picture>
-            <UserAbout>
-              bhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskiono
-            </UserAbout>
+            <UserAbout>{objective}</UserAbout>
           </CancerDiv>
         </LowerLeftWrapper>
         <UserInfo>
           <SegmentName>skills</SegmentName>
-          <Segment>
-            {" "}
-            bhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskiono
-            bhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskiono{" "}
-          </Segment>
+          <SkillSegment>
+            {skills.map((keyword, index) => (
+              <StyledLink to ={`/skills/${keyword.id}`}>
+                <Skill>
+                  <SkillText> {keyword.name}</SkillText>
+                </Skill>
+              </StyledLink>
+            ))}
+          </SkillSegment>
           <SegmentName>history</SegmentName>
-          <Segment>
-            {" "}
-            bhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskiono
-            bhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskionobhuskiono{" "}
-          </Segment>
+          <Segment>{history}</Segment>
         </UserInfo>
       </LowerWrapper>
     </Container>
@@ -60,7 +111,7 @@ const UpperWrapper = styled.div`
 `;
 
 const LowerWrapper = styled.div`
-  background-color: #2C0735;
+  background-color: #2c0735;
   height: 80%;
   display: flex;
   flex-direction: row;
@@ -99,7 +150,7 @@ const UserInfo = styled.div`
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: #6F00EF;
+    background-color: #6f00ef;
   }
 `;
 
@@ -124,14 +175,46 @@ const Segment = styled.div`
   word-wrap: break-word; /* or overflow-wrap: break-word; */
   overflow-y: auto;
   scrollbar-width: none;
+`;
 
+const SkillSegment = styled(Segment)`
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); /* Adjust minmax values as needed */
+  gap: 1vw;
+`;
 
+const Skill = styled.div`
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
+  color: #9896f2;
+  background-color: #4e148c;
+  height: 5em;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: #DB7C26;
+    color:black;
+    transition: transform 0.3s ease;
+  }
+
+`;
+
+const SkillText = styled.div`
+  align-content: center;
+  justify-content: center;
 `;
 
 const FullName = styled(UserInfo)`
   position: relative;
   scrollbar-width: none;
-
 `;
 
 const NameText = styled.div`
@@ -166,6 +249,12 @@ const Picture = styled.img`
 
 const UserAbout = styled(Segment)`
   min-height: 0vh;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  height: 5em;
+
 `;
 
 export default Profile;

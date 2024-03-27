@@ -8,36 +8,53 @@ import { useNavigate } from "react-router-dom";
 import ResultPopup from "../components/ResultPopup";
 import ResumeForm from "../components/ResumeForm";
 import ResponsePopup from "../components/ResponsePopup";
+import { useAuth } from "../context/AuthContext";
 
 const AddResumer = () => {
   const navigate = useNavigate();
   const [showNotepad, setShowNotepad] = useState(false);
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [objective, setObjective] = useState(null);
-  const [skills, setSkills] = useState(null);
-  const [history, setHistory] = useState(null);
+  const [firstName,   setFirstName] = useState(null);
+  const [lastName,    setLastName] = useState(null);
+  const [objective,   setObjective] = useState(null);
+  const [skills,      setSkills] = useState(null);
+  const [history,     setHistory] = useState(null);
+
   const [responseData, setResponseData] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
 
+  const { userData } = useAuth();
+
   const handleSendRequest = () => {
-    console.log(skills)
-    fetch("http://localhost:8080/api/v1/keywords/analyse", {
+    const requestBody = {
+      profile: {
+        firstName: firstName,
+        lastName: lastName,
+        history: history,
+        objective: objective,
+        skills: skills,
+        recognizedSkills: null,
+      },
+      email: userData.sub,
+    };
+
+    const requestBodyString = JSON.stringify(requestBody);
+
+    fetch("http://localhost:8080/api/v1/profiles", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: skills,
+      body: requestBodyString,
     })
       .then((response) => response.json())
       .then((responseData) => {
         // Handle the response data here
-        setResponseData(responseData);
         console.log(responseData);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+    console.log(requestBodyString);
     handleIconClick();
     showResponseDiv();
   };
@@ -84,7 +101,7 @@ const AddResumer = () => {
       )}
       {showResponse && (
         <BlurWrapper>
-          <ResponsePopup close = {showResponseDiv}></ResponsePopup>
+          <ResponsePopup close={showResponseDiv}></ResponsePopup>
         </BlurWrapper>
       )}
     </div>

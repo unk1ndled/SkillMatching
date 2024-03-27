@@ -6,9 +6,7 @@ import LogoWithName from "../images/LogoWithName.png";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuthNavigate } from "../context/useAuthNavigate";
 import { useAuth } from "../context/AuthContext";
-import { jwtDecode } from 'jwt-decode';
 
 const Login = () => {
   const navigate = useNavigate();

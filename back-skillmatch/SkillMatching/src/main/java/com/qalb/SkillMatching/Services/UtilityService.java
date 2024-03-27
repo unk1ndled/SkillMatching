@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UtilityService {
 
     public List<String> getWords(String paragraph){
-        return Arrays.asList(paragraph.split("[\\s,\\.,\\,]+"));
-    }
-
-
+        return Arrays.stream(paragraph.split("[\\s,.]+"))
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());    }
 }

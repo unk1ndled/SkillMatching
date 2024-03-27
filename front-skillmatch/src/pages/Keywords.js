@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Keyword from "../components/ListElement";
-import SkillForm from "../components/SkillForm";
 import ListWrapper from "../components/ListWrapper";
+
+import SkillForm from "../components/SkillForm";
 import { Link } from "react-router-dom";
 
 const Keywords = () => {
