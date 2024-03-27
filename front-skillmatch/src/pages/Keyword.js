@@ -27,7 +27,7 @@ export const Keyword = () => {
         throw new Error("Failed to fetch keyword");
       }
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       setKeyword(data);
     } catch (error) {
       console.error("Error :", error);
@@ -39,9 +39,9 @@ export const Keyword = () => {
   };
 
   const CheckAdvanced = (text) => {
-    console.log(text);
+    //console.log(text);
     setIsAdvanced(text === "advanced");
-    console.log("advanced is " + isAdvanced);
+    //console.log("advanced is " + isAdvanced);
     HandleShowDifficulty();
   };
   //TODO : Problem with isAdvanced checking

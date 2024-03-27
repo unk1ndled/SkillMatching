@@ -21,7 +21,7 @@ const TestSkills = () => {
     advanced: false,
   });
 
-  const [aboutParam, setAboutParam] = useState("");
+  const [aboutParam, setAboutParam] = useState();
   const [advanced, setAdvanced] = useState(false);
   const [questionOrderParam, setQuestionOrderParam] = useState(1);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
@@ -29,33 +29,51 @@ const TestSkills = () => {
   const [progress, setProgress] = useState("0%");
   const [reset, setReset] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [totalOfQuestions, setTotalOfQuestions] = useState(2);
 
   const location = useLocation();
 
   const id = location.pathname.split("/")[2];
   const isAdvanced = location.pathname.split("/")[4];
 
-  const totalQuestions = 4;
-
   useEffect(() => {
     setAboutParam(id);
     setAdvanced(isAdvanced);
-    console.log(isAdvanced);
+    //console.log(isAdvanced);
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/quizz/biggest-question-order?advanced=${isAdvanced}&about=${aboutParam}`
+      );
+      //console.log("response you got :" + response.data);
+      setTotalOfQuestions(response.data);
+      //console.log("Question bigegst order data:", response.data);
+    } catch (error) {
+      console.error("Error fetching question data:", error);
+    }
+  };
+
+  if (aboutParam !== undefined && isAdvanced !== undefined) {
+    fetchData();
+  }
 
   useEffect(() => {
     // Fetch question data from  API
-    axios
-      .get(
-        `http://localhost:8080/api/v1/quizz/question?advanced=${isAdvanced}&about=${aboutParam}&questionOrder=${questionOrderParam}`
-      )
-      .then((response) => {
-        setQuestionData(response.data);
-        console.log("Question data:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching question data:", error);
-      });
+    if (aboutParam !== undefined) {
+      axios
+        .get(
+          `http://localhost:8080/api/v1/quizz/question?advanced=${isAdvanced}&about=${aboutParam}&questionOrder=${questionOrderParam}`
+        )
+        .then((response) => {
+          setQuestionData(response.data);
+          // console.log("Question data:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching question data:", error);
+        });
+    }
 
     updateProgress();
   }, [questionOrderParam, aboutParam]);
@@ -81,17 +99,17 @@ const TestSkills = () => {
 
     // Validate thes score
     if (isCorrect && selectedAnswers.length > 0) {
-      score < totalQuestions && setScore(score + 1);
+      score < totalOfQuestions && setScore(score + 1);
     } else {
     }
     // Reset selected answers and go to next question
     setSelectedAnswers([]);
-    if (questionOrderParam === totalQuestions) {
+    if (questionOrderParam === totalOfQuestions) {
       setShowResults(true);
     }
     //  reset state
     setReset(!reset);
-    questionOrderParam < totalQuestions &&
+    questionOrderParam < totalOfQuestions &&
       setQuestionOrderParam(questionOrderParam + 1);
   };
 
@@ -104,7 +122,7 @@ const TestSkills = () => {
 
   const updateProgress = () => {
     const calculatedProgress =
-      ((questionOrderParam - 1) / totalQuestions) * 100;
+      ((questionOrderParam - 1) / totalOfQuestions) * 100;
     setProgress(`${calculatedProgress}%`);
   };
 
