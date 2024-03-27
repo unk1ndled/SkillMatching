@@ -10,10 +10,36 @@ const QuestionForm = (props) => {
         Question
         <Paper height="13vw" onInput={props.saveQuestion}></Paper>
       </ResumeElement>
-      <ResumeElement>
-        Answers
-        <Paper height="13vw" onInput={props.saveAnswers}></Paper>
-      </ResumeElement>
+      <VerticalSplit>
+        <ResumeElement width="45%">
+          Answer1
+          <Paper height="33px" onInput={props.savefirstanswer}></Paper>
+        </ResumeElement>
+        <ResumeElement width="45%">
+          True/False
+          <Paper height="33px" onInput={props.savefirsttf}></Paper>
+        </ResumeElement>
+      </VerticalSplit>
+      <VerticalSplit>
+        <ResumeElement width="45%">
+          Answer2
+          <Paper height="33px" onInput={props.savesecondanswer}></Paper>
+        </ResumeElement>
+        <ResumeElement width="45%">
+          True/False
+          <Paper height="33px" onInput={props.savesecondtf}></Paper>
+        </ResumeElement>
+      </VerticalSplit>
+      <VerticalSplit>
+        <ResumeElement width="45%">
+          Answer3
+          <Paper height="33px" onInput={props.savethirdanswer}></Paper>
+        </ResumeElement>
+        <ResumeElement width="45%">
+          True/False
+          <Paper height="33px" onInput={props.savethirdtf}></Paper>
+        </ResumeElement>
+      </VerticalSplit>
 
       <VerticalSplit>
         <ResumeElement width="45%">

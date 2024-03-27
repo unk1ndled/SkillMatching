@@ -1,14 +1,9 @@
 package com.qalb.SkillMatching.Controllers;
 
-import com.qalb.SkillMatching.Models.Offer;
 import com.qalb.SkillMatching.Models.QuizzQuestion;
-import com.qalb.SkillMatching.Repositories.QuizzRepository;
 import com.qalb.SkillMatching.Services.QuizzService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 
 public class QuizzQuestionController {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+//    @Autowired
+//    private MongoTemplate mongoTemplate;
 
     @Autowired
     private QuizzService quizzService;
 
 
-    /*@GetMapping("/question")
+    /* @GetMapping("/question")
     public ResponseEntity<QuizzQuestion> getQuestion(@RequestParam String about, @RequestParam boolean advanced  , @RequestParam int questionOrder ) {
         QuizzQuestion question = quizzService.getQuestion(about, advanced, questionOrder);
         if (question != null) {
@@ -63,10 +58,25 @@ public class QuizzQuestionController {
         }
     }
 
+
+
+    @GetMapping("/biggest-question-order")
+    public ResponseEntity<Integer> getBiggestQuestionOrder(@RequestParam String about,
+                                                           @RequestParam boolean advanced) {
+        int maxQuestionOrder = quizzService.getBiggestQuestionOrder(about, advanced);
+            return ResponseEntity.ok(maxQuestionOrder);
+
+
+    }
+
     @PostMapping("/question")
     public ResponseEntity<QuizzQuestion> addQuestion(@RequestBody QuizzQuestion quizzQuestion) {
-        QuizzQuestion savedQuestion = quizzService.addQuestion(quizzQuestion);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedQuestion);
+//        String question = (String) requestBody.get("question");
+//        Map<String, Boolean> answers = (Map<String, Boolean>) requestBody.get("answers");
+//        boolean advanced = (boolean) requestBody.get("advanced");
+//        String about = (String) requestBody.get("about");
+        QuizzQuestion newQuestion = quizzService.addQuizzQuestion(quizzQuestion);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newQuestion);
     }
 }
 

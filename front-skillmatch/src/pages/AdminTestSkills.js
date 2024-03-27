@@ -4,16 +4,83 @@ import Navbar from "../components/Navbar";
 import QuestionForm from "../components/QuestionForm";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const AdminTestSkills = () => {
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState([]);
-  const [advanced, setAdvanced] = useState(false);
+  const [question, setQuestion] = useState();
+  const [answers, setAnswers] = useState();
+  //Hall of Shame
+  const [firstAnswer, setFirstAnswer] = useState();
+  const [secondAnswer, setSecondAnswer] = useState();
+  const [thirdAnswer, setThirdAnswer] = useState();
+  const [firstTF, setFirstTF] = useState();
+  const [secondTF, setSecondTF] = useState();
+  const [thirdTF, setThirdTF] = useState();
+
+  const [advanced, setAdvanced] = useState();
+  const [about, setAbout] = useState();
 
   const navigate = useNavigate();
 
-  const handleIconClick = () => {
+  const handleBack = () => {
     navigate("/skills");
+  };
+
+  const location = useLocation();
+
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  useEffect(() => {
+    const updatedAnswers = {
+      [firstAnswer]: firstTF,
+      [secondAnswer]: secondTF,
+      [thirdAnswer]: thirdTF,
+    };
+    setAnswers(updatedAnswers);
+    console.log(answers);
+  }, [advanced]);
+
+  useEffect(() => {
+    const topic = String(location.pathname.split("/")[2]);
+    setAbout(topic);
+    // console.log(about);
+  }, []);
+
+  const handleAdvanced = (text) => {
+    setAdvanced(text === "true");
+  };
+
+  const handleSendRequest = async () => {
+    // const testAnswers = {
+    //   Hada: "true",
+    //   Hadi: "false",
+    //   HAhowa: "false",
+    //   "Howa hadak": "false",
+    // };
+
+    const requestBody = {
+      question: question,
+      answers: answers,
+      advanced: advanced,
+      about: about,
+    };
+
+    console.log(requestBody);
+
+    fetch(`http://localhost:8080/api/v1/quizz/question`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -24,9 +91,15 @@ const AdminTestSkills = () => {
       <Container>
         <QuestionForm
           saveQuestion={(e) => setQuestion(e.target.textContent)}
-          saveAnswers={(e) => setAnswer(e.target.textContent)}
-          saveAdvanced={(e) => setAdvanced(e.target.textContent)}
-          cancel={handleIconClick}
+          savefirstanswer={(e) => setFirstAnswer(e.target.textContent)}
+          savesecondanswer={(e) => setSecondAnswer(e.target.textContent)}
+          savethirdanswer={(e) => setThirdAnswer(e.target.textContent)}
+          savefirsttf={(e) => setFirstTF(e.target.textContent)}
+          savesecondtf={(e) => setSecondTF(e.target.textContent)}
+          savethirdtf={(e) => setThirdTF(e.target.textContent)}
+          saveAdvanced={(e) => handleAdvanced(e.target.textContent)}
+          submit={handleSendRequest}
+          cancel={handleBack}
         ></QuestionForm>
       </Container>
     </div>

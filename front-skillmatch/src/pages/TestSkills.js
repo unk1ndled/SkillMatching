@@ -21,7 +21,7 @@ const TestSkills = () => {
     advanced: false,
   });
 
-  const [aboutParam, setAboutParam] = useState("java");
+  const [aboutParam, setAboutParam] = useState("");
   const [advanced, setAdvanced] = useState(false);
   const [questionOrderParam, setQuestionOrderParam] = useState(1);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
@@ -81,17 +81,18 @@ const TestSkills = () => {
 
     // Validate thes score
     if (isCorrect && selectedAnswers.length > 0) {
-      score < 4 && setScore(score + 1);
+      score < totalQuestions && setScore(score + 1);
     } else {
     }
     // Reset selected answers and go to next question
     setSelectedAnswers([]);
-    if (questionOrderParam === 4) {
+    if (questionOrderParam === totalQuestions) {
       setShowResults(true);
     }
     //  reset state
     setReset(!reset);
-    questionOrderParam < 4 && setQuestionOrderParam(questionOrderParam + 1);
+    questionOrderParam < totalQuestions &&
+      setQuestionOrderParam(questionOrderParam + 1);
   };
 
   const handleBack = () => {

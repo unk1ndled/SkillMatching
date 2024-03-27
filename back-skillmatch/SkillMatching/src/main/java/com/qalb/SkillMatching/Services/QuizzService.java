@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -47,15 +48,30 @@ public class QuizzService {
 
     public int getBiggestQuestionOrder(String about, boolean advanced) {
         List<QuizzQuestion> questions = quizzRepository.findByAboutAndAdvanced(about, advanced);
-        int maxQuestionOrder = Integer.MIN_VALUE;
+        int maxQuestionOrder = 0;
 
         for (QuizzQuestion question : questions) {
             if (question.getQuestionOrder() > maxQuestionOrder) {
                 maxQuestionOrder = question.getQuestionOrder();
             }
         }
-
         return maxQuestionOrder;
     }
+//    public QuizzQuestion addQuizzQuestion(String question, Map<String, Boolean> answers, boolean advanced, String about) {
+//        int questionOrder = getBiggestQuestionOrder(about, advanced) + 1;
+//        QuizzQuestion newQuestion = QuizzQuestion.builder()
+//                .question(question)
+//                .answers(answers)
+//                .advanced(advanced)
+//                .about(about)
+//                .question_order(questionOrder)
+//                .build();
+//        return quizzRepository.save(newQuestion);
+//    }
 
+    public QuizzQuestion addQuizzQuestion (QuizzQuestion quizzQuestion){
+        int questionOrder = getBiggestQuestionOrder(quizzQuestion.getAbout(), quizzQuestion.isAdvanced()) + 1;
+        quizzQuestion.setQuestion_order(questionOrder);
+        return quizzRepository.save(quizzQuestion);
+    }
 }
