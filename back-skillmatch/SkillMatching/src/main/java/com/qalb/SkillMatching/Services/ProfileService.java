@@ -7,6 +7,8 @@ import com.qalb.SkillMatching.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @Service
@@ -16,16 +18,17 @@ public class ProfileService {
     private final UserRepository userRepository;
     private final  KeywordService keywordService;
 
+
     public void deleteProfile(String id){
         profileRepository.deleteById(id);
     }
 
-
+    public Optional<Profile> getProfile(String id) { return profileRepository.findById(id);}
 
 
     public void addProfile(Profile profile, String email) {
         if (profile == null || email == null) {
-            throw new IllegalArgumentException("Profile or email cannot be null");
+            throw new IllegalArgumentException("Profile or email cannot be null just now");
         }
 
         userRepository.findByEmail(email)
@@ -34,6 +37,7 @@ public class ProfileService {
                         deleteProfile(user.getProfileId());
                     }
                     profile.setRecognizedSkills(keywordService.extractKeywords(profile.getSkills()));
+                    System.out.println(profile);
                     return profileRepository.save(profile);
                 })
                 .ifPresent(savedProfile -> {
@@ -43,5 +47,8 @@ public class ProfileService {
                     userRepository.save(user);
                 });
     }
+
+
+
 
 }

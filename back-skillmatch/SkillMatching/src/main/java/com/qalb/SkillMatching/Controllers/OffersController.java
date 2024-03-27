@@ -28,12 +28,12 @@ public class OffersController {
     private final OfferService offerService;
 
     @GetMapping
-    public List<Offer> getSongs(){
+    public List<Offer> getOffers(){
         return offerService.getOffers();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Offer> getSong(@PathVariable String id){
+    public ResponseEntity<Offer> getOffer(@PathVariable String id){
         Offer offer = offerService.getOfferById(id);
         if (offer != null) {
             return new ResponseEntity<>(offer, HttpStatus.OK);

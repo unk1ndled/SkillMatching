@@ -28,7 +28,7 @@ function App() {
           <Route path="/test" element={<TestContext />} />
           <Route path="/testc" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/addresumer" element={<AddResumer />} />
+          <Route path="/addresume" element={<AddResumer />} />
           <Route path="/offers" element={<Offers />} />
           <Route path="/offers/:id" element={<Offer />} />
           <Route path="/skills/:id" element={<Keyword />} />

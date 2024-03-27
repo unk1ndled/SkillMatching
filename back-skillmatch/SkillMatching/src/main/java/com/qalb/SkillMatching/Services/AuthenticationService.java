@@ -2,6 +2,7 @@ package com.qalb.SkillMatching.Services;
 
 import com.qalb.SkillMatching.Configurations.JwtService;
 import com.qalb.SkillMatching.Exceptions.UserAlreadyExistException;
+import com.qalb.SkillMatching.Models.Profile;
 import com.qalb.SkillMatching.Models.Role;
 import com.qalb.SkillMatching.Models.User;
 import com.qalb.SkillMatching.Repositories.UserRepository;
@@ -29,10 +30,13 @@ public class AuthenticationService {
 
     //TODO add function to remove user taking in consideration its profile
 
+
+
     public AuthenticationResponse register(RegisterRequest request) throws UserAlreadyExistException{
         if(repository.findByEmail(request.getEmail()).isPresent()){
             throw new UserAlreadyExistException("Email Already Registered");
         }
+
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
@@ -46,6 +50,7 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
         authenticationManager.authenticate(
@@ -63,6 +68,7 @@ public class AuthenticationService {
         extraClaims.put("firstname",user.getFirstname());
         extraClaims.put("lastname",user.getLastname());
         extraClaims.put("role",user.getRole().toString());
+        extraClaims.put("profileId",user.getProfileId());
 
         var jwtToken = jwtService.generateToken(extraClaims,user);
         return AuthenticationResponse.builder()

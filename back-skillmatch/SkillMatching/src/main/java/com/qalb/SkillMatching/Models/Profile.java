@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
 
-@Document(collection = "keyword")
+@Document(collection = "profile")
 @Data
 @Builder
 @NoArgsConstructor
