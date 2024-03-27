@@ -19,12 +19,12 @@ const TestContext = () => {
 
   const { userData } = useAuth();
   //console.log("tux + tweak");
-  //console.log("twix");
+  console.log(userData);
   return (
     <Container>
       <StyledImg src={bg2} />
       <Form >
-        <AuthText>{JSON.stringify(userData)}</AuthText>
+        <AuthText>{JSON.stringify(userData ? userData.role : userData)}</AuthText>
         
         <Wrapper>
           <Logo src={LogoWithName} />
