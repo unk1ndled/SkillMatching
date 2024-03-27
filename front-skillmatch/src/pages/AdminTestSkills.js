@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
+
 const AdminTestSkills = () => {
   const [question, setQuestion] = useState();
   const [answers, setAnswers] = useState();
@@ -20,6 +21,7 @@ const AdminTestSkills = () => {
 
   const [advanced, setAdvanced] = useState();
   const [about, setAbout] = useState();
+
 
   const navigate = useNavigate();
 

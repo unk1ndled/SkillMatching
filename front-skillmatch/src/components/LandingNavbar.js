@@ -9,7 +9,6 @@ const Navbar = () => {
         <StyledImg src={LogoWithName} />
         <MiniWrapper>
           <Link to="/login">
-            {" "}
             <AuthText>Log-in</AuthText>
           </Link>
           <Link to="/register">

@@ -7,6 +7,7 @@ import com.qalb.SkillMatching.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -24,7 +25,6 @@ public class ProfileService {
     }
 
     public Optional<Profile> getProfile(String id) { return profileRepository.findById(id);}
-
 
     public void addProfile(Profile profile, String email) {
         if (profile == null || email == null) {
@@ -48,7 +48,31 @@ public class ProfileService {
                 });
     }
 
+    public void levelUpSkill(Profile profile, String skill ,int level){
+        Map<String, Integer> recognizedSkills = profile.getRecognizedSkills();
+        recognizedSkills.put(skill, level);
+        profile.setRecognizedSkills(recognizedSkills);
+        profileRepository.save(profile);
+    }
 
+    public void removeSkill(Profile profile, String skill ){
+        Map<String, Integer> recognizedSkills = profile.getRecognizedSkills();
+        recognizedSkills.remove(skill);
+        profile.setRecognizedSkills(recognizedSkills);
+        profileRepository.save(profile);
+    }
+
+    public void levelUpSkill(String id, String skill ,int level) {
+        Profile profile = getProfile(id)
+                .orElseThrow(() -> new NoSuchElementException("Profile not found with ID: " + id));
+        levelUpSkill(profile,skill,level);
+    }
+
+    public void removeSkill(String id, String skill ) {
+        Profile profile = getProfile(id)
+                .orElseThrow(() -> new NoSuchElementException("Profile not found with ID: " + id));
+        removeSkill(profile,skill);
+    }
 
 
 }

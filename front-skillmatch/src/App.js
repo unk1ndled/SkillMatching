@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Offers from "./pages/Offers";
 import TestSkills from "./pages/TestSkills";
-import AddOffer from "./pages/AddOffer";
 import Keywords from "./pages/Keywords";
 import DeleteKwd from "./pages/DeleteKeywords";
 import { Keyword } from "./pages/Keyword";
@@ -41,7 +40,6 @@ function App() {
             element={<TestSkills />}
           />
           <Route path="/tests/:id/add" element={<AdminTestSkills />} />
-          <Route path="/newoffer" element={<AddOffer />} />
         </Routes>
       </Router>
     </AuthProvider>

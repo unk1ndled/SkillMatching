@@ -22,10 +22,27 @@ public class ProfileController {
     private final ProfileService profileService;
     private final UserService userService;
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfileByUserId(@PathVariable String id) {
         return new ResponseEntity<>(userService.getProfileByUserId(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/{userid}/keywords/{skillId}")
+    public ResponseEntity<String> levelUpSkill(
+            @PathVariable String userid ,
+            @PathVariable String skillId  ,
+            @RequestParam(name = "advanced", defaultValue = "false") boolean advanced) {
+
+        userService.levelUpProfileSkill(userid,skillId,advanced);
+        return ResponseEntity.ok("ok");
+    }
+
+    @DeleteMapping("/{userId}/keywords/{skillId}")
+    public ResponseEntity<String> deleteSkill(
+            @PathVariable String userId ,
+            @PathVariable String skillId) {
+        userService.removeProfileSkill(userId,skillId);
+        return ResponseEntity.ok("ok");
     }
 
     @ExceptionHandler(NoSuchElementException.class)
@@ -36,12 +53,10 @@ public class ProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addKeyword(@RequestBody ProfileAndEmailRequest request) {
+    public ResponseEntity<String> addProfile(@RequestBody ProfileAndEmailRequest request) {
         profileService.addProfile(request.getProfile(), request.getEmail());
         return ResponseEntity.ok("ok");
     }
-
-
 
 
 }

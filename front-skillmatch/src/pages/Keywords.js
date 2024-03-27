@@ -82,9 +82,9 @@ const Keywords = () => {
             title={keyword.name}
           ></Keyword>
         ))}
+        
         <Link>
           <Keyword bgcolor="#B50000" onClick={handleIconClick} route={`/skills/delete`}title="Delete">
-            {" "}
           </Keyword>
         </Link>
       </ListWrapper>

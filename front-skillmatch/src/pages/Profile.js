@@ -33,28 +33,47 @@ const Profile = () => {
         `http://localhost:8080/api/v1/profiles/${userData.id}`
       );
       const data = await response.json();
-
+  
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setObjective(data.objective);
       setHistory(data.history);
-
-      // Fetch skills for each ID
-      // Fetch skills for each ID and add the second value of data.recognizedSkills
+  
+      // Fetch skills for each skill ID and add the second value of data.recognizedSkills
       const skillsData = await Promise.all(
         Object.entries(data.recognizedSkills).map(async ([skillId, value]) => {
-          const skillResponse = await fetch(
-            `http://localhost:8080/api/v1/keywords/${skillId}`
-          );
-          const skillData = await skillResponse.json();
-
-          // Add the second value from data.recognizedSkills to the skill data
-          skillData.value = value;
-
-          return skillData;
+          try {
+            const skillResponse = await fetch(
+              `http://localhost:8080/api/v1/keywords/${skillId}`
+            );
+  
+            if (!skillResponse.ok) {
+              // If the skill doesn't exist anymore, send a request to delete it
+              if (skillResponse.status === 404) {
+                await fetch(`http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${skillId}`, {
+                  method: "DELETE"
+                });
+                return null; // Return null to filter out this skill from the final array
+              }
+              throw new Error(`Failed to fetch skill data. Status: ${skillResponse.status}`);
+            }
+  
+            const skillData = await skillResponse.json();
+  
+            // Add the second value from data.recognizedSkills to the skill data
+            skillData.value = value;
+  
+            return skillData;
+          } catch (error) {
+            console.error(`Error fetching skill ${skillId}:`, error);
+            return null; // Return null to filter out this skill from the final array
+          }
         })
       );
-      setSkills(skillsData);
+  
+      // Filter out any null values (skills that were deleted)
+      const filteredSkillsData = skillsData.filter(skill => skill !== null);
+      setSkills(filteredSkillsData);
     } catch (error) {
       console.error("Error fetching profile:", error);
     }
@@ -179,6 +198,7 @@ const Segment = styled.div`
 
 const SkillSegment = styled(Segment)`
   display: grid;
+  padding: 0.5em;
   grid-template-columns: repeat(
     auto-fill,
     minmax(200px, 1fr)
@@ -221,7 +241,7 @@ const NameText = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0;
-  font-size: 6vw;
+  font-size: 6em;
   font-weight: bold;
   color: #2c0735;
   white-space: nowrap; /* Prevent text from wrapping */

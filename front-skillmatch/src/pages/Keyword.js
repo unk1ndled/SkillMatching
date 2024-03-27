@@ -6,6 +6,8 @@ import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import { PushableButtonStyled } from "../components/Noteadbutton";
+import { useAuth } from "../context/AuthContext";
+
 
 export const Keyword = () => {
   const location = useLocation();
@@ -13,6 +15,9 @@ export const Keyword = () => {
   const [keyword, setKeyword] = useState({});
   const [isAdvanced, setIsAdvanced] = useState(false);
   const [showDifficulty, setShowDiffculty] = useState(false);
+  const { userData } = useAuth();
+
+  const isAdmin = userData && userData.role === 'ADMIN';
 
   useEffect(() => {
     fetchKeyword();
@@ -34,16 +39,35 @@ export const Keyword = () => {
     }
   };
 
+  const addSkillToUser = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${id}?advanced=${isAdvanced}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to add skill. Status: ${response.status}`);
+      }
+  
+    } catch (error) {
+      console.error("Error adding skill:", error.message);
+    }
+  };
+
   const HandleShowDifficulty = () => {
     setShowDiffculty(!showDifficulty);
   };
 
   const CheckAdvanced = (text) => {
-    console.log(text);
     setIsAdvanced(text === "advanced");
+    addSkillToUser();
     console.log("advanced is " + isAdvanced);
     HandleShowDifficulty();
   };
+
   //TODO : Problem with isAdvanced checking
 
   return (
@@ -71,19 +95,21 @@ export const Keyword = () => {
             </PushableButtonStyled>
           </ButtonSection>
           <ResultPopup>
-            <StyledLink to={`/tests/${keyword.name}/advanced/${isAdvanced}`}>
+            {/* <StyledLink to={`/tests/${keyword.name}/advanced/${isAdvanced}`}> */}
               <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
                 easy
               </Difficulty>
-            </StyledLink>
+            {/* </StyledLink> */}
             <StyledLink to={`/tests/${keyword.name}/advanced/true`}>
               <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
                 advanced
               </Difficulty>
             </StyledLink>
-            <StyledLink to={`/tests/${keyword.name}/add`}>
-              <Difficulty>add </Difficulty>
-            </StyledLink>
+            {isAdmin && (
+              <StyledLink to={`/tests/${keyword.name}/add`}>
+                <Difficulty>add </Difficulty>
+              </StyledLink>
+            )}
           </ResultPopup>
         </BlurWrapper>
       )}
