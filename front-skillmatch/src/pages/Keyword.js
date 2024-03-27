@@ -6,6 +6,7 @@ import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import { PushableButtonStyled } from "../components/Noteadbutton";
+import { useAuth } from "../context/AuthContext";
 
 export const Keyword = () => {
   const location = useLocation();
@@ -17,6 +18,9 @@ export const Keyword = () => {
   useEffect(() => {
     fetchKeyword();
   }, [id]);
+
+  const { userData } = useAuth();
+  const isAdmin = userData && userData.role === "ADMIN";
 
   const fetchKeyword = async () => {
     try {
@@ -81,9 +85,12 @@ export const Keyword = () => {
                 advanced
               </Difficulty>
             </StyledLink>
-            <StyledLink to={`/tests/${keyword.name}/add`}>
-              <Difficulty>add </Difficulty>
-            </StyledLink>
+
+            {isAdmin && (
+              <StyledLink to={`/tests/${keyword.name}/add`}>
+                <Difficulty>add </Difficulty>
+              </StyledLink>
+            )}
           </ResultPopup>
         </BlurWrapper>
       )}

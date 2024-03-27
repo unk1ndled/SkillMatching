@@ -10,6 +10,7 @@ const Offers = () => {
   const [offers, setOffers] = useState([]);
   const [showNotepad, setShowNotepad] = useState(false);
   const [inputData, setInputData] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchOffers();
@@ -38,6 +39,10 @@ const Offers = () => {
     handleIconClick();
   };
 
+  const filteredOffers = offers.filter((offer) =>
+    offer.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const fetchOffers = async () => {
     try {
       const response = await fetch("http://localhost:8080/api/v1/offers");
@@ -52,24 +57,24 @@ const Offers = () => {
     }
   };
 
-  
   const { userData } = useAuth();
-  const isAdmin = userData && userData.role === 'ADMIN';
-
+  const isAdmin = userData && userData.role === "ADMIN";
 
   return (
     <Container>
       <Navbar title="Offers"></Navbar>
       <ButtonContainer>
-        <Input type="text" placeholder="Search for Offers" />
+        <Input
+          type="text"
+          placeholder="Search for Offers"
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       {/*<p>User data: {JSON.stringify(userData)}</p>*/}
       <ListWrapper>
-         {isAdmin && (
-           <Offer bgcolor="#DB7C26" onClick={handleIconClick}></Offer>
-          )}
-        {offers.map((offer, index) => (
+        {isAdmin && <Offer bgcolor="#DB7C26" onClick={handleIconClick}></Offer>}
+        {filteredOffers.map((offer, index) => (
           <Offer
             route={`/offers/${offer.id}`}
             key={index}
@@ -143,6 +148,5 @@ const BlurWrapper = styled.div`
 const HiddenButton = styled.button`
   display: none;
 `;
-
 
 export default Offers;
