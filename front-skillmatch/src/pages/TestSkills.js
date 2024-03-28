@@ -67,20 +67,20 @@ const TestSkills = () => {
     fetchData();
   }
 
+  const fetchKeywordId = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
+      );
+      setKeywordId(response.data);
+      localStorage.setItem("keywordId", keywordId);
+    } catch (error) {
+      console.error("Error fetching keyword ID:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchKeywordId = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
-        );
-        setKeywordId(response.data);
-        localStorage.setItem("keywordId", keywordId);
-        //console.log("Keyword Id", keywordId);
-        //console.log("Keyword Id", response.data);
-      } catch (error) {
-        console.error("Error fetching keyword ID:", error);
-      }
-    };
+    fetchKeywordId()
   }, [aboutParam]);
 
   useEffect(() => {
@@ -119,7 +119,7 @@ const TestSkills = () => {
     } catch (error) {
       console.error("Error adding skill:", error.message);
     }
-
+ 
     console.log("Meeebrouk nj7ti");
   };
 
@@ -132,6 +132,9 @@ const TestSkills = () => {
   };
 
   const handleValidate = () => {
+
+    console.log(totalOfQuestions)
+
     // Extract correct answers from questionData
     const correctAnswers = Object.entries(questionData.answers)
       .filter(([_, isCorrect]) => isCorrect === true)

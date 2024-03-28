@@ -36,7 +36,7 @@ const ResumeForm = (props) => {
     const updatedExperiences = [...experiences];
     updatedExperiences[experienceIndex].responsibilities.push("");
     setExperiences(updatedExperiences);
-    console.log(experiences);
+    // console.log(experiences);
   };
 
   const handleExperienceChange = (index, field, value) => {

@@ -12,7 +12,6 @@ export const Keyword = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [keyword, setKeyword] = useState({});
-  const [isAdvanced, setIsAdvanced] = useState(false);
   const [showDifficulty, setShowDiffculty] = useState(false);
 
   useEffect(() => {
@@ -43,10 +42,7 @@ export const Keyword = () => {
   };
 
   const CheckAdvanced = (text) => {
-    //console.log(text);
-    setIsAdvanced(text === "advanced");
-    console.log("advanced is " + isAdvanced);
-    HandleShowDifficulty();
+      HandleShowDifficulty();
   };
   //TODO : Problem with isAdvanced checking
 
@@ -159,7 +155,8 @@ const TitleText = styled.div`
   text-align: center;
 `;
 const Image = styled.img`
-  height: 90%;
+  max-height: 100%;
+  max-width: 30%;
 `;
 const Skill = styled.div`
   display: flex;

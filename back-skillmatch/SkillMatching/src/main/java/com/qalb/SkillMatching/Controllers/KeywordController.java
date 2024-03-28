@@ -52,17 +52,13 @@ public class KeywordController {
         return ResponseEntity.ok("ok");
     }
 
-
 //    @PostMapping("/analyse")
 //    public ResponseEntity<Map<String,Integer>> extractKeywords(@RequestBody String paragraph) {
 //        return ResponseEntity.ok(keywordService.extractKeywordsMap(paragraph));
 //    }
-
     @GetMapping("/get-id")
     public String getIdByName(@RequestParam String name) {
         return keywordService.getKeywordId(name);
     }
-
-
-
+    
 }

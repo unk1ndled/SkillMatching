@@ -46,6 +46,7 @@ public class ProfileController {
             @PathVariable String skillId  ,
             @RequestParam(name = "advanced", defaultValue = "false") boolean advanced) {
 
+        System.out.println("hey");
         userService.levelUpProfileSkill(userid,skillId,advanced);
         return ResponseEntity.ok("ok");
     }

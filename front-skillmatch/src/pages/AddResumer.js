@@ -47,9 +47,6 @@ const AddResumer = () => {
       },
       email: userData.sub,
     };
-
-    await console.log(requestBody);
-
     try {
       const response = await axios.post(
         "http://localhost:8080/api/v1/profiles",
@@ -61,8 +58,6 @@ const AddResumer = () => {
     }
   };
 
-  /////////////////////////////
-
   const handleIconClick = () => {
     setShowNotepad(!showNotepad);
     const personalInfo = JSON.stringify({
@@ -70,7 +65,6 @@ const AddResumer = () => {
       email: email,
       phone: phone,
     });
-    console.log(personalInfo);
   };
 
   //if (!localStorage.getItem('token')) {

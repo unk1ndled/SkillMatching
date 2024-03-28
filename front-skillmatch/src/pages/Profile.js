@@ -19,7 +19,6 @@ const Profile = () => {
   const [experience, setExperience] = useState(
     JSON.parse(localStorage.getItem("experience")) || null
   );
-  const [history, setHistory] = useState(null);
 
   const [skills, setSkills] = useState(
     JSON.parse(localStorage.getItem("skills")) || null
@@ -120,13 +119,7 @@ const Profile = () => {
     }
   };
 
-  // Retrieve and log stored data from localStorage outside the fetchProfile function its working :(
-  console.log("Stored data in localStorage:");
-  console.log("firstName:", localStorage.getItem("firstName"));
-  console.log("lastName:", localStorage.getItem("lastName"));
-  console.log("objective:", localStorage.getItem("objective"));
-  console.log("experience:", localStorage.getItem("experience"));
-  console.log("skills:", localStorage.getItem("skills"));
+
 
   return (
     <Container>
@@ -155,7 +148,7 @@ const Profile = () => {
         <UserInfo>
           <SegmentName>skills</SegmentName>
           <SkillSegment>
-            {skills.map((keyword, index) => (
+            {skills != null && skills.map((keyword, index) => (
               <StyledLink to={`/skills/${keyword.id}`}>
                 <Skill>
                   <SkillText> {keyword.name}</SkillText>
@@ -350,7 +343,7 @@ const Picture = styled.img`
 `;
 
 const UserAbout = styled(Segment)`
-  min-height: 0vh;
+  max-height: 10em;
 `;
 
 const StyledLink = styled(Link)`

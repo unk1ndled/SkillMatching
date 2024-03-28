@@ -27,10 +27,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-
     //TODO add function to remove user taking in consideration its profile
-
-
 
     public AuthenticationResponse register(RegisterRequest request) throws UserAlreadyExistException{
         if(repository.findByEmail(request.getEmail()).isPresent()){
