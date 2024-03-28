@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
-
 const AdminTestSkills = () => {
   const [question, setQuestion] = useState();
   const [answers, setAnswers] = useState();
@@ -22,7 +21,6 @@ const AdminTestSkills = () => {
   const [advanced, setAdvanced] = useState();
   const [about, setAbout] = useState();
 
-
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -31,9 +29,6 @@ const AdminTestSkills = () => {
 
   const location = useLocation();
 
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
   useEffect(() => {
     const updatedAnswers = {
       [firstAnswer]: firstTF,
@@ -61,8 +56,6 @@ const AdminTestSkills = () => {
       about: about,
     };
 
-    console.log(requestBody);
-
     fetch(`http://localhost:8080/api/v1/quizz/question`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -70,7 +63,6 @@ const AdminTestSkills = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
       })
       .catch((error) => {
         console.error("Error:", error);

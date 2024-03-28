@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class OfferService {
 
     private final OfferRepository repository;
+    private final  KeywordService keywordService;
 
     public List<Offer> getOffers(){
         return repository.findAll();
@@ -25,14 +27,33 @@ public class OfferService {
         Optional<Offer> offer = repository.findById(id);
         return offer.orElse(null);
     }
+    public void reAnalyseOffer(String id){
+        Offer offer = getOfferById(id);
+        Map<String,String> words = keywordService.extractKeywordsIdName(offer.getProfile());
+        Map<String,String> words2 = keywordService.extractKeywordsIdName(offer.getPost());
+
+        words.putAll(words2);
+        offer.setRecognizedSkills(words);
+        repository.save(offer);
+    }
+
     public void saveOffer(Map<String, String> offer){
+
+
         Offer offerPojo = Offer.builder()
                 .post(offer.get("post"))
                 .profile(offer.get("profile"))
                 .title(offer.get("title"))
                 .build();
+
+        Map<String,String> words = keywordService.extractKeywordsIdName(offerPojo.getProfile());
+        words.putAll(keywordService.extractKeywordsIdName(offerPojo.getPost()));
+        offerPojo.setRecognizedSkills(words);
+
         repository.save(offerPojo);
     }
+
+
 
 
 }

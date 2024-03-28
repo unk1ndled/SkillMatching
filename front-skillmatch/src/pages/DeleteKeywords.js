@@ -26,7 +26,6 @@ const KeywordsDelete = () => {
       about: about,
     };
 
-    console.log(requestBody);
     fetch("http://localhost:8080/api/v1/keywords", {
       method: "POST",
       headers: {

@@ -39,9 +39,12 @@ const Offers = () => {
     handleIconClick();
   };
 
+
   const filteredOffers = offers.filter((offer) =>
-    offer.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  offer.title?.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
+
 
   const fetchOffers = async () => {
     try {
@@ -50,7 +53,6 @@ const Offers = () => {
         throw new Error("Failed to fetch offers");
       }
       const data = await response.json();
-      console.log(data);
       setOffers(data);
     } catch (error) {
       console.error("Error fetching offers:", error);

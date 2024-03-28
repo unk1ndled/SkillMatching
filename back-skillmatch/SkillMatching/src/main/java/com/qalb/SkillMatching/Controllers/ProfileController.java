@@ -1,5 +1,6 @@
 package com.qalb.SkillMatching.Controllers;
 
+import com.qalb.SkillMatching.Exceptions.NoProfileException;
 import com.qalb.SkillMatching.Exceptions.UserAlreadyExistException;
 import com.qalb.SkillMatching.Models.*;
 import com.qalb.SkillMatching.Services.ProfileService;
@@ -24,7 +25,20 @@ public class ProfileController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfileByUserId(@PathVariable String id) {
-        return new ResponseEntity<>(userService.getProfileByUserId(id), HttpStatus.OK);
+        Profile profile = userService.getProfileByUserId(id);
+        // Check if profile is null (not found)
+        if (profile == null) {
+            System.out.println("hiiii");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(profile, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(NoProfileException.class)
+    public ResponseEntity<String> handleNoProfile(
+            NoProfileException e
+    ) {
+        return new ResponseEntity<>("You dont Have a Profile" , HttpStatusCode.valueOf(404));
     }
 
     @PostMapping("/{userid}/keywords/{skillId}")

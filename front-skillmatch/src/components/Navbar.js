@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Logo from "../images/Logo.png";
 import User from "../images/user.png";
 import { Link } from "react-router-dom";
@@ -19,9 +19,9 @@ const Navbar = ({ title, backgroundColor }) => {
       <Wrapper>
         <MiniWrapper>
           <StyledImg src={Logo} />
-          <Link to="/">
+          {/* <StyledLink to="/"> */}
             <Title>{title}</Title>
-          </Link>
+          {/* </StyledLink> */}
         </MiniWrapper>
         <MarginRightWrapper>
           <StyledIcon src={User} onClick={handleIconClick} />
@@ -31,18 +31,18 @@ const Navbar = ({ title, backgroundColor }) => {
             <ShrinkerWrapper>
               <StyledIcon src={User} onClick={handleIconClick}></StyledIcon>
             </ShrinkerWrapper>
-            <Link to="/test">
+            <StyledLink to="/">
               <UserSectionOption>My Resume</UserSectionOption>
-            </Link>
-            <Link to="/offers">
+            </StyledLink>
+            <StyledLink to="/offers">
               <UserSectionOption>Job Offers</UserSectionOption>
-            </Link>
-            <Link to="/skills">
+            </StyledLink>
+            <StyledLink to="/skills">
               <UserSectionOption>Level Up</UserSectionOption>
-            </Link>
-            <Link to="/login" onClick={logout}>
+            </StyledLink>
+            <StyledLink to="/login" onClick={logout}>
               <UserSectionOption>Log out</UserSectionOption>
-            </Link>
+            </StyledLink>
           </UserSection>
         )}
       </Wrapper>
@@ -82,7 +82,6 @@ const Title = styled.div`
   font-size: 30px;
   padding-left: 10px;
   text-decoration: none;
-
 `;
 
 const StyledImg = styled.img`
@@ -97,12 +96,21 @@ const StyledIcon = styled(StyledImg)`
 
 const UserSectionOption = styled.div`
   user-select: none;
-  color: #ffff;
+  color: #B8B7EE;
   font-weight: bold;
   padding: 5px;
   font-size: 20px;
   text-decoration: none;
   cursor: pointer;
+`;
+
+const slideDown = keyframes`
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 `;
 
 const UserSection = styled.div`
@@ -114,8 +122,13 @@ const UserSection = styled.div`
   top: 10px;
   margin-right: 15px;
   right: 0;
-  box-shadow: 0 0 10px rgba(8, 7, 16, 1);
-  background-color: #6f00ef;
+  box-shadow: 0 0 5px rgba(50, 50, 50, 1);
+  background-color: #2C0735;
   padding: 20px 40px;
-  border-radius: 5px 5px 50px 50px; /* Adjust the value as needed */
+  border-radius: 5px 5px 5px 5px; /* Adjust the value as needed */
+  animation: ${slideDown} 0.3s ease-in-out forwards;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;

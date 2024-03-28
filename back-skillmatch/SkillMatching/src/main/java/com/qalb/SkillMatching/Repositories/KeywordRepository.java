@@ -5,4 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface KeywordRepository extends MongoRepository<Keyword,String> {
     boolean existsByName(String name);
+    Keyword findByName(String name);
 }

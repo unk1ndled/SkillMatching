@@ -37,6 +37,61 @@ public class KeywordService {
         return cacheService.getKeywordMap();
     }
 
+
+
+    public Map<String, String> extractKeywordsIdName(String paragraph){
+        List<String> words = utilityService.getWords(paragraph);
+        Map<String, String> keywordMap = getKeywordMap();
+        Map<String, String> matchingKeywords = new HashMap<>();
+
+        for (String word : words) {
+            String id = keywordMap.get(word);
+            if (id != null) {
+                matchingKeywords.put(word,id);
+            }
+        }
+        return matchingKeywords;
+    }
+
+
+    public Set<String> extractKeywordsSet(String paragraph){
+        List<String> words = utilityService.getWords(paragraph);
+        Map<String, String> keywordMap = getKeywordMap();
+        Set<String> matchingKeywords = new HashSet<>();
+
+        for (String word : words) {
+            String id = keywordMap.get(word);
+            if (id != null) {
+                matchingKeywords.add(id);
+            }
+        }
+            return matchingKeywords;
+    }
+
+    public String getKeywordId(String name){
+        Keyword keyword = repository.findByName(name);
+        if(keyword != null){
+            return keyword.getId();
+        }
+        return null;
+    }
+
+
+    public Map<String, Integer> extractKeywordsInitiate(String paragraph) {
+
+        List<String> words = utilityService.getWords(paragraph);
+        Map<String, String> keywordMap = getKeywordMap();
+        Map<String, Integer> matchingKeywords = new HashMap<>();
+
+        for (String word : words) {
+            String id = keywordMap.get(word);
+            if (id != null) {
+                matchingKeywords.put(id,0);
+            }
+        }
+        return matchingKeywords;
+    }
+
     public Map<String, Integer> extractKeywords(String paragraph) {
         List<String> words = utilityService.getWords(paragraph);
         Map<String, String> keywordMap = getKeywordMap();
@@ -65,6 +120,8 @@ public class KeywordService {
     public void deleteById(String id) {
         repository.deleteById(id);
     }
+
+
 
     // added inner class because caching the keywords requires a different class than the keyword service
 
