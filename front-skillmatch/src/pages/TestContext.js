@@ -2,7 +2,8 @@ import styled from "styled-components";
 import bg2 from "../images/bg2.jpg";
 import Logo from "../components/Logo";
 import LogoWithName from "../images/LogoWithName.png";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -11,10 +12,42 @@ import { useAuth } from "../context/AuthContext";
 
 const TestContext = () => {
 
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [objective, setObjective] = useState(null);
+  const [history, setHistory] = useState(null);
 
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
-  const { userData } = useAuth();
+  const { userData } =  useAuth();
   console.log(userData);
+
+
+
+
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/profiles/${userData.id}`
+      );
+      //const data = await response.json();
+  
+      console.log(response.data.history)
+      console.log(JSON.parse(response.data.history))
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+
+
+
   return (
     <Container>
       <StyledImg src={bg2} />

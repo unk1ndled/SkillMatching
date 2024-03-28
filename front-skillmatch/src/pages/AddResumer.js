@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ResumeForm from "../components/ResumeForm";
 import ResponsePopup from "../components/ResponsePopup";
 import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 const AddResumer = () => {
   const navigate = useNavigate();
@@ -15,44 +16,65 @@ const AddResumer = () => {
   const [lastName,    setLastName] = useState(null);
   const [objective,   setObjective] = useState(null);
   const [skills,      setSkills] = useState(null);
-  const [history,     setHistory] = useState(null);
+  const [experience, setExperience] = useState([]);
+  const [email, setEmail] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [summary, setSummary] = useState(null);
 
   const [responseData, setResponseData] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
 
   const { userData } = useAuth();
 
-  const handleSendRequest = () => {
+
+  ////////////////////////////////
+  const sendProfile = async () => {
+
+    const personalInfo = JSON.stringify({
+      address: address ,
+      email: email,
+      phone : phone,
+    });
+
     const requestBody = {
       profile: {
         firstName: firstName,
         lastName: lastName,
-        history: history,
+        experience: experience, 
         objective: objective,
         skills: skills,
         recognizedSkills: null,
+        personalInfo: personalInfo,
       },
       email: userData.sub,
     };
 
-    const requestBodyString = JSON.stringify(requestBody);
+    await console.log(requestBody)
 
-    fetch("http://localhost:8080/api/v1/profiles", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: requestBodyString,
-    })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    handleIconClick();
-    showResponseDiv();
+
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/profiles",
+        requestBody
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
   };
+
+  /////////////////////////////
+  
 
   const handleIconClick = () => {
     setShowNotepad(!showNotepad);
+    const personalInfo = JSON.stringify({
+      address: address ,
+      email: email,
+      phone : phone,
+    });
+    console.log(personalInfo);
   };
 
   //if (!localStorage.getItem('token')) {
@@ -81,13 +103,17 @@ const AddResumer = () => {
       {showNotepad && (
         <BlurWrapper>
           <ResumeForm
+            saveadress={(e) => setAddress(e.target.textContent)}
+            saveemail={(e) => setEmail(e.target.textContent)}
+            savephone={(e) => setPhone(e.target.textContent)}
+            savesummary={(e) => setSummary(e.target.textContent)}
             saveskills={(e) => setSkills(e.target.textContent)}
             saveobjective={(e) => setObjective(e.target.textContent)}
-            savehistory={(e) => setHistory(e.target.textContent)}
+            saveExperience={(e) => setExperience(e)}
             savefirstname={(e) => setFirstName(e.target.textContent)}
             savelastname={(e) => setLastName(e.target.textContent)}
             cancel={handleIconClick}
-            submit={handleSendRequest}
+            submit={sendProfile}
           />
         </BlurWrapper>
       )}

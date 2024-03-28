@@ -10,6 +10,7 @@ const Profile = () => {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [objective, setObjective] = useState(null);
+  const [experience, setExperience] = useState(null);
   const [noProfile, setNoProfile] = useState();
   const [history, setHistory] = useState(null);
 
@@ -19,7 +20,7 @@ const Profile = () => {
     setLastName(data.lastName);
     setFirstName(data.firstName);
     setObjective(data.objective);
-    setHistory(data.history);
+    setExperience(data.experience);
   };
 
   useEffect(() => {
@@ -54,8 +55,8 @@ const Profile = () => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setObjective(data.objective);
-      setHistory(data.history);
-
+      setExperience(data.experience);
+  
       // Fetch skills for each skill ID and add the second value of data.recognizedSkills
       const skillsData = await Promise.all(
         Object.entries(data.recognizedSkills).map(async ([skillId, value]) => {
@@ -135,8 +136,8 @@ const Profile = () => {
               </StyledLink>
             ))}
           </SkillSegment>
-          <SegmentName>history</SegmentName>
-          <Segment>{history}</Segment>
+          <SegmentName>experience</SegmentName>
+          <Segment>{experience}</Segment>
         </UserInfo>
       </LowerWrapper>
     </Container>
