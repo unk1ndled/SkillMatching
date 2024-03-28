@@ -19,8 +19,9 @@ public class Profile {
     private String id;
     private String firstName;
     private String lastName;
-    private String history;
+    private String experience;
     private String objective;
     private String skills;
     private Map<String, Integer> recognizedSkills;
+    private String personalInfo; //address - email - phone
 }

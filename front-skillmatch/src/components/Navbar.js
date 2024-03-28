@@ -31,7 +31,7 @@ const Navbar = ({ title, backgroundColor }) => {
             <ShrinkerWrapper>
               <StyledIcon src={User} onClick={handleIconClick}></StyledIcon>
             </ShrinkerWrapper>
-            <Link to="/">
+            <Link to="/test">
               <UserSectionOption>My Resume</UserSectionOption>
             </Link>
             <Link to="/offers">

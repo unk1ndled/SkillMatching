@@ -13,10 +13,11 @@ import { Offer } from "./pages/Offer";
 import AddResumer from "./pages/AddResumer";
 import Profile from "./pages/Profile";
 import AdminTestSkills from "./pages/AdminTestSkills";
+import Resume from "./pages/Resume";
 
 
 import TestContext from "./pages/TestContext";
-import Resume from "./pages/Resume";
+//import Resume from "./pages/Resume";
 
 function App() {
   return (
@@ -24,9 +25,8 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Profile />} />
-          <Route exact path="/resume" element={<Resume />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/test" element={<TestContext />} />
+          <Route path="/test" element={<Resume />} />
           <Route path="/testc" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/addresume" element={<AddResumer />} />
