@@ -162,6 +162,9 @@ const Profile = () => {
                 </div>
               ))}
           </Segment>
+          <StyledLink to="/addresume">
+            <SegmentName>reset resume</SegmentName>
+          </StyledLink>
         </UserInfo>
       </LowerWrapper>
     </Container>
@@ -179,6 +182,8 @@ const UpperWrapper = styled.div`
   display: flex;
   flex-direction: row;
   box-sizing: border-box; /* Include padding and border in the width */
+  border-bottom: 0.3em solid #2c0735; /* You can adjust the width and color as needed */
+
 `;
 
 const LowerWrapper = styled.div`
@@ -285,6 +290,8 @@ const SkillText = styled.div`
 
 const FullName = styled(UserInfo)`
   position: relative;
+
+
   scrollbar-width: none;
 `;
 
