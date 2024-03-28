@@ -12,10 +12,10 @@ import axios from "axios";
 const AddResumer = () => {
   const navigate = useNavigate();
   const [showNotepad, setShowNotepad] = useState(false);
-  const [firstName,   setFirstName] = useState(null);
-  const [lastName,    setLastName] = useState(null);
-  const [objective,   setObjective] = useState(null);
-  const [skills,      setSkills] = useState(null);
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [objective, setObjective] = useState(null);
+  const [skills, setSkills] = useState(null);
   const [experience, setExperience] = useState([]);
   const [email, setEmail] = useState(null);
   const [address, setAddress] = useState(null);
@@ -27,21 +27,19 @@ const AddResumer = () => {
 
   const { userData } = useAuth();
 
-
   ////////////////////////////////
   const sendProfile = async () => {
-
     const personalInfo = JSON.stringify({
-      address: address ,
+      address: address,
       email: email,
-      phone : phone,
+      phone: phone,
     });
 
     const requestBody = {
       profile: {
         firstName: firstName,
         lastName: lastName,
-        experience: experience, 
+        experience: experience,
         objective: objective,
         skills: skills,
         recognizedSkills: null,
@@ -50,29 +48,27 @@ const AddResumer = () => {
       email: userData.sub,
     };
 
-    await console.log(requestBody)
-
-
+    await console.log(requestBody);
 
     try {
       const response = await axios.post(
         "http://localhost:8080/api/v1/profiles",
         requestBody
       );
+      navigate("/");
     } catch (error) {
       console.error(error.message);
     }
   };
 
   /////////////////////////////
-  
 
   const handleIconClick = () => {
     setShowNotepad(!showNotepad);
     const personalInfo = JSON.stringify({
-      address: address ,
+      address: address,
       email: email,
-      phone : phone,
+      phone: phone,
     });
     console.log(personalInfo);
   };
