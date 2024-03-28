@@ -55,8 +55,8 @@ const Profile = () => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setObjective(data.objective);
-      setExperience(data.experience);
-  
+      setExperience(JSON.parse(data.experience));
+
       // Fetch skills for each skill ID and add the second value of data.recognizedSkills
       const skillsData = await Promise.all(
         Object.entries(data.recognizedSkills).map(async ([skillId, value]) => {
@@ -122,7 +122,13 @@ const Profile = () => {
         <LowerLeftWrapper>
           <CancerDiv>
             <Picture src={user}></Picture>
-            <UserAbout>{objective}</UserAbout>
+            <UserAbout>
+              {/* need to show personal info */}
+              {"my objective " + objective}
+              {"my objective " + objective}
+              {"my objective " + objective}
+              {"my objective " + objective}
+            </UserAbout>
           </CancerDiv>
         </LowerLeftWrapper>
         <UserInfo>
@@ -137,7 +143,25 @@ const Profile = () => {
             ))}
           </SkillSegment>
           <SegmentName>experience</SegmentName>
-          <Segment>{experience}</Segment>
+          <Segment>
+            {experience != null &&
+              experience.map((exp, index) => (
+                <div>
+                  {"was a " + exp.title}
+                  <br></br>
+                  {"at " + exp.company}
+                  <br></br>
+                  {"in " + exp.location}
+                  <br></br>
+                  {"started in" + exp.startDate}
+                  <br></br>
+                  {"ended in " + exp.endDate}
+                  <br></br>
+                  {exp.responsibilities}
+                  <br></br>
+                </div>
+              ))}
+          </Segment>
         </UserInfo>
       </LowerWrapper>
     </Container>

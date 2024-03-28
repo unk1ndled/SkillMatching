@@ -104,7 +104,7 @@ export const Offer = () => {
             </UpperWrap>
             <SkillSegment>
               {offer.recognizedSkills != null &&
-                Object.entries(offer.recognizedSkills).map((keyword, index) => (
+                Object.entries(offer.recognizedSkills).map((keyword, key) => (
                   <StyledLink to ={`/skills/${keyword[1]}`}>
                     <Skill>
                       {/* iterate over each entry and show its first element which is the name  uwu tux comment */}

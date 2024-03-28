@@ -122,9 +122,6 @@ const Resume = () => {
 
       //await console.log(experience);
 
-      
-
-
     } catch (error) {
       console.error(error.message);
     }
