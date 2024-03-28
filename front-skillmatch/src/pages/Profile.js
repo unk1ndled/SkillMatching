@@ -10,6 +10,7 @@ const Profile = () => {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [objective, setObjective] = useState(null);
+  const [noProfile, setNoProfile] = useState();
   const [history, setHistory] = useState(null);
 
   const [skills, setSkills] = useState([]);
@@ -37,6 +38,8 @@ const Profile = () => {
       if (!response.ok) {
         // If user profile doesn't exist, throw 404 error
         if (response.status === 404) {
+          //kanlo7o l user mn hna
+
           throw new Error("User not found");
         }
         // For other errors, throw appropriate error
@@ -93,11 +96,10 @@ const Profile = () => {
       const filteredSkillsData = skillsData.filter((skill) => skill !== null);
       setSkills(filteredSkillsData);
     } catch (error) {
-      
       // Handle errors, including the case when the user is not found\
 
-      //redirect user from here 
-
+      //redirect user from here
+      window.location.href = "/addresume";
       console.error("Error fetching profile:", error);
       // Stop function execution
       return;
