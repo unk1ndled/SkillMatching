@@ -1,5 +1,6 @@
 package com.qalb.SkillMatching.Services;
 
+import com.qalb.SkillMatching.Exceptions.NoProfileException;
 import com.qalb.SkillMatching.Models.Profile;
 import com.qalb.SkillMatching.Models.User;
 import com.qalb.SkillMatching.Repositories.UserRepository;
@@ -37,7 +38,7 @@ public class UserService {
 
         String profileId = user.getProfileId();
         if (profileId == null) {
-            throw new IllegalStateException("User's profile ID is null");
+            throw new NoProfileException("User's profile ID is null");
         }
 
         return profileService.getProfile(profileId)
@@ -50,7 +51,8 @@ public class UserService {
 
         String profileId = user.getProfileId();
         if (profileId == null) {
-            throw new IllegalStateException("User's profile ID is null");
+            throw new NoProfileException("User's profile ID is null");
+
         }
 
         return profileId;

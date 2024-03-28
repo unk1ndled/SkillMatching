@@ -32,13 +32,27 @@ const Profile = () => {
       const response = await fetch(
         `http://localhost:8080/api/v1/profiles/${userData.id}`
       );
+
+      // Check if the response is OK
+      if (!response.ok) {
+        // If user profile doesn't exist, throw 404 error
+        if (response.status === 404) {
+          throw new Error("User not found");
+        }
+        // For other errors, throw appropriate error
+        throw new Error(
+          `Failed to fetch user profile. Status: ${response.status}`
+        );
+      }
+
       const data = await response.json();
-  
+
+      // Proceed with setting profile data
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setObjective(data.objective);
       setHistory(data.history);
-  
+
       // Fetch skills for each skill ID and add the second value of data.recognizedSkills
       const skillsData = await Promise.all(
         Object.entries(data.recognizedSkills).map(async ([skillId, value]) => {
@@ -46,23 +60,27 @@ const Profile = () => {
             const skillResponse = await fetch(
               `http://localhost:8080/api/v1/keywords/${skillId}`
             );
-  
             if (!skillResponse.ok) {
               // If the skill doesn't exist anymore, send a request to delete it
               if (skillResponse.status === 404) {
-                await fetch(`http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${skillId}`, {
-                  method: "DELETE"
-                });
+                await fetch(
+                  `http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${skillId}`,
+                  {
+                    method: "DELETE",
+                  }
+                );
                 return null; // Return null to filter out this skill from the final array
               }
-              throw new Error(`Failed to fetch skill data. Status: ${skillResponse.status}`);
+              throw new Error(
+                `Failed to fetch skill data. Status: ${skillResponse.status}`
+              );
             }
-  
+
             const skillData = await skillResponse.json();
-  
+
             // Add the second value from data.recognizedSkills to the skill data
             skillData.value = value;
-  
+
             return skillData;
           } catch (error) {
             console.error(`Error fetching skill ${skillId}:`, error);
@@ -70,12 +88,19 @@ const Profile = () => {
           }
         })
       );
-  
+
       // Filter out any null values (skills that were deleted)
-      const filteredSkillsData = skillsData.filter(skill => skill !== null);
+      const filteredSkillsData = skillsData.filter((skill) => skill !== null);
       setSkills(filteredSkillsData);
     } catch (error) {
+      
+      // Handle errors, including the case when the user is not found\
+
+      //redirect user from here 
+
       console.error("Error fetching profile:", error);
+      // Stop function execution
+      return;
     }
   };
 
@@ -101,7 +126,7 @@ const Profile = () => {
           <SegmentName>skills</SegmentName>
           <SkillSegment>
             {skills.map((keyword, index) => (
-              <StyledLink to ={`/skills/${keyword.id}`}>
+              <StyledLink to={`/skills/${keyword.id}`}>
                 <Skill>
                   <SkillText> {keyword.name}</SkillText>
                 </Skill>
@@ -220,11 +245,10 @@ const Skill = styled.div`
 
   &:hover {
     transform: scale(1.05);
-    background-color: #DB7C26;
-    color:black;
+    background-color: #db7c26;
+    color: black;
     transition: transform 0.3s ease;
   }
-
 `;
 
 const SkillText = styled.div`
@@ -274,7 +298,6 @@ const UserAbout = styled(Segment)`
 const StyledLink = styled(Link)`
   text-decoration: none;
   height: 5em;
-
 `;
 
 export default Profile;
