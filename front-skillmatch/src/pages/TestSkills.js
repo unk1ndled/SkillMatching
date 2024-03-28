@@ -7,9 +7,10 @@ import QuestionsRectangle from "../components/QuestionsRectangle";
 import AnswersSquare from "../components/AnswerOption";
 import AnswerButton from "../components/AnswerButton";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 import TestResult from "../components/TestResult";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const TestSkills = () => {
   const [questionData, setQuestionData] = useState({
@@ -29,9 +30,13 @@ const TestSkills = () => {
   const [progress, setProgress] = useState("0%");
   const [reset, setReset] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [totalOfQuestions, setTotalOfQuestions] = useState(2);
+  const [keywordId, setKeywordId] = useState("");
+  const [totalOfQuestions, setTotalOfQuestions] = useState(100);
 
   const location = useLocation();
+  const { userData } = useAuth();
+
+  console.log(userData);
 
   const id = location.pathname.split("/")[2];
   const isAdvanced = location.pathname.split("/")[4];
@@ -39,7 +44,6 @@ const TestSkills = () => {
   useEffect(() => {
     setAboutParam(id);
     setAdvanced(isAdvanced);
-    //console.log(isAdvanced);
   }, []);
 
   const fetchData = async () => {
@@ -55,8 +59,24 @@ const TestSkills = () => {
     }
   };
 
-  if (aboutParam !== undefined && isAdvanced !== undefined) {
+  if (aboutParam !== undefined) {
     fetchData();
+  }
+
+  const fetchKeywordId = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
+      );
+      //console.log("response you got :" + response.data);
+      setKeywordId(response.data);
+      console.log("Keyword Id", response.data);
+    } catch (error) {
+      console.error("Error fetching question data:", error);
+    }
+  };
+  if (aboutParam !== undefined) {
+    fetchKeywordId();
   }
 
   useEffect(() => {
@@ -74,9 +94,30 @@ const TestSkills = () => {
           console.error("Error fetching question data:", error);
         });
     }
-
     updateProgress();
   }, [questionOrderParam, aboutParam]);
+
+  const addSkillToUser = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${keywordId}?advanced=${isAdvanced}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to add skill. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error adding skill:", error.message);
+    }
+
+    console.log("Meeebrouk nj7ti");
+  };
 
   const handleAnswerSelect = (selectedAnswer) => {
     // Toggle the selected answer
@@ -104,10 +145,16 @@ const TestSkills = () => {
     }
     // Reset selected answers and go to next question
     setSelectedAnswers([]);
-    if (questionOrderParam === totalOfQuestions) {
+    if (progress === "100%") {
+      console.log(totalOfQuestions);
+      console.log("score:" + score);
+      if (score + 1 === totalOfQuestions) {
+        addSkillToUser();
+      }
       setShowResults(true);
     }
     //  reset state
+
     setReset(!reset);
     questionOrderParam < totalOfQuestions &&
       setQuestionOrderParam(questionOrderParam + 1);
@@ -121,9 +168,9 @@ const TestSkills = () => {
   };
 
   const updateProgress = () => {
-    const calculatedProgress =
-      ((questionOrderParam - 1) / totalOfQuestions) * 100;
+    const calculatedProgress = (questionOrderParam / totalOfQuestions) * 100;
     setProgress(`${calculatedProgress}%`);
+    console.log(progress);
   };
 
   return (

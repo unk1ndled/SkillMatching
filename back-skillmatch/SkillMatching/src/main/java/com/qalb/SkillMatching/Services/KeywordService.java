@@ -37,6 +37,14 @@ public class KeywordService {
         return cacheService.getKeywordMap();
     }
 
+    public String getKeywordId(String name){
+     Keyword keyword = repository.findByName(name);
+     if(keyword != null){
+         return keyword.getId();
+     }
+     return null;
+    }
+
     public Map<String, Integer> extractKeywords(String paragraph) {
         List<String> words = utilityService.getWords(paragraph);
         Map<String, String> keywordMap = getKeywordMap();
