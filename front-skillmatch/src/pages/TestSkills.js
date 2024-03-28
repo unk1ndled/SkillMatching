@@ -30,13 +30,15 @@ const TestSkills = () => {
   const [progress, setProgress] = useState("0%");
   const [reset, setReset] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [keywordId, setKeywordId] = useState("");
+  const [keywordId, setKeywordId] = useState(
+    localStorage.getItem("keywordId") || ""
+  );
   const [totalOfQuestions, setTotalOfQuestions] = useState(100);
 
   const location = useLocation();
   const { userData } = useAuth();
 
-  console.log(userData);
+  // console.log(userData);
 
   const id = location.pathname.split("/")[2];
   const isAdvanced = location.pathname.split("/")[4];
@@ -53,6 +55,8 @@ const TestSkills = () => {
       );
       //console.log("response you got :" + response.data);
       setTotalOfQuestions(response.data);
+      localStorage.setItem("keywordId", totalOfQuestions);
+
       //console.log("Question bigegst order data:", response.data);
     } catch (error) {
       console.error("Error fetching question data:", error);
@@ -63,21 +67,21 @@ const TestSkills = () => {
     fetchData();
   }
 
-  const fetchKeywordId = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
-      );
-      //console.log("response you got :" + response.data);
-      setKeywordId(response.data);
-      console.log("Keyword Id", response.data);
-    } catch (error) {
-      console.error("Error fetching question data:", error);
-    }
-  };
-  if (aboutParam !== undefined) {
-    fetchKeywordId();
-  }
+  useEffect(() => {
+    const fetchKeywordId = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
+        );
+        setKeywordId(response.data);
+        localStorage.setItem("keywordId", keywordId);
+        //console.log("Keyword Id", keywordId);
+        //console.log("Keyword Id", response.data);
+      } catch (error) {
+        console.error("Error fetching keyword ID:", error);
+      }
+    };
+  }, [aboutParam]);
 
   useEffect(() => {
     // Fetch question data from  API
@@ -146,8 +150,6 @@ const TestSkills = () => {
     // Reset selected answers and go to next question
     setSelectedAnswers([]);
     if (progress === "100%") {
-      console.log(totalOfQuestions);
-      console.log("score:" + score);
       if (score + 1 === totalOfQuestions) {
         addSkillToUser();
       }
@@ -170,7 +172,7 @@ const TestSkills = () => {
   const updateProgress = () => {
     const calculatedProgress = (questionOrderParam / totalOfQuestions) * 100;
     setProgress(`${calculatedProgress}%`);
-    console.log(progress);
+    //console.log(progress);
   };
 
   return (
