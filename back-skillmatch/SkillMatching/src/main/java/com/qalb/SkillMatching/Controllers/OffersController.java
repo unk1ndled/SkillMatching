@@ -60,7 +60,6 @@ public class OffersController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonResult);
         return ResponseEntity.ok(jsonResult);
     }
 }

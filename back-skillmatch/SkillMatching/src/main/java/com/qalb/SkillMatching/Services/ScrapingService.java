@@ -46,7 +46,6 @@ public class ScrapingService {
         String[] parts = text.split(pre);
         if (parts.length >= 2) {
             String[] titleParts = parts[1].trim().split("\\s+", 4);
-            System.out.println(Arrays.toString(titleParts));
             if (titleParts.length >= 4) {
                 return titleParts[0] + " " + titleParts[1] + " " + titleParts[2] + " " + titleParts[3];
             }

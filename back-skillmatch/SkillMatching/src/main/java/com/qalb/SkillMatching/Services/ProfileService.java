@@ -37,7 +37,6 @@ public class ProfileService {
                         deleteProfile(user.getProfileId());
                     }
                     profile.setRecognizedSkills(keywordService.extractKeywordsInitiate(profile.getSkills()));
-                    System.out.println(profile);
                     return profileRepository.save(profile);
                 })
                 .ifPresent(savedProfile -> {
