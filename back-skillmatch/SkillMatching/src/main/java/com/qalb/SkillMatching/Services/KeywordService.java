@@ -68,14 +68,28 @@ public class KeywordService {
             return matchingKeywords;
     }
 
+    public String getKeywordId(String name){
+        Keyword keyword = repository.findByName(name);
+        if(keyword != null){
+            return keyword.getId();
+        }
+        return null;
+    }
+
+
     public Map<String, Integer> extractKeywordsInitiate(String paragraph) {
 
-    public String getKeywordId(String name){
-     Keyword keyword = repository.findByName(name);
-     if(keyword != null){
-         return keyword.getId();
-     }
-     return null;
+        List<String> words = utilityService.getWords(paragraph);
+        Map<String, String> keywordMap = getKeywordMap();
+        Map<String, Integer> matchingKeywords = new HashMap<>();
+
+        for (String word : words) {
+            String id = keywordMap.get(word);
+            if (id != null) {
+                matchingKeywords.put(id,0);
+            }
+        }
+        return matchingKeywords;
     }
 
     public Map<String, Integer> extractKeywords(String paragraph) {
