@@ -53,11 +53,10 @@ public class KeywordController {
     }
 
 
-    @PostMapping("/analyse")
-    public ResponseEntity<Map<String,Integer>> extractKeywords(@RequestBody String paragraph) {
-        return ResponseEntity.ok(keywordService.extractKeywords(paragraph));
-
-    }
+//    @PostMapping("/analyse")
+//    public ResponseEntity<Map<String,Integer>> extractKeywords(@RequestBody String paragraph) {
+//        return ResponseEntity.ok(keywordService.extractKeywordsMap(paragraph));
+//    }
 
 
 

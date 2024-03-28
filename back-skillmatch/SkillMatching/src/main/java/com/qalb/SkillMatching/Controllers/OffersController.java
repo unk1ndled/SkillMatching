@@ -41,6 +41,11 @@ public class OffersController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Offer> reAnalyseOffer(@PathVariable String id){
+        offerService.reAnalyseOffer(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<String> fetchOffer(@RequestBody String url) {

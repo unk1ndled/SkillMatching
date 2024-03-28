@@ -39,9 +39,13 @@ const Offers = () => {
     handleIconClick();
   };
 
+
   const filteredOffers = offers.filter((offer) =>
-    offer.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  offer.title?.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
+
+  console.log(filteredOffers)
 
   const fetchOffers = async () => {
     try {
@@ -74,7 +78,7 @@ const Offers = () => {
       {/*<p>User data: {JSON.stringify(userData)}</p>*/}
       <ListWrapper>
         {isAdmin && <Offer bgcolor="#DB7C26" onClick={handleIconClick}></Offer>}
-        {filteredOffers.map((offer, index) => (
+        {offers.map((offer, index) => (
           <Offer
             route={`/offers/${offer.id}`}
             key={index}

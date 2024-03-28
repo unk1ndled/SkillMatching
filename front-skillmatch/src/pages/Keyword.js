@@ -64,7 +64,6 @@ export const Keyword = () => {
   const CheckAdvanced = (text) => {
     setIsAdvanced(text === "advanced");
     addSkillToUser();
-    console.log("advanced is " + isAdvanced);
     HandleShowDifficulty();
   };
 
@@ -78,8 +77,7 @@ export const Keyword = () => {
         <Skill>
           <UpperWrap>
             <Image src={Icon} />
-            <TitleText>{keyword.name}</TitleText>
-
+            <TitleText> {keyword.name}</TitleText>
             <TriangleRight onClick={HandleShowDifficulty}></TriangleRight>
           </UpperWrap>
           <BottomWrap>
@@ -95,11 +93,11 @@ export const Keyword = () => {
             </PushableButtonStyled>
           </ButtonSection>
           <ResultPopup>
-            {/* <StyledLink to={`/tests/${keyword.name}/advanced/${isAdvanced}`}> */}
+            <StyledLink to={`/tests/${keyword.name}/advanced/${isAdvanced}`}>
               <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
                 easy
               </Difficulty>
-            {/* </StyledLink> */}
+            </StyledLink>
             <StyledLink to={`/tests/${keyword.name}/advanced/true`}>
               <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
                 advanced
@@ -167,8 +165,13 @@ const BottomWrap = styled.div`
   color: #858ae3;
   overflow: hidden;
 `;
+
+
+
 const TitleText = styled.div`
-  font-size: 6dvw;
+  width: 40%;
+  word-wrap: break-word;
+  font-size: 6rem;
   font-weight: bold;
   color: white;
   text-align: center;

@@ -24,7 +24,13 @@ public class ProfileController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfileByUserId(@PathVariable String id) {
-        return new ResponseEntity<>(userService.getProfileByUserId(id), HttpStatus.OK);
+        Profile profile = userService.getProfileByUserId(id);
+        // Check if profile is null (not found)
+        if (profile == null) {
+            System.out.println("hiiii");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(profile, HttpStatus.OK);
     }
 
     @PostMapping("/{userid}/keywords/{skillId}")

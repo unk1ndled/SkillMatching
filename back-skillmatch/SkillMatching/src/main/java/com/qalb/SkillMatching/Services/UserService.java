@@ -62,6 +62,8 @@ public class UserService {
         profileService.levelUpSkill(profile,skillId,level);
     }
 
+
+    //TODO resolve leftover id deletion
     public void removeProfileSkill(String userId,String skillId){
         String profile = getProfileId(userId);
         profileService.removeSkill(profile,skillId);
