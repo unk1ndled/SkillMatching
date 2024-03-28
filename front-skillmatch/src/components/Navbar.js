@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Logo from "../images/Logo.png";
 import User from "../images/user.png";
 import { Link } from "react-router-dom";
@@ -19,9 +19,9 @@ const Navbar = ({ title, backgroundColor }) => {
       <Wrapper>
         <MiniWrapper>
           <StyledImg src={Logo} />
-          <StyledLink to="/">
+          {/* <StyledLink to="/"> */}
             <Title>{title}</Title>
-          </StyledLink>
+          {/* </StyledLink> */}
         </MiniWrapper>
         <MarginRightWrapper>
           <StyledIcon src={User} onClick={handleIconClick} />
@@ -96,12 +96,21 @@ const StyledIcon = styled(StyledImg)`
 
 const UserSectionOption = styled.div`
   user-select: none;
-  color: #ffff;
+  color: #B8B7EE;
   font-weight: bold;
   padding: 5px;
   font-size: 20px;
   text-decoration: none;
   cursor: pointer;
+`;
+
+const slideDown = keyframes`
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 `;
 
 const UserSection = styled.div`
@@ -114,9 +123,10 @@ const UserSection = styled.div`
   margin-right: 15px;
   right: 0;
   box-shadow: 0 0 10px rgba(8, 7, 16, 1);
-  background-color: #6f00ef;
+  background-color: #613DC1;
   padding: 20px 40px;
-  border-radius: 5px 5px 50px 50px; /* Adjust the value as needed */
+  border-radius: 5px 5px 5px 5px; /* Adjust the value as needed */
+  animation: ${slideDown} 0.3s ease-in-out forwards;
 `;
 
 const StyledLink = styled(Link)`

@@ -44,15 +44,9 @@ const AddResumer = () => {
       },
       body: requestBodyString,
     })
-      .then((response) => response.json())
-      .then((responseData) => {
-        // Handle the response data here
-        console.log(responseData);
-      })
       .catch((error) => {
         console.error("Error:", error);
       });
-    console.log(requestBodyString);
     handleIconClick();
     showResponseDiv();
   };

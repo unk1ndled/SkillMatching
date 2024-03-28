@@ -272,9 +272,9 @@ const SkillSegment = styled(Segment)`
   padding: 3em;
   grid-template-columns: repeat(
     auto-fill,
-    minmax(200px, 0.5fr)
+    minmax(12em, 0.5fr)
   ); /* Adjust minmax values as needed */
-  gap: 1vw;
+  gap: 1em;
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;

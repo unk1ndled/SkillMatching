@@ -45,7 +45,6 @@ const Offers = () => {
 );
 
 
-  console.log(filteredOffers)
 
   const fetchOffers = async () => {
     try {
@@ -54,7 +53,6 @@ const Offers = () => {
         throw new Error("Failed to fetch offers");
       }
       const data = await response.json();
-      console.log(data);
       setOffers(data);
     } catch (error) {
       console.error("Error fetching offers:", error);
@@ -78,7 +76,7 @@ const Offers = () => {
       {/*<p>User data: {JSON.stringify(userData)}</p>*/}
       <ListWrapper>
         {isAdmin && <Offer bgcolor="#DB7C26" onClick={handleIconClick}></Offer>}
-        {offers.map((offer, index) => (
+        {filteredOffers.map((offer, index) => (
           <Offer
             route={`/offers/${offer.id}`}
             key={index}

@@ -61,8 +61,6 @@ const AdminTestSkills = () => {
       about: about,
     };
 
-    console.log(requestBody);
-
     fetch(`http://localhost:8080/api/v1/quizz/question`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -70,7 +68,6 @@ const AdminTestSkills = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
       })
       .catch((error) => {
         console.error("Error:", error);
