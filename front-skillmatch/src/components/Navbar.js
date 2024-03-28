@@ -122,8 +122,8 @@ const UserSection = styled.div`
   top: 10px;
   margin-right: 15px;
   right: 0;
-  box-shadow: 0 0 10px rgba(8, 7, 16, 1);
-  background-color: #613DC1;
+  box-shadow: 0 0 5px rgba(50, 50, 50, 1);
+  background-color: #2C0735;
   padding: 20px 40px;
   border-radius: 5px 5px 5px 5px; /* Adjust the value as needed */
   animation: ${slideDown} 0.3s ease-in-out forwards;
