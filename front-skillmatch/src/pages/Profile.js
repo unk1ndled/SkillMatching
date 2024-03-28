@@ -163,7 +163,10 @@ const Profile = () => {
               ))}
           </Segment>
           <StyledLink to="/addresume">
-            <SegmentName>reset resume</SegmentName>
+            <SegmentName>reset profile</SegmentName>
+          </StyledLink>
+          <StyledLink to="/test">
+            <SegmentName>print resume</SegmentName>
           </StyledLink>
         </UserInfo>
       </LowerWrapper>

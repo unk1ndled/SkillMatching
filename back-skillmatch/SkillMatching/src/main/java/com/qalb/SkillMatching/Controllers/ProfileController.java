@@ -28,7 +28,6 @@ public class ProfileController {
         Profile profile = userService.getProfileByUserId(id);
         // Check if profile is null (not found)
         if (profile == null) {
-            System.out.println("hiiii");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(profile, HttpStatus.OK);
