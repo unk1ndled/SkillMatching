@@ -7,28 +7,31 @@ import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [objective, setObjective] = useState(null);
-  const [experience, setExperience] = useState(null);
-  const [noProfile, setNoProfile] = useState();
+  const [firstName, setFirstName] = useState(
+    localStorage.getItem("firstName") || null
+  );
+  const [lastName, setLastName] = useState(
+    localStorage.getItem("lastName") || null
+  );
+  const [objective, setObjective] = useState(
+    localStorage.getItem("objective") || null
+  );
+  const [experience, setExperience] = useState(
+    JSON.parse(localStorage.getItem("experience")) || null
+  );
   const [history, setHistory] = useState(null);
 
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState(
+    JSON.parse(localStorage.getItem("skills")) || null
+  );
 
-  const setAll = (data) => {
-    setLastName(data.lastName);
-    setFirstName(data.firstName);
-    setObjective(data.objective);
-    setExperience(data.experience);
-  };
+  const { userData } = useAuth();
 
   useEffect(() => {
     fetchProfile();
   }, []);
 
-  const { userData } = useAuth();
-
+  useEffect(() => {});
   const fetchProfile = async () => {
     try {
       const response = await fetch(
@@ -40,7 +43,7 @@ const Profile = () => {
         // If user profile doesn't exist, throw 404 error
         if (response.status === 404) {
           //kanlo7o l user mn hna
-
+          window.location.href = "/addresume";
           throw new Error("User not found");
         }
         // For other errors, throw appropriate error
@@ -56,6 +59,12 @@ const Profile = () => {
       setLastName(data.lastName);
       setObjective(data.objective);
       setExperience(JSON.parse(data.experience));
+
+      // Store data in localStorage
+      localStorage.setItem("firstName", data.firstName);
+      localStorage.setItem("lastName", data.lastName);
+      localStorage.setItem("objective", data.objective);
+      localStorage.setItem("experience", data.experience);
 
       // Fetch skills for each skill ID and add the second value of data.recognizedSkills
       const skillsData = await Promise.all(
@@ -95,17 +104,29 @@ const Profile = () => {
 
       // Filter out any null values (skills that were deleted)
       const filteredSkillsData = skillsData.filter((skill) => skill !== null);
+
       setSkills(filteredSkillsData);
+
+      // Store skills in localStorage
+      localStorage.setItem("skills", JSON.stringify(filteredSkillsData));
     } catch (error) {
       // Handle errors, including the case when the user is not found\
 
       //redirect user from here
-      window.location.href = "/addresume";
+
       console.error("Error fetching profile:", error);
       // Stop function execution
       return;
     }
   };
+
+  // Retrieve and log stored data from localStorage outside the fetchProfile function its working :(
+  console.log("Stored data in localStorage:");
+  console.log("firstName:", localStorage.getItem("firstName"));
+  console.log("lastName:", localStorage.getItem("lastName"));
+  console.log("objective:", localStorage.getItem("objective"));
+  console.log("experience:", localStorage.getItem("experience"));
+  console.log("skills:", localStorage.getItem("skills"));
 
   return (
     <Container>
