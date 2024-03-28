@@ -122,7 +122,7 @@ const UserSection = styled.div`
   top: 10px;
   margin-right: 15px;
   right: 0;
-  box-shadow: 0 0 5px rgba(50, 50, 50, 1);
+  box-shadow: 0 0 5px rgba(70, 70, 70, 12);
   background-color: #2C0735;
   padding: 20px 40px;
   border-radius: 5px 5px 5px 5px; /* Adjust the value as needed */

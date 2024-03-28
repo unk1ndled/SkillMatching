@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
-import user from "../images/stare-dont-blink.gif";
+import user from "../images/tummy.gif";
 
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";

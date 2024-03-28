@@ -7,12 +7,17 @@ import Icon from "../images/placeholder.jpg";
 import GlobalStyle from "../components/GlobalStyles";
 import styled from "styled-components";
 import Heart from "../components/heartIcon";
+import { useAuth } from "../context/AuthContext";
+
 
 export const Offer = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [offer, setOffer] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const { userData } = useAuth();
+  const isAdmin = userData && userData.role === "ADMIN";
+
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -34,7 +39,7 @@ export const Offer = () => {
       console.error("Error :", error);
     }
 
-    if (offer.recognizedSkills == null) {
+    if (offer.recognizedSkills == null || isAdmin) {
       const response = await fetch(
         "http://localhost:8080/api/v1/offers/" + id,
         {

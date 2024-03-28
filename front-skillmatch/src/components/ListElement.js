@@ -47,7 +47,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0.5em;
+  border-radius: 0.3em;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 
   &:hover {
