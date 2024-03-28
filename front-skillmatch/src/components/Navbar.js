@@ -19,9 +19,9 @@ const Navbar = ({ title, backgroundColor }) => {
       <Wrapper>
         <MiniWrapper>
           <StyledImg src={Logo} />
-          <Link to="/">
+          <StyledLink to="/">
             <Title>{title}</Title>
-          </Link>
+          </StyledLink>
         </MiniWrapper>
         <MarginRightWrapper>
           <StyledIcon src={User} onClick={handleIconClick} />
@@ -31,18 +31,18 @@ const Navbar = ({ title, backgroundColor }) => {
             <ShrinkerWrapper>
               <StyledIcon src={User} onClick={handleIconClick}></StyledIcon>
             </ShrinkerWrapper>
-            <Link to="/">
+            <StyledLink to="/">
               <UserSectionOption>My Resume</UserSectionOption>
-            </Link>
-            <Link to="/offers">
+            </StyledLink>
+            <StyledLink to="/offers">
               <UserSectionOption>Job Offers</UserSectionOption>
-            </Link>
-            <Link to="/skills">
+            </StyledLink>
+            <StyledLink to="/skills">
               <UserSectionOption>Level Up</UserSectionOption>
-            </Link>
-            <Link to="/login" onClick={logout}>
+            </StyledLink>
+            <StyledLink to="/login" onClick={logout}>
               <UserSectionOption>Log out</UserSectionOption>
-            </Link>
+            </StyledLink>
           </UserSection>
         )}
       </Wrapper>
@@ -82,7 +82,6 @@ const Title = styled.div`
   font-size: 30px;
   padding-left: 10px;
   text-decoration: none;
-
 `;
 
 const StyledImg = styled.img`
@@ -118,4 +117,8 @@ const UserSection = styled.div`
   background-color: #6f00ef;
   padding: 20px 40px;
   border-radius: 5px 5px 50px 50px; /* Adjust the value as needed */
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;

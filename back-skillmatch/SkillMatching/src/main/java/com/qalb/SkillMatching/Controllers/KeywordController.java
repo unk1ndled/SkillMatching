@@ -58,6 +58,11 @@ public class KeywordController {
 //        return ResponseEntity.ok(keywordService.extractKeywordsMap(paragraph));
 //    }
 
+    @GetMapping("/get-id")
+    public String getIdByName(@RequestParam String name) {
+        return keywordService.getKeywordId(name);
+    }
+
 
 
 }

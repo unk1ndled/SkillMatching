@@ -14,13 +14,12 @@ export const Keyword = () => {
   const [keyword, setKeyword] = useState({});
   const [isAdvanced, setIsAdvanced] = useState(false);
   const [showDifficulty, setShowDiffculty] = useState(false);
-  const { userData } = useAuth();
-
 
   useEffect(() => {
     fetchKeyword();
   }, [id]);
 
+  const { userData } = useAuth();
   const isAdmin = userData && userData.role === "ADMIN";
 
   const fetchKeyword = async () => {
@@ -39,34 +38,16 @@ export const Keyword = () => {
     }
   };
 
-  const addSkillToUser = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${id}?advanced=${isAdvanced}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Failed to add skill. Status: ${response.status}`);
-      }
-  
-    } catch (error) {
-      console.error("Error adding skill:", error.message);
-    }
-  };
-
   const HandleShowDifficulty = () => {
     setShowDiffculty(!showDifficulty);
   };
 
   const CheckAdvanced = (text) => {
+    //console.log(text);
     setIsAdvanced(text === "advanced");
-    addSkillToUser();
+    console.log("advanced is " + isAdvanced);
     HandleShowDifficulty();
   };
-
   //TODO : Problem with isAdvanced checking
 
   return (
@@ -93,7 +74,7 @@ export const Keyword = () => {
             </PushableButtonStyled>
           </ButtonSection>
           <ResultPopup>
-            <StyledLink to={`/tests/${keyword.name}/advanced/${isAdvanced}`}>
+            <StyledLink to={`/tests/${keyword.name}/advanced/false`}>
               <Difficulty onClick={(e) => CheckAdvanced(e.target.textContent)}>
                 easy
               </Difficulty>
@@ -103,6 +84,7 @@ export const Keyword = () => {
                 advanced
               </Difficulty>
             </StyledLink>
+
             {isAdmin && (
               <StyledLink to={`/tests/${keyword.name}/add`}>
                 <Difficulty>add </Difficulty>
