@@ -2,17 +2,13 @@ package com.qalb.SkillMatching.Controllers;
 
 
 import com.qalb.SkillMatching.Models.Keyword;
-import com.qalb.SkillMatching.Models.QuizzQuestion;
 import com.qalb.SkillMatching.Services.KeywordService;
 import com.qalb.SkillMatching.Services.ScrapingService;
-import com.qalb.SkillMatching.Services.UtilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/keywords")

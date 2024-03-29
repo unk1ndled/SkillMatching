@@ -1,18 +1,17 @@
-FROM eclipse-temurin:17-jdk-alpine as build
-WORKDIR /workspace/app
+FROM maven AS build
+WORKDIR /app/myapp
+COPY . .
+RUN mvn clean package -DskipTests
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
+FROM openjdk:17-alpine
 
-RUN ./mvnw install -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+# Définitir la répertoire de travaille
+WORKDIR /app
 
-FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/target/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.qalb.SkillMatching.SkillMatchingApplication"]
+EXPOSE 8080
+
+# Copie du fichier JAR généré depuis l'étape de construction
+COPY --from=build /app/myapp/target/SkillMatching-0.0.1-SNAPSHOT.jar SkillMatching-0.0.1-SNAPSHOT.jar
+
+# Commande à exécuter lors du démarrage du conteneur
+ENTRYPOINT ["java","-jar","SkillMatching-0.0.1-SNAPSHOT.jar"]

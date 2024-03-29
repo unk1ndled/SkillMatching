@@ -1,21 +1,7 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/skillmatching
-    username: postgres
-    password: 123456789
-    driver-class-name: org.postgresql.Driver
   data:
     mongodb:
-
       uri: mongodb+srv://haithamtests012:Hai2003tham@cluster0.r5bgn0g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: SkillMatch
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
 
