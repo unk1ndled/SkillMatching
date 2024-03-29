@@ -60,5 +60,5 @@ public class KeywordController {
     public String getIdByName(@RequestParam String name) {
         return keywordService.getKeywordId(name);
     }
-    
+
 }

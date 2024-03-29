@@ -13,7 +13,7 @@ import { Offer } from "./pages/Offer";
 import AddResumer from "./pages/AddResumer";
 import Profile from "./pages/Profile";
 import AdminTestSkills from "./pages/AdminTestSkills";
-import Resume from "./pages/Resume";
+import Resume from "./templates/Resume";
 
 
 import TestContext from "./pages/TestContext";
