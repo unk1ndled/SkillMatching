@@ -30,39 +30,26 @@ const TestSkills = () => {
   const [progress, setProgress] = useState("0%");
   const [reset, setReset] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [totalOfQuestions, setTotalOfQuestions] = useState(100);
+  const [totalOfQuestions, setTotalOfQuestions] = useState(
+    localStorage.getItem("totalOfQuestions") || 100
+  );
 
   const location = useLocation();
   const { userData } = useAuth();
-
-  // console.log(userData);
-
-  const id = location.pathname.split("/")[2];
-  const isAdvanced = location.pathname.split("/")[4];
 
   useEffect(() => {
     setAboutParam(id);
     setAdvanced(isAdvanced);
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/api/v1/quizz/biggest-question-order?advanced=${isAdvanced}&about=${aboutParam}`
-      );
-      //console.log("response you got :" + response.data);
-      setTotalOfQuestions(response.data);
-      localStorage.setItem("totalOfQuestions", totalOfQuestions);
+  // console.log(userData);
 
-      //console.log("Question bigegst order data:", response.data);
-    } catch (error) {
-      console.error("Error fetching question data:", error);
-    }
-  };
+  const id = location.pathname.split("/")[2];
+  const isAdvanced = location.pathname.split("/")[4];
 
-  if (aboutParam !== undefined) {
-    fetchData();
-  }
+  // if (aboutParam !== undefined) {
+  //   fetchData();
+  // }
 
   useEffect(() => {
     // Fetch question data from  API
@@ -82,12 +69,28 @@ const TestSkills = () => {
     updateProgress();
   }, [questionOrderParam, aboutParam]);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/quizz/biggest-question-order?advanced=${isAdvanced}&about=${aboutParam}`
+      );
+      //console.log("response you got :" + response.data);
+      setTotalOfQuestions(response.data);
+      localStorage.setItem("totalOfQuestions", totalOfQuestions);
 
+      //console.log("Question bigegst order data:", response.data);
+    } catch (error) {
+      console.error("Error fetching question data:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch data and store in LocalStorage
+    fetchData();
+  }, [totalOfQuestions]);
 
   const addSkillToUser = async () => {
     try {
-
-      
       const kywdid = await axios.get(
         `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
       );
@@ -144,7 +147,9 @@ const TestSkills = () => {
       if (score + 1 === totalOfQuestions) {
         addSkillToUser();
       }
+
       setShowResults(true);
+      localStorage.setItem("totalOfQuestions", 100);
     }
     //  reset state
 
@@ -165,6 +170,12 @@ const TestSkills = () => {
     setProgress(`${calculatedProgress}%`);
     //console.log(progress);
   };
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("totalOfQuestions", 100);
+    });
+  }, []);
 
   return (
     <div>
