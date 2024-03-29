@@ -30,9 +30,6 @@ const TestSkills = () => {
   const [progress, setProgress] = useState("0%");
   const [reset, setReset] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [keywordId, setKeywordId] = useState(
-    localStorage.getItem("keywordId") || ""
-  );
   const [totalOfQuestions, setTotalOfQuestions] = useState(100);
 
   const location = useLocation();
@@ -55,7 +52,7 @@ const TestSkills = () => {
       );
       //console.log("response you got :" + response.data);
       setTotalOfQuestions(response.data);
-      localStorage.setItem("keywordId", totalOfQuestions);
+      localStorage.setItem("totalOfQuestions", totalOfQuestions);
 
       //console.log("Question bigegst order data:", response.data);
     } catch (error) {
@@ -66,22 +63,6 @@ const TestSkills = () => {
   if (aboutParam !== undefined) {
     fetchData();
   }
-
-  const fetchKeywordId = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
-      );
-      setKeywordId(response.data);
-      localStorage.setItem("keywordId", keywordId);
-    } catch (error) {
-      console.error("Error fetching keyword ID:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchKeywordId()
-  }, [aboutParam]);
 
   useEffect(() => {
     // Fetch question data from  API
@@ -101,10 +82,18 @@ const TestSkills = () => {
     updateProgress();
   }, [questionOrderParam, aboutParam]);
 
+
+
   const addSkillToUser = async () => {
     try {
+
+      
+      const kywdid = await axios.get(
+        `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
+      );
+
       const response = await fetch(
-        `http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${keywordId}?advanced=${isAdvanced}`,
+        `http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${kywdid.data}?advanced=${isAdvanced}`,
         {
           method: "POST",
           headers: {
@@ -119,7 +108,7 @@ const TestSkills = () => {
     } catch (error) {
       console.error("Error adding skill:", error.message);
     }
- 
+
     console.log("Meeebrouk nj7ti");
   };
 
@@ -132,8 +121,7 @@ const TestSkills = () => {
   };
 
   const handleValidate = () => {
-
-    console.log(totalOfQuestions)
+    console.log(totalOfQuestions);
 
     // Extract correct answers from questionData
     const correctAnswers = Object.entries(questionData.answers)
