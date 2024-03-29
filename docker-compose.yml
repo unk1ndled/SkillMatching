@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  spring-server:
+    image: unkindled1/sklmtchserver:v1
+    container_name: sklmtchserver
+    ports:
+      - "8080:8080"
+    networks:
+      - appnetwork
+  react-client:
+    image: unkindled1/sklmtchclient:v1
+    container_name: sklmtchclient
+    ports:
+      - "4200:80"
+    networks:
+      - appnetwork
+    depends_on:
+      - spring-server
+networks:
+  appnetwork:
+    driver: bridge

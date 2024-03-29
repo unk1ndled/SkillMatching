@@ -14,7 +14,6 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class QuizzQuestion {
     @Id
     private String id;
