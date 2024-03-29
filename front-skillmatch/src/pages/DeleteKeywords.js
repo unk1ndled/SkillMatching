@@ -12,6 +12,8 @@ const KeywordsDelete = () => {
   const [name, SetName] = useState(null);
   const [about, SetAbout] = useState(null);
 
+  const SERVER = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     fetchKeywords();
   }, []);
@@ -26,7 +28,7 @@ const KeywordsDelete = () => {
       about: about,
     };
 
-    fetch("http://localhost:8080/api/v1/keywords", {
+    fetch(`${SERVER}api/v1/keywords`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +45,7 @@ const KeywordsDelete = () => {
   };
 
   const deleteKeyword = (id) => {
-    fetch("http://localhost:8080/api/v1/keywords/" + id, {
+    fetch(`${SERVER}api/v1/keywords/` + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +62,7 @@ const KeywordsDelete = () => {
 
   const fetchKeywords = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/keywords");
+      const response = await fetch(`${SERVER}api/v1/keywords`);
       if (!response.ok) {
         throw new Error("Failed to fetch keywords");
       }
@@ -73,15 +75,15 @@ const KeywordsDelete = () => {
 
   return (
     <Container>
-      <Navbar  backgroundColor="#B50000" title="Delete Keywords"></Navbar>
+      <Navbar backgroundColor="#B50000" title="Delete Keywords"></Navbar>
       <ButtonContainer>
         <Input type="text" placeholder="find keyword" />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <ListWrapper>
-        {keywords.map(( keyword, index,) => (
+        {keywords.map((keyword, index) => (
           <Keyword
-          bgcolor="#B50000"
+            bgcolor="#B50000"
             key={index}
             title={keyword.name}
             onClick={() => deleteKeyword(keyword.id)}
@@ -155,7 +157,5 @@ const Input = styled.input`
 const HiddenButton = styled.button`
   display: none;
 `;
-
-
 
 export default KeywordsDelete;

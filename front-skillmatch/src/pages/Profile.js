@@ -26,6 +26,8 @@ const Profile = () => {
 
   const { userData } = useAuth();
 
+  const SERVER = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -33,9 +35,7 @@ const Profile = () => {
   useEffect(() => {});
   const fetchProfile = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/v1/profiles/${userData.id}`
-      );
+      const response = await fetch(`${SERVER}api/v1/profiles/${userData.id}`);
 
       // Check if the response is OK
       if (!response.ok) {
@@ -70,13 +70,13 @@ const Profile = () => {
         Object.entries(data.recognizedSkills).map(async ([skillId, value]) => {
           try {
             const skillResponse = await fetch(
-              `http://localhost:8080/api/v1/keywords/${skillId}`
+              `${SERVER}api/v1/keywords/${skillId}`
             );
             if (!skillResponse.ok) {
               // If the skill doesn't exist anymore, send a request to delete it
               if (skillResponse.status === 404) {
                 await fetch(
-                  `http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${skillId}`,
+                  `${SERVER}api/v1/profiles/${userData.id}/keywords/${skillId}`,
                   {
                     method: "DELETE",
                   }
@@ -119,8 +119,6 @@ const Profile = () => {
     }
   };
 
-
-
   return (
     <Container>
       <Navbar backgroundColor={"#613DC1"}></Navbar>
@@ -148,13 +146,14 @@ const Profile = () => {
         <UserInfo>
           <SegmentName>skills</SegmentName>
           <SkillSegment>
-            {skills != null && skills.map((keyword, index) => (
-              <StyledLink to={`/skills/${keyword.id}`}>
-                <Skill>
-                  <SkillText> {keyword.name}</SkillText>
-                </Skill>
-              </StyledLink>
-            ))}
+            {skills != null &&
+              skills.map((keyword, index) => (
+                <StyledLink to={`/skills/${keyword.id}`}>
+                  <Skill>
+                    <SkillText> {keyword.name}</SkillText>
+                  </Skill>
+                </StyledLink>
+              ))}
           </SkillSegment>
           <SegmentName>experience</SegmentName>
           <Segment>
@@ -200,7 +199,6 @@ const UpperWrapper = styled.div`
   flex-direction: row;
   box-sizing: border-box; /* Include padding and border in the width */
   border-bottom: 0.3em solid #2c0735; /* You can adjust the width and color as needed */
-
 `;
 
 const LowerWrapper = styled.div`
@@ -307,7 +305,6 @@ const SkillText = styled.div`
 
 const FullName = styled(UserInfo)`
   position: relative;
-
 
   scrollbar-width: none;
 `;

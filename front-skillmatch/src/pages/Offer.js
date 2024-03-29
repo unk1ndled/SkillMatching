@@ -9,7 +9,6 @@ import styled from "styled-components";
 import Heart from "../components/heartIcon";
 import { useAuth } from "../context/AuthContext";
 
-
 export const Offer = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
@@ -18,6 +17,7 @@ export const Offer = () => {
   const { userData } = useAuth();
   const isAdmin = userData && userData.role === "ADMIN";
 
+  const SERVER = process.env.REACT_APP_API_URL;
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -29,7 +29,7 @@ export const Offer = () => {
 
   const fetchOffer = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/offers/" + id);
+      const response = await fetch(`${SERVER}api/v1/offers/` + id);
       if (!response.ok) {
         throw new Error("Failed to fetch offer");
       }
@@ -40,15 +40,12 @@ export const Offer = () => {
     }
 
     if (offer.recognizedSkills == null || isAdmin) {
-      const response = await fetch(
-        "http://localhost:8080/api/v1/offers/" + id,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${SERVER}api/v1/offers/` + id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     }
   };
 
@@ -105,7 +102,7 @@ export const Offer = () => {
             <SkillSegment>
               {offer.recognizedSkills != null &&
                 Object.entries(offer.recognizedSkills).map((keyword, key) => (
-                  <StyledLink to ={`/skills/${keyword[1]}`}>
+                  <StyledLink to={`/skills/${keyword[1]}`}>
                     <Skill>
                       {/* iterate over each entry and show its first element which is the name  uwu tux comment */}
                       <SkillText> {keyword[0]}</SkillText>

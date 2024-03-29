@@ -15,17 +15,15 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const SERVER = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/authenticate",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${SERVER}api/v1/auth/authenticate`, {
+        email,
+        password,
+      });
       login(response.data.token);
       //console.log(jwtDecode(response.data.token));
       //login(token);

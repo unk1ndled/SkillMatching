@@ -16,6 +16,8 @@ const Keywords = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
+  const SERVER = process.env.REACT_APP_API_URL;
+
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -34,7 +36,7 @@ const Keywords = () => {
 
   const fetchKeywords = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/keywords");
+      const response = await fetch(`${SERVER}api/v1/keywords`);
       if (!response.ok) {
         throw new Error("Failed to fetch keywords");
       }
@@ -52,7 +54,7 @@ const Keywords = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/v1/keywords", {
+      const response = await fetch(`${SERVER}api/v1/keywords`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +99,7 @@ const Keywords = () => {
             title={keyword.name}
           ></Keyword>
         ))}
-        
+
         <Link>
           <Keyword
             bgcolor="#B50000"

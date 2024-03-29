@@ -14,6 +14,8 @@ export const Keyword = () => {
   const [keyword, setKeyword] = useState({});
   const [showDifficulty, setShowDiffculty] = useState(false);
 
+  const SERVER = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     fetchKeyword();
   }, [id]);
@@ -23,9 +25,7 @@ export const Keyword = () => {
 
   const fetchKeyword = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/v1/keywords/" + id
-      );
+      const response = await fetch(`${SERVER}api/v1/keywords/` + id);
       if (!response.ok) {
         throw new Error("Failed to fetch keyword");
       }
@@ -42,7 +42,7 @@ export const Keyword = () => {
   };
 
   const CheckAdvanced = (text) => {
-      HandleShowDifficulty();
+    HandleShowDifficulty();
   };
   //TODO : Problem with isAdvanced checking
 
@@ -143,8 +143,6 @@ const BottomWrap = styled.div`
   color: #858ae3;
   overflow: hidden;
 `;
-
-
 
 const TitleText = styled.div`
   width: 40%;

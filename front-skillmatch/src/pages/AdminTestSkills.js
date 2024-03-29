@@ -22,6 +22,7 @@ const AdminTestSkills = () => {
   const [about, setAbout] = useState();
 
   const navigate = useNavigate();
+  const SERVER = process.env.REACT_APP_API_URL;
 
   const handleBack = () => {
     navigate("/skills");
@@ -56,14 +57,13 @@ const AdminTestSkills = () => {
       about: about,
     };
 
-    fetch(`http://localhost:8080/api/v1/quizz/question`, {
+    fetch(`${SERVER}/api/v1/quizz/question`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     })
       .then((response) => response.json())
-      .then((data) => {
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Error:", error);
       });

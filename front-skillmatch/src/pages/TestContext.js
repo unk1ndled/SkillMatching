@@ -7,71 +7,58 @@ import axios from "axios";
 
 import { useAuth } from "../context/AuthContext";
 
-
-
+const SERVER = process.env.REACT_APP_API_URL;
 
 const TestContext = () => {
-
   const [skillIds, setskillIds] = useState([]);
-  const [skillsLevel, setSkillsLevel]  = useState({});
+  const [skillsLevel, setSkillsLevel] = useState({});
   const [idName, setIdName] = useState({});
 
+  const SERVER = process.env.REACT_APP_API_URL;
   useEffect(() => {
     fetchProfile();
   }, []);
 
-  const { userData } =  useAuth();
+  const { userData } = useAuth();
   //console.log(userData);
-
-
-
 
   const fetchProfile = async () => {
     try {
-
       const jsonObject = {};
       const response = await axios.get(
-        `http://localhost:8080/api/v1/profiles/${userData.id}`
+        `${SERVER}api/v1/profiles/${userData.id}`
       );
 
       //console.log(response.data.recognizedSkills);
       setSkillsLevel(response.data.recognizedSkills);
-  
+
       setskillIds(Object.keys(response.data.recognizedSkills));
 
       //const skills = [];
 
       skillIds.forEach(async (skillId) => {
-        const response = await axios.get(
-          `http://localhost:8080/api/v1/keywords/${skillId}`
-        );
+        const response = await axios.get(`${SERVER}api/v1/keywords/${skillId}`);
 
-      jsonObject[`${skillId}`] = response.data.name;
-      
-      setIdName(jsonObject);
-      
+        jsonObject[`${skillId}`] = response.data.name;
 
+        setIdName(jsonObject);
+      });
+      console.log(idName);
 
-    });
-    console.log(idName);
+      const final = [];
 
-    const final = [];
-
-    for(const skillId in idName){
-      if(skillsLevel.hasOwnProperty(skillId)){
-        const pair = {
-          name : idName[skillId],
-          level : skillsLevel[skillId]
+      for (const skillId in idName) {
+        if (skillsLevel.hasOwnProperty(skillId)) {
+          const pair = {
+            name: idName[skillId],
+            level: skillsLevel[skillId],
+          };
+          //console.log(pair);
+          final.push(pair);
         }
-        //console.log(pair);
-        final.push(pair);
       }
-    }
 
-    console.log(final);
-    
-
-
+      console.log(final);
     } catch (error) {
       console.error("Error fetching profile:", error);
     }
@@ -81,15 +68,14 @@ const TestContext = () => {
     fetchProfile();
   }, []);
 
-
-
-
   return (
     <Container>
       <StyledImg src={bg2} />
-      <Form >
-        <AuthText>{JSON.stringify(userData ? userData.role : userData)}</AuthText>
-        
+      <Form>
+        <AuthText>
+          {JSON.stringify(userData ? userData.role : userData)}
+        </AuthText>
+
         <Wrapper>
           <Logo src={LogoWithName} />
         </Wrapper>

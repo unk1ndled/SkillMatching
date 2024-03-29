@@ -11,6 +11,7 @@ const Offers = () => {
   const [showNotepad, setShowNotepad] = useState(false);
   const [inputData, setInputData] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const SERVER = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     fetchOffers();
@@ -21,7 +22,7 @@ const Offers = () => {
   };
 
   const handleSendRequest = () => {
-    fetch("http://localhost:8080/api/v1/offers", {
+    fetch(`${SERVER}api/v1/offers`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,16 +40,13 @@ const Offers = () => {
     handleIconClick();
   };
 
-
   const filteredOffers = offers.filter((offer) =>
-  offer.title?.toLowerCase().includes(searchQuery.toLowerCase())
-);
-
-
+    offer.title?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const fetchOffers = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/offers");
+      const response = await fetch(`${SERVER}api/v1/offers`);
       if (!response.ok) {
         throw new Error("Failed to fetch offers");
       }

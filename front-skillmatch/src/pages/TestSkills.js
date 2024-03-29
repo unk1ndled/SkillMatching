@@ -36,6 +36,8 @@ const TestSkills = () => {
   const location = useLocation();
   const { userData } = useAuth();
 
+  const SERVER = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     setAboutParam(id);
   }, []);
@@ -54,7 +56,7 @@ const TestSkills = () => {
     if (aboutParam !== undefined) {
       axios
         .get(
-          `http://localhost:8080/api/v1/quizz/question?advanced=${isAdvanced}&about=${aboutParam}&questionOrder=${questionOrderParam}`
+          `${SERVER}api/v1/quizz/question?advanced=${isAdvanced}&about=${aboutParam}&questionOrder=${questionOrderParam}`
         )
         .then((response) => {
           setQuestionData(response.data);
@@ -70,7 +72,7 @@ const TestSkills = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/quizz/biggest-question-order?advanced=${isAdvanced}&about=${aboutParam}`
+        `${SERVER}api/v1/quizz/biggest-question-order?advanced=${isAdvanced}&about=${aboutParam}`
       );
       //console.log("response you got :" + response.data);
       setTotalOfQuestions(response.data);
@@ -90,11 +92,11 @@ const TestSkills = () => {
   const addSkillToUser = async () => {
     try {
       const kywdid = await axios.get(
-        `http://localhost:8080/api/v1/keywords/get-id?name=${aboutParam}`
+        `${SERVER}api/v1/keywords/get-id?name=${aboutParam}`
       );
 
       const response = await fetch(
-        `http://localhost:8080/api/v1/profiles/${userData.id}/keywords/${kywdid.data}?advanced=${isAdvanced}`,
+        `${SERVER}api/v1/profiles/${userData.id}/keywords/${kywdid.data}?advanced=${isAdvanced}`,
         {
           method: "POST",
           headers: {
@@ -207,17 +209,19 @@ const TestSkills = () => {
         </AnswersContainer>
         <BotContainer>
           <AnswerButton
-            bgcolor={"#858AE3"}
+            bgcolor={"#4E148C"}
             hovercolor={"#858AE3"}
-            clickcolor={"#613DC1"}
+            clickcolor={"#2C0735"}
+            textcolor={"white"}
             onClick={handleBack}
           >
             Back
           </AnswerButton>
           <AnswerButton
-            bgcolor={"#97DFFC"}
+            bgcolor={"#4E148C"}
             hovercolor={"#858AE3"}
-            clickcolor={"#613DC1"}
+            clickcolor={"#2C0735"}
+            textcolor={"white"}
             onClick={handleValidate}
           >
             Validate
@@ -225,7 +229,9 @@ const TestSkills = () => {
         </BotContainer>
       </CoursesContainer>
 
-      {showResults && <TestResult score={score} course={course} passes={passes} />}
+      {showResults && (
+        <TestResult score={score} course={course} passes={passes} />
+      )}
     </div>
   );
 };

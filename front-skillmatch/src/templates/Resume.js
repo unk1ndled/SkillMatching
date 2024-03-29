@@ -124,6 +124,8 @@ const Resume = () => {
 
   const { userData } = useAuth();
 
+  const SERVER = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -131,7 +133,7 @@ const Resume = () => {
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/profiles/${userData.id}`
+        `${SERVER}api/v1/profiles/${userData.id}`
       );
 
       const data = response.data;
@@ -149,7 +151,7 @@ const Resume = () => {
         skillIds.map(async (skillId) => {
           try {
             const response = await axios.get(
-              `http://localhost:8080/api/v1/keywords/${skillId}`
+              `${SERVER}api/v1/keywords/${skillId}`
             );
             idName[skillId] = response.data.name;
           } catch (error) {

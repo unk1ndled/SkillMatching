@@ -24,6 +24,7 @@ const AddResumer = () => {
 
   const [responseData, setResponseData] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
+  const SERVER = process.env.REACT_APP_API_URL;
 
   const { userData } = useAuth();
 
@@ -49,7 +50,7 @@ const AddResumer = () => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/profiles",
+        `${SERVER}api/v1/profiles`,
         requestBody
       );
       navigate("/");
