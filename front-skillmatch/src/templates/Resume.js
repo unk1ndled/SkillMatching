@@ -94,8 +94,97 @@ const handlePrint = () => {
   window.print();
 };
 
+
+const skillsPlaceholder = [
+  { name: "PHP", level: 80 }, // Level is a percentage of proficiency
+  { name: "JavaScript", level: 90 },
+  { name: "React", level: 85 },
+  { name: "React Native", level: 70 },
+  { name: "Vue", level: 60 },
+  { name: "HTML", level: 95 },
+  { name: "CSS", level: 90 },
+  { name: "DevOps", level: 75 },
+  { name: "Docker", level: 80 },
+  { name: "AWS", level: 70 },
+  { name: "CI/CD", level: 65 },
+  { name: "PostgreSQL", level: 80 },
+  { name: "MySQL", level: 85 },
+  { name: "Elasticsearch", level: 70 },
+  { name: "Redis", level: 75 },
+  { name: "GNU/Linux", level: 90 },
+  { name: "Mac OS", level: 80 },
+  { name: "Windows", level: 65 }
+];
+
+
+
+
 // Resume component
 const Resume = () => {
+
+  const [skillIds, setskillIds] = useState([]);
+  const [skillsLevel, setSkillsLevel]  = useState({});
+  const [idName, setIdName] = useState({});
+  const [skills, setSkills] = useState(skillsPlaceholder);
+
+  const fetchSkills = async () => {
+    try {
+
+      const jsonObject = {};
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/profiles/${userData.id}`
+      );
+
+      //console.log(response.data.recognizedSkills);
+      await setSkillsLevel(response.data.recognizedSkills);
+  
+      await setskillIds(Object.keys(response.data.recognizedSkills));
+
+      //const skills = [];
+
+      await skillIds.forEach(async (skillId) => {
+        const response = await axios.get(
+          `http://localhost:8080/api/v1/keywords/${skillId}`
+        );
+
+      jsonObject[`${skillId}`] = response.data.name;
+      
+      await setIdName(jsonObject);
+      
+
+
+    });
+    //console.log(idName);
+
+    const final = [];
+
+    for(const skillId in idName){
+      if(skillsLevel.hasOwnProperty(skillId)){
+        const pair = {
+          name : idName[skillId],
+          level : skillsLevel[skillId]
+        }
+        //console.log(pair);
+        await final.push(pair);
+      }
+    }
+
+    await setSkills(final);
+    await console.log(final);
+    
+
+
+    } catch (error) {
+      console.error("Error fetching skills:", error);
+    }
+  };
+
+
+
+
+
+
+
 
 
 
@@ -113,7 +202,7 @@ const Resume = () => {
         `http://localhost:8080/api/v1/profiles/${userData.id}`
       );
 
-      console.log(response.data);
+      //console.log(response.data);
       await setFirstName(response.data.firstName);
       await setLastName(response.data.lastName);
       await setExperience(JSON.parse(response.data.experience));
@@ -129,6 +218,7 @@ const Resume = () => {
 
   useEffect(() => {
     fetchProfile();
+    fetchSkills();
   }, []);
 
 
@@ -137,42 +227,119 @@ const Resume = () => {
   return (
 
     
-    <Container>
-      <PrintButton onClick={handlePrint}>Print Resume</PrintButton>
-      <Header>
-        <FullName>{firstName} {lastName}</FullName>
-        <ContactInfo>{personalInfo.address}</ContactInfo>
-        <ContactInfo>{personalInfo.email}</ContactInfo>
-        <ContactInfo>{personalInfo.phone}</ContactInfo>
-      </Header>
+    <ResumeContainer>
+    <PrintButton onClick={handlePrint}>Print Resume</PrintButton>
+    <ResumeHeader>
+      <FullName>{firstName} {lastName}</FullName>
+      <ContactInfo>{personalInfo.address}</ContactInfo>
+      <ContactInfo>{personalInfo.email}</ContactInfo>
+      <ContactInfo>{personalInfo.phone}</ContactInfo>
+    </ResumeHeader>
 
-      <Section>
-        <SectionHeader>Professional Summary</SectionHeader>
-        <p>{professionalSummary}</p>
-      </Section>
+    <ContentSection>
+      <MainContent>
+        <Section>
+          <SectionHeader>Professional Summary</SectionHeader>
+          <p>{professionalSummary}</p>
+        </Section>
 
-      <Section>
-        <SectionHeader>Experience</SectionHeader>
-        {experience.map((job, index) => (
-            <EmploymentExperience key={index}>
-                <JobTitle>{job.title}</JobTitle>
-                <Company>@ {job.company}</Company>
-                <JobPeriod>{job.startDate} - {job.endDate}</JobPeriod>
-                <JobDescription>
-                {job.responsibilities.map((duty, i) => (
-                    <JobDuty key={i}>{duty}</JobDuty>
-                ))}
-                </JobDescription>
-            </EmploymentExperience>
+        <Section>
+          <SectionHeader>Experience</SectionHeader>
+          {experience.map((job, index) => (
+              <EmploymentExperience key={index}>
+                  <JobTitle>{job.title}</JobTitle>
+                  <Company>@ {job.company}</Company>
+                  <JobPeriod>{job.startDate} - {job.endDate}</JobPeriod>
+                  <JobDescription>
+                  {job.responsibilities.map((duty, i) => (
+                      <JobDuty key={i}>{duty}</JobDuty>
+                  ))}
+                  </JobDescription>
+              </EmploymentExperience>
+          ))}
+        </Section>
+      </MainContent>
+
+      <SkillsSection>
+        <SectionHeader>Skills</SectionHeader>
+        {skills.map((skill, index) => (
+          <Skill key={index}>
+            <SkillName>{skill.name}</SkillName>
+            <SkillLevel>
+              {Array.from({ length: 5 }, (_, i) => (
+                <Dot key={i} style={{ opacity: i < skill.level + 2 ? 1 : 0.2 }} />
+              ))}
+            </SkillLevel>
+          </Skill>
         ))}
-      </Section>
-    </Container>
+      </SkillsSection>
+    </ContentSection>
+  </ResumeContainer>
   );
 };
 
 
+const ResumeContainer = styled.div`
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  border: 1px solid #ddd;
+`;
+
+// Header now spans the full width
+const ResumeHeader = styled.header`
+  display: block; // or 'flex' if you want to align items horizontally
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+`;
+
+// MainContent and SkillsSection now within ContentSection for side by side layout
+const ContentSection = styled.section`
+  display: flex;
+`;
+
+// Adjust MainContent padding
+const MainContent = styled.div`
+  flex: 1;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+`;
+
+// Adjust SkillsSection padding
+const SkillsSection = styled.aside`
+  width: 300px;
+  padding: 20px;
+`;
+
+///////////////////
 
 
+
+
+const Skill = styled.div`
+  margin-bottom: 10px;
+`;
+
+const SkillName = styled.h4`
+  color: #333;
+  margin-bottom: 4px;
+`;
+
+const Dot = styled.span`
+  height: 10px;
+  width: 10px;
+  margin-right: 5px;
+  background-color: #0077b5;
+  border-radius: 50%;
+  display: inline-block;
+`;
+
+const SkillLevel = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 
 // Styled components for the resume layout

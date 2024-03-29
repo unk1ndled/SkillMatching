@@ -12,30 +12,66 @@ import { useAuth } from "../context/AuthContext";
 
 const TestContext = () => {
 
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [objective, setObjective] = useState(null);
-  const [history, setHistory] = useState(null);
+  const [skillIds, setskillIds] = useState([]);
+  const [skillsLevel, setSkillsLevel]  = useState({});
+  const [idName, setIdName] = useState({});
 
   useEffect(() => {
     fetchProfile();
   }, []);
 
   const { userData } =  useAuth();
-  console.log(userData);
+  //console.log(userData);
 
 
 
 
   const fetchProfile = async () => {
     try {
+
+      const jsonObject = {};
       const response = await axios.get(
         `http://localhost:8080/api/v1/profiles/${userData.id}`
       );
-      //const data = await response.json();
+
+      //console.log(response.data.recognizedSkills);
+      setSkillsLevel(response.data.recognizedSkills);
   
-      console.log(response.data.history)
-      console.log(JSON.parse(response.data.history))
+      setskillIds(Object.keys(response.data.recognizedSkills));
+
+      //const skills = [];
+
+      skillIds.forEach(async (skillId) => {
+        const response = await axios.get(
+          `http://localhost:8080/api/v1/keywords/${skillId}`
+        );
+
+      jsonObject[`${skillId}`] = response.data.name;
+      
+      setIdName(jsonObject);
+      
+
+
+    });
+    console.log(idName);
+
+    const final = [];
+
+    for(const skillId in idName){
+      if(skillsLevel.hasOwnProperty(skillId)){
+        const pair = {
+          name : idName[skillId],
+          level : skillsLevel[skillId]
+        }
+        //console.log(pair);
+        final.push(pair);
+      }
+    }
+
+    console.log(final);
+    
+
+
     } catch (error) {
       console.error("Error fetching profile:", error);
     }

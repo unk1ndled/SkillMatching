@@ -14,6 +14,7 @@ import AddResumer from "./pages/AddResumer";
 import Profile from "./pages/Profile";
 import AdminTestSkills from "./pages/AdminTestSkills";
 import Resume from "./templates/Resume";
+import Certificate from "./templates/Certificate";
 
 
 import TestContext from "./pages/TestContext";
@@ -27,7 +28,7 @@ function App() {
           <Route exact path="/" element={<Profile />} />
           <Route path="/register" element={<Register />} />
           <Route path="/test" element={<Resume />} />
-          <Route path="/testc" element={<Register />} />
+          <Route path="/testc" element={<Certificate />} />
           <Route path="/login" element={<Login />} />
           <Route path="/addresume" element={<AddResumer />} />
           <Route path="/offers" element={<Offers />} />

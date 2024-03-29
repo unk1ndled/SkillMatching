@@ -60,11 +60,6 @@ const AddResumer = () => {
 
   const handleIconClick = () => {
     setShowNotepad(!showNotepad);
-    const personalInfo = JSON.stringify({
-      address: address,
-      email: email,
-      phone: phone,
-    });
   };
 
   //if (!localStorage.getItem('token')) {
