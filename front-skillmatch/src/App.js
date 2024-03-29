@@ -16,7 +16,6 @@ import AdminTestSkills from "./pages/AdminTestSkills";
 import Resume from "./templates/Resume";
 import Certificate from "./templates/Certificate";
 
-
 import TestContext from "./pages/TestContext";
 //import Resume from "./pages/Resume";
 
@@ -34,6 +33,12 @@ function App() {
           <Route path="/offers" element={<Offers />} />
           <Route path="/offers/:id" element={<Offer />} />
           <Route path="/skills/:id" element={<Keyword />} />
+          {/* reowork this later */}
+          <Route
+            path="/tests/:id/advanced/:advanced/certificate"
+            element={<Certificate />}
+          />
+
           <Route path="/skills" element={<Keywords />} />
           <Route path="/skills/delete" element={<DeleteKwd />} />
           <Route

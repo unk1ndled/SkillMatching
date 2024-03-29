@@ -47,15 +47,24 @@ const ButtonSection = styled.div`
   font-size: 2rem;
 `;
 
-const TestResult = ({ score }) => {
+const TestResult = ({ score, passes, course }) => {
+
   return (
     <BlurWrapper>
-      <ButtonSection>
-        <Link to="/skills">
-          <PushableButtonStyled>Close</PushableButtonStyled>
-        </Link>
-      </ButtonSection>
-      <ResultPopup>You score in this test is :{score}</ResultPopup>
+      {!passes ? (
+        <ButtonSection>
+          <Link to="/skills">
+            <PushableButtonStyled>Close</PushableButtonStyled>
+          </Link>
+        </ButtonSection>
+      ) : (
+        <ButtonSection>
+          <Link to= {`/tests/${course[0]}/advanced/${course[1]}/certificate`} >
+            <PushableButtonStyled>get certificate</PushableButtonStyled>
+          </Link>
+        </ButtonSection>
+      )}
+      <ResultPopup>You score in this test is : {score}</ResultPopup>
     </BlurWrapper>
   );
 };

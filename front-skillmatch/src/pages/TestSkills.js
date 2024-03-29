@@ -1,16 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 import GlobalStyle from "../components/GlobalStyles";
 import Navbar from "../components/Navbar";
-import styled from "styled-components";
 import QuestionsRectangle from "../components/QuestionsRectangle";
 import AnswersSquare from "../components/AnswerOption";
 import AnswerButton from "../components/AnswerButton";
-import axios from "axios";
-import { useAuth } from "../context/AuthContext";
-
 import TestResult from "../components/TestResult";
-import { useLocation } from "react-router-dom";
 
 const TestSkills = () => {
   const [questionData, setQuestionData] = useState({
@@ -23,9 +21,10 @@ const TestSkills = () => {
   });
 
   const [aboutParam, setAboutParam] = useState();
-  const [advanced, setAdvanced] = useState(false);
+  const [passes, setPasses] = useState(false);
   const [questionOrderParam, setQuestionOrderParam] = useState(1);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [course, setCourse] = useState([]);
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState("0%");
   const [reset, setReset] = useState(false);
@@ -39,7 +38,6 @@ const TestSkills = () => {
 
   useEffect(() => {
     setAboutParam(id);
-    setAdvanced(isAdvanced);
   }, []);
 
   // console.log(userData);
@@ -111,8 +109,6 @@ const TestSkills = () => {
     } catch (error) {
       console.error("Error adding skill:", error.message);
     }
-
-    console.log("Meeebrouk nj7ti");
   };
 
   const handleAnswerSelect = (selectedAnswer) => {
@@ -124,8 +120,6 @@ const TestSkills = () => {
   };
 
   const handleValidate = () => {
-    console.log(totalOfQuestions);
-
     // Extract correct answers from questionData
     const correctAnswers = Object.entries(questionData.answers)
       .filter(([_, isCorrect]) => isCorrect === true)
@@ -145,10 +139,11 @@ const TestSkills = () => {
     setSelectedAnswers([]);
     if (progress === "100%") {
       if (score + 1 === totalOfQuestions) {
+        handleCourse();
         addSkillToUser();
+      } else {
+        setShowResults(true);
       }
-
-      setShowResults(true);
       localStorage.setItem("totalOfQuestions", 100);
     }
     //  reset state
@@ -156,6 +151,16 @@ const TestSkills = () => {
     setReset(!reset);
     questionOrderParam < totalOfQuestions &&
       setQuestionOrderParam(questionOrderParam + 1);
+  };
+  useEffect(() => {
+    if (passes) {
+      setShowResults(true);
+    }
+  }, [passes, course]);
+
+  const handleCourse = () => {
+    setPasses(true);
+    setCourse([aboutParam, isAdvanced]);
   };
 
   const handleBack = () => {
@@ -220,7 +225,7 @@ const TestSkills = () => {
         </BotContainer>
       </CoursesContainer>
 
-      {showResults && <TestResult score={score} />}
+      {showResults && <TestResult score={score} course={course} passes={passes} />}
     </div>
   );
 };
