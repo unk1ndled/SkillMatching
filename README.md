@@ -40,7 +40,9 @@ Distributed under the MIT License. See [LICENSE](https://github.com/unk1ndled/Sk
 
 ## Authors
 
-* **Shaan Khan** - *Comp Sci Student* - [Shaan Khan](https://github.com/ShaanCoding/) - *Built ReadME Template*
+*   **amine salmane** - *Comp Sci Student* - [unk1ndled](https://github.com/unk1ndled) - *Built ReadME Template*
+* * **haitham oumanhou** - *Comp Sci Student* - [Shaan Khan](https://github.com/ShaanCoding/) - *Built ReadME Template*
+* * **bicho hamza** - *Comp Sci Student* - [Shaan Khan](https://github.com/ShaanCoding/) - *Built ReadME Template*
 
 ## Acknowledgements
 
