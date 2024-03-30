@@ -19,18 +19,6 @@
 
 ![Screen Shot](screenshots/login.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-## Built With
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Creating A Pull Request
 
 
 
@@ -41,11 +29,6 @@ Distributed under the MIT License. See [LICENSE](https://github.com/unk1ndled/Sk
 ## Authors
 
 *   **amine salmane** - *Comp Sci Student* - [unk1ndled](https://github.com/unk1ndled) - *Built ReadME Template*
-* * **haitham oumanhou** - *Comp Sci Student* - [Shaan Khan](https://github.com/ShaanCoding/) - *Built ReadME Template*
-* * **bicho hamza** - *Comp Sci Student* - [Shaan Khan](https://github.com/ShaanCoding/) - *Built ReadME Template*
+*   **haitham oumanhou** - *Comp Sci Student* - [haitham](https://github.com/Haitham-Oumanhou)) - *Built ReadME Template*
+*   **bicho hamza** - *Comp Sci Student* - [bicho](https://github.com/Bisho11) - *Built ReadME Template*
 
-## Acknowledgements
-
-* []()
-* []()
-* []()
