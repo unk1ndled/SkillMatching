@@ -10,13 +10,13 @@ import { useEffect } from "react";
 const AdminTestSkills = () => {
   const [question, setQuestion] = useState();
   const [answers, setAnswers] = useState();
-  //Hall of Shame
   const [firstAnswer, setFirstAnswer] = useState();
   const [secondAnswer, setSecondAnswer] = useState();
   const [thirdAnswer, setThirdAnswer] = useState();
-  const [firstTF, setFirstTF] = useState();
-  const [secondTF, setSecondTF] = useState();
-  const [thirdTF, setThirdTF] = useState();
+  const [firstTF, setFirstTF] = useState(false);
+  const [secondTF, setSecondTF] = useState(false);
+  const [thirdTF, setThirdTF] = useState(false);
+  const [send, setSend] = useState(false);
 
   const [advanced, setAdvanced] = useState();
   const [about, setAbout] = useState();
@@ -37,7 +37,15 @@ const AdminTestSkills = () => {
       [thirdAnswer]: thirdTF,
     };
     setAnswers(updatedAnswers);
-  }, [advanced]);
+  }, [
+    firstAnswer,
+    secondAnswer,
+    thirdAnswer,
+    firstTF,
+    secondTF,
+    thirdTF,
+    advanced,
+  ]);
 
   useEffect(() => {
     const topic = String(location.pathname.split("/")[2]);
@@ -57,17 +65,28 @@ const AdminTestSkills = () => {
       about: about,
     };
 
-    fetch(`${SERVER}/api/v1/quizz/question`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {})
-      .catch((error) => {
-        console.error("Error:", error);
+    try {
+      const response = await fetch(`${SERVER}api/v1/quizz/question`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
       });
+
+      if (response.ok) {
+      } else {
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    setSend(false);
   };
+
+  useEffect(() => {
+    if (send === true) {
+      handleSendRequest();
+    }
+  }, [send]);
 
   return (
     <div>
@@ -80,11 +99,11 @@ const AdminTestSkills = () => {
           savefirstanswer={(e) => setFirstAnswer(e.target.textContent)}
           savesecondanswer={(e) => setSecondAnswer(e.target.textContent)}
           savethirdanswer={(e) => setThirdAnswer(e.target.textContent)}
-          savefirsttf={(e) => setFirstTF(e.target.textContent)}
-          savesecondtf={(e) => setSecondTF(e.target.textContent)}
-          savethirdtf={(e) => setThirdTF(e.target.textContent)}
+          savefirsttf={(e) => setFirstTF(true)}
+          savesecondtf={(e) => setSecondTF(true)}
+          savethirdtf={(e) => setThirdTF(true)}
           saveAdvanced={(e) => handleAdvanced(e.target.textContent)}
-          submit={handleSendRequest}
+          submit={(e) => setSend(true)}
           cancel={handleBack}
         ></QuestionForm>
       </Container>

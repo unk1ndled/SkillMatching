@@ -15,37 +15,37 @@ const QuestionForm = (props) => {
           Answer1
           <Paper height="33px" onInput={props.savefirstanswer}></Paper>
         </ResumeElement>
-        <ResumeElement width="45%">
-          True/False
-          <Paper height="33px" onInput={props.savefirsttf}></Paper>
-        </ResumeElement>
+        <TrueElement width="45%">
+          True
+          <CheckboxInput type="checkbox" onChange={props.savefirsttf} />
+        </TrueElement>
       </VerticalSplit>
       <VerticalSplit>
         <ResumeElement width="45%">
           Answer2
           <Paper height="33px" onInput={props.savesecondanswer}></Paper>
         </ResumeElement>
-        <ResumeElement width="45%">
-          True/False
-          <Paper height="33px" onInput={props.savesecondtf}></Paper>
-        </ResumeElement>
+        <TrueElement width="45%">
+          True
+          <CheckboxInput type="checkbox" onChange={props.savesecondtf} />
+        </TrueElement>
       </VerticalSplit>
       <VerticalSplit>
         <ResumeElement width="45%">
           Answer3
           <Paper height="33px" onInput={props.savethirdanswer}></Paper>
         </ResumeElement>
-        <ResumeElement width="45%">
-          True/False
-          <Paper height="33px" onInput={props.savethirdtf}></Paper>
-        </ResumeElement>
+        <TrueElement width="45%">
+          True
+          <CheckboxInput type="checkbox" onChange={props.savethirdtf} />
+        </TrueElement>
       </VerticalSplit>
 
       <VerticalSplit>
-        <ResumeElement width="45%">
+        <TrueElement width="45%">
           Advanced
-          <Paper height="33px" onInput={props.saveAdvanced}></Paper>
-        </ResumeElement>
+          <CheckboxInput type="checkbox" onChange={props.saveAdvanced} />
+        </TrueElement>
       </VerticalSplit>
       <ButtonWrapper>
         <AnswerButton
@@ -92,6 +92,22 @@ const ResumeElement = styled.div`
   font-weight: bold;
   font-size: 20px;
 `;
+
+const TrueElement = styled.div`
+  width: ${(props) => props.width || "100%"};
+  color: #f1ede9;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+`;
+const CheckboxInput = styled.input`
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
