@@ -18,7 +18,7 @@ const AdminTestSkills = () => {
   const [thirdTF, setThirdTF] = useState(false);
   const [send, setSend] = useState(false);
 
-  const [advanced, setAdvanced] = useState();
+  const [advanced, setAdvanced] = useState(false);
   const [about, setAbout] = useState();
 
   const navigate = useNavigate();
@@ -52,10 +52,6 @@ const AdminTestSkills = () => {
     setAbout(topic);
     // console.log(about);
   }, []);
-
-  const handleAdvanced = (text) => {
-    setAdvanced(text === "true");
-  };
 
   const handleSendRequest = async () => {
     const requestBody = {
@@ -100,10 +96,10 @@ const AdminTestSkills = () => {
           savefirstanswer={(e) => setFirstAnswer(e.target.textContent)}
           savesecondanswer={(e) => setSecondAnswer(e.target.textContent)}
           savethirdanswer={(e) => setThirdAnswer(e.target.textContent)}
-          savefirsttf={(e) => setFirstTF(true)}
-          savesecondtf={(e) => setSecondTF(true)}
-          savethirdtf={(e) => setThirdTF(true)}
-          saveAdvanced={(e) => handleAdvanced(e.target.textContent)}
+          savefirsttf={(e) => setFirstTF(!firstTF)}
+          savesecondtf={(e) => setSecondTF(!secondTF)}
+          savethirdtf={(e) => setThirdTF(!thirdTF)}
+          saveAdvanced={(e) => setAdvanced(!advanced)}
           submit={(e) => setSend(true)}
           cancel={handleBack}
         ></QuestionForm>
