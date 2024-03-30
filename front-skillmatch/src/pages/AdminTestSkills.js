@@ -85,6 +85,7 @@ const AdminTestSkills = () => {
   useEffect(() => {
     if (send === true) {
       handleSendRequest();
+      window.location.reload();
     }
   }, [send]);
 
