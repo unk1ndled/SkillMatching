@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Keyword from "../components/ListElement";
 import ListWrapper from "../components/ListWrapper";
+import { useAuth } from "../context/AuthContext";
 
 import SkillForm from "../components/SkillForm";
 import { Link } from "react-router-dom";
@@ -17,6 +18,9 @@ const Keywords = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const SERVER = process.env.REACT_APP_API_URL;
+
+  const { userData } = useAuth();
+  const isAdmin = userData && userData.role === "ADMIN";
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -91,7 +95,9 @@ const Keywords = () => {
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
       <ListWrapper>
-        <Keyword bgcolor="#DB7C26" onClick={handleIconClick}></Keyword>
+        {isAdmin && (
+          <Keyword bgcolor="#DB7C26" onClick={handleIconClick}></Keyword>
+        )}
         {filteredKeywords.map((keyword, index) => (
           <Keyword
             route={`/skills/${keyword.id}`}
@@ -99,16 +105,15 @@ const Keywords = () => {
             title={keyword.name}
           ></Keyword>
         ))}
-
         <Link>
-          <Keyword
-            bgcolor="#B50000"
-            onClick={handleIconClick}
-            route={`/skills/delete`}
-            title="Delete"
-          >
-            {" "}
-          </Keyword>
+          {isAdmin && (
+            <Keyword
+              bgcolor="#B50000"
+              onClick={handleIconClick}
+              route={`/skills/delete`}
+              title="Delete"
+            ></Keyword>
+          )}
         </Link>
       </ListWrapper>
 

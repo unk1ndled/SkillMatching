@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
-import user from "../images/tummy.gif";
+import user from "../images/placeholder.jpg";
 
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
@@ -135,11 +135,7 @@ const Profile = () => {
           <CancerDiv>
             <Picture src={user}></Picture>
             <UserAbout>
-              {/* need to show personal info */}
-              {"my objective " + objective}
-              {"my objective " + objective}
-              {"my objective " + objective}
-              {"my objective " + objective}
+              {"my objective : " + objective}
             </UserAbout>
           </CancerDiv>
         </LowerLeftWrapper>
