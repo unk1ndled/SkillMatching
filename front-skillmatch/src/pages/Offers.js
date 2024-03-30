@@ -71,7 +71,6 @@ const Offers = () => {
         />
         <HiddenButton type="submit">Search</HiddenButton>
       </ButtonContainer>
-      {/*<p>User data: {JSON.stringify(userData)}</p>*/}
       <ListWrapper>
         {isAdmin && <Offer bgcolor="#DB7C26" onClick={handleIconClick}></Offer>}
         {filteredOffers.map((offer, index) => (
